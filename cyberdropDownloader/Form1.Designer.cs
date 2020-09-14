@@ -30,9 +30,13 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.urlBox = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
+            this.urlLabel = new System.Windows.Forms.Label();
             this.downloadBtn = new System.Windows.Forms.Button();
-            this.progressBar1 = new System.Windows.Forms.ProgressBar();
+            this.downloadProgressBar = new System.Windows.Forms.ProgressBar();
+            this.progressLabel = new System.Windows.Forms.Label();
+            this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
+            this.filepath = new System.Windows.Forms.TextBox();
+            this.destinationLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // urlBox
@@ -41,10 +45,10 @@
             resources.ApplyResources(this.urlBox, "urlBox");
             this.urlBox.Name = "urlBox";
             // 
-            // label1
+            // urlLabel
             // 
-            resources.ApplyResources(this.label1, "label1");
-            this.label1.Name = "label1";
+            resources.ApplyResources(this.urlLabel, "urlLabel");
+            this.urlLabel.Name = "urlLabel";
             // 
             // downloadBtn
             // 
@@ -53,19 +57,39 @@
             this.downloadBtn.UseVisualStyleBackColor = true;
             this.downloadBtn.Click += new System.EventHandler(this.downloadBtn_Click);
             // 
-            // progressBar1
+            // downloadProgressBar
             // 
-            resources.ApplyResources(this.progressBar1, "progressBar1");
-            this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Click += new System.EventHandler(this.progressBar1_Click);
+            resources.ApplyResources(this.downloadProgressBar, "downloadProgressBar");
+            this.downloadProgressBar.Name = "downloadProgressBar";
+            // 
+            // progressLabel
+            // 
+            resources.ApplyResources(this.progressLabel, "progressLabel");
+            this.progressLabel.Name = "progressLabel";
+            // 
+            // filepath
+            // 
+            this.filepath.AllowDrop = true;
+            this.filepath.Cursor = System.Windows.Forms.Cursors.Hand;
+            resources.ApplyResources(this.filepath, "filepath");
+            this.filepath.Name = "filepath";
+            this.filepath.Click += new System.EventHandler(this.filepath_Click);
+            // 
+            // destinationLabel
+            // 
+            resources.ApplyResources(this.destinationLabel, "destinationLabel");
+            this.destinationLabel.Name = "destinationLabel";
             // 
             // Form1
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.progressBar1);
+            this.Controls.Add(this.destinationLabel);
+            this.Controls.Add(this.filepath);
+            this.Controls.Add(this.progressLabel);
+            this.Controls.Add(this.downloadProgressBar);
             this.Controls.Add(this.downloadBtn);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.urlLabel);
             this.Controls.Add(this.urlBox);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "Form1";
@@ -78,9 +102,13 @@
         #endregion
 
         private System.Windows.Forms.TextBox urlBox;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label urlLabel;
         private System.Windows.Forms.Button downloadBtn;
-        private System.Windows.Forms.ProgressBar progressBar1;
+        private System.Windows.Forms.ProgressBar downloadProgressBar;
+        private System.Windows.Forms.Label progressLabel;
+        private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
+        private System.Windows.Forms.TextBox filepath;
+        private System.Windows.Forms.Label destinationLabel;
     }
 }
 
