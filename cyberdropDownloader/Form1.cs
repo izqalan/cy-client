@@ -10,7 +10,6 @@ using System.Windows.Forms;
 using HtmlAgilityPack;
 using Downloader;
 using Syroot.Windows.IO;
-using System.IO;
 
 namespace cyberdropDownloader
 {
@@ -18,7 +17,6 @@ namespace cyberdropDownloader
     {
         private String path;
         private DownloadService downloader = new DownloadService();
-        CyScraper scraper;
         public Form1()
         {
             InitializeComponent();
@@ -46,13 +44,25 @@ namespace cyberdropDownloader
 
         private void downloadBtn_Click(object sender, EventArgs e)
         {
-            var scraper = new CyScraper(urlBox.Text, this.path, this.downloader);
-            scraper.StartAsync();
+            try
+            {
+                if (String.IsNullOrWhiteSpace(urlBox.Text))
+                {
+                    throw new System.ArgumentException("URL cannot be null"); 
+                }
+                var scraper = new CyScraper(urlBox.Text, this.path, this.downloader);
+                scraper.StartAsync();
+            } catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            
         }
 
         private void filepath_Click(object sender, EventArgs e)
         {
             FolderBrowserDialog fbd = new FolderBrowserDialog();
+            fbd.SelectedPath = KnownFolders.Downloads.Path;
             if (fbd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 filepath.Text = fbd.SelectedPath;
@@ -76,7 +86,7 @@ namespace cyberdropDownloader
             this.downloader = downloader;
         }
 
-        private string title(HtmlAgilityPack.HtmlDocument htmlDoc)
+        private string Title(HtmlAgilityPack.HtmlDocument htmlDoc)
         {
             var title = htmlDoc.DocumentNode.SelectNodes("//div/h1[@id='title']").First().Attributes["title"].Value;
             return title;
@@ -84,22 +94,26 @@ namespace cyberdropDownloader
 
         public async void StartAsync()
         {
-            HtmlWeb web = new HtmlWeb();
-            var htmlDoc = web.Load(url);
-            string title = this.title(htmlDoc);
-
-            // string dir = String.Format(@"{0}\\{1}\\", dest, title);
-            // DirectoryInfo di = Directory.CreateDirectory(dir);
-
-            foreach (HtmlNode link in htmlDoc.DocumentNode.SelectNodes("//a[@class='image'][@href]"))
+            try
             {
-                string url = link.Attributes["href"].Value;
-                itemName = link.Attributes["title"].Value;
-                // download here
-                string filepath = String.Format(@"{0}\\{1}\\{2}", dest, title, itemName);
-                Console.WriteLine(filepath);
-                await downloader.DownloadFileAsync(url, filepath);
+                HtmlWeb web = new HtmlWeb();
+                var htmlDoc = web.Load(url);
+                string title = this.Title(htmlDoc);
+
+                foreach (HtmlNode link in htmlDoc.DocumentNode.SelectNodes("//a[@class='image'][@href]"))
+                {
+                    string url = link.Attributes["href"].Value;
+                    itemName = link.Attributes["title"].Value;
+                    // download here
+                    string filepath = String.Format(@"{0}\{1}\{2}", dest, title, itemName);
+                    Console.WriteLine(filepath);
+                    await downloader.DownloadFileAsync(url, filepath);
+                }
+            } catch (Exception e)
+            {
+                MessageBox.Show(e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+            
         }
     }
 
