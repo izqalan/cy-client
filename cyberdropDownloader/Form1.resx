@@ -304,7 +304,7 @@
     <value>575, 151</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
-    <value>Cyberdrop Downloader</value>
+    <value>Cyberdrop Client</value>
   </data>
   <data name="&gt;&gt;folderBrowserDialog1.Name" xml:space="preserve">
     <value>folderBrowserDialog1</value>
