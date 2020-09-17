@@ -42,7 +42,7 @@
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
             this.minimizeBtn = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
+            this.versionLabel = new System.Windows.Forms.Label();
             this.closeBtn = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -99,7 +99,7 @@
             // 
             resources.ApplyResources(this.openFolderBtn, "openFolderBtn");
             this.openFolderBtn.BackColor = System.Drawing.Color.Transparent;
-            this.openFolderBtn.Image = global::cyberdropDownloader.Properties.Resources.folder_1_;
+            this.openFolderBtn.Image = global::cyberdropDownloader.Properties.Resources.folder;
             this.openFolderBtn.Name = "openFolderBtn";
             this.openFolderBtn.UseVisualStyleBackColor = false;
             this.openFolderBtn.Click += new System.EventHandler(this.openFolderBtn_Click);
@@ -108,7 +108,7 @@
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(34)))), ((int)(((byte)(37)))));
             this.panel1.Controls.Add(this.minimizeBtn);
-            this.panel1.Controls.Add(this.label1);
+            this.panel1.Controls.Add(this.versionLabel);
             this.panel1.Controls.Add(this.closeBtn);
             resources.ApplyResources(this.panel1, "panel1");
             this.panel1.Name = "panel1";
@@ -123,11 +123,11 @@
             this.minimizeBtn.UseVisualStyleBackColor = true;
             this.minimizeBtn.Click += new System.EventHandler(this.minimizeBtn_Click);
             // 
-            // label1
+            // versionLabel
             // 
-            resources.ApplyResources(this.label1, "label1");
-            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(221)))), ((int)(((byte)(222)))));
-            this.label1.Name = "label1";
+            resources.ApplyResources(this.versionLabel, "versionLabel");
+            this.versionLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(221)))), ((int)(((byte)(222)))));
+            this.versionLabel.Name = "versionLabel";
             // 
             // closeBtn
             // 
@@ -180,7 +180,7 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button closeBtn;
         private System.Windows.Forms.Button minimizeBtn;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label versionLabel;
     }
 }
 

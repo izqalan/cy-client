@@ -354,11 +354,14 @@
   <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>176, 11</value>
   </metadata>
+  <data name="minimizeBtn.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>None</value>
+  </data>
   <data name="minimizeBtn.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
     <value>Flat</value>
   </data>
   <data name="minimizeBtn.Location" type="System.Drawing.Point, System.Drawing">
-    <value>557, -1</value>
+    <value>573, -1</value>
   </data>
   <data name="minimizeBtn.Size" type="System.Drawing.Size, System.Drawing">
     <value>29, 24</value>
@@ -381,38 +384,38 @@
   <data name="&gt;&gt;minimizeBtn.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="label1.AutoSize" type="System.Boolean, mscorlib">
+  <data name="versionLabel.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="versionLabel.Location" type="System.Drawing.Point, System.Drawing">
     <value>14, 4</value>
   </data>
-  <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="versionLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>46, 13</value>
   </data>
-  <data name="label1.TabIndex" type="System.Int32, mscorlib">
+  <data name="versionLabel.TabIndex" type="System.Int32, mscorlib">
     <value>9</value>
   </data>
-  <data name="label1.Text" xml:space="preserve">
+  <data name="versionLabel.Text" xml:space="preserve">
     <value>cy client</value>
   </data>
-  <data name="&gt;&gt;label1.Name" xml:space="preserve">
-    <value>label1</value>
+  <data name="&gt;&gt;versionLabel.Name" xml:space="preserve">
+    <value>versionLabel</value>
   </data>
-  <data name="&gt;&gt;label1.Type" xml:space="preserve">
+  <data name="&gt;&gt;versionLabel.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;label1.Parent" xml:space="preserve">
+  <data name="&gt;&gt;versionLabel.Parent" xml:space="preserve">
     <value>panel1</value>
   </data>
-  <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;versionLabel.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
   <data name="closeBtn.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
     <value>Popup</value>
   </data>
   <data name="closeBtn.Location" type="System.Drawing.Point, System.Drawing">
-    <value>592, 0</value>
+    <value>603, 0</value>
   </data>
   <data name="closeBtn.Size" type="System.Drawing.Size, System.Drawing">
     <value>27, 23</value>

@@ -11,6 +11,7 @@ using HtmlAgilityPack;
 using Downloader;
 using Syroot.Windows.IO;
 using System.Diagnostics;
+using System.Reflection;
 
 namespace cyberdropDownloader
 {
@@ -44,8 +45,10 @@ namespace cyberdropDownloader
         private void Form1_Load(object sender, EventArgs e)
         {
             ToolTip toolTip1 = new ToolTip();
+            string version = Assembly.GetExecutingAssembly().GetName().Version.ToString();
             filepath.Text = KnownFolders.Downloads.Path;
             this.path = filepath.Text;
+            this.versionLabel.Text = $"cy client - {version}";
             downloader.ChunkDownloadProgressChanged += OnChunkDownloadProgressChanged;
             toolTip1.AutoPopDelay = 5000;
             toolTip1.InitialDelay = 1000;
