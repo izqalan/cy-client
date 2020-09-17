@@ -18,11 +18,29 @@ namespace cyberdropDownloader
     {
         private String path;
         private DownloadService downloader = new DownloadService();
+        public Point mouseLocation;
+
         public Form1()
         {
             InitializeComponent();
+            this.AcceptButton = downloadBtn;
         }
 
+        private void Form1_MouseDown(object sender, MouseEventArgs e)
+        {
+            mouseLocation = new Point(-e.X, -e.Y);
+        }
+
+        private void Form1_MouseMove(object sender, MouseEventArgs e)
+        {
+            if(e.Button == MouseButtons.Left)
+            {
+                Point mousePos = Control.MousePosition;
+                mousePos.Offset(mouseLocation.X, mouseLocation.Y);
+                Location = mousePos;
+            }
+        }
+  
         private void Form1_Load(object sender, EventArgs e)
         {
             ToolTip toolTip1 = new ToolTip();
@@ -81,6 +99,16 @@ namespace cyberdropDownloader
         private void openFolderBtn_Click(object sender, EventArgs e)
         {
             Process.Start(path);
+        }
+
+        private void closeBtn_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void minimizeBtn_Click(object sender, EventArgs e)
+        {
+            this.WindowState = FormWindowState.Minimized;
         }
     }
 

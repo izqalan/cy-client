@@ -40,17 +40,25 @@
             this.destinationLabel = new System.Windows.Forms.Label();
             this.openFolderBtn = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.minimizeBtn = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.closeBtn = new System.Windows.Forms.Button();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // urlBox
             // 
             this.urlBox.AcceptsReturn = true;
+            this.urlBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(34)))), ((int)(((byte)(37)))));
+            this.urlBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(221)))), ((int)(((byte)(222)))));
             resources.ApplyResources(this.urlBox, "urlBox");
             this.urlBox.Name = "urlBox";
             // 
             // urlLabel
             // 
             resources.ApplyResources(this.urlLabel, "urlLabel");
+            this.urlLabel.ForeColor = System.Drawing.Color.White;
             this.urlLabel.Name = "urlLabel";
             // 
             // downloadBtn
@@ -68,12 +76,15 @@
             // progressLabel
             // 
             resources.ApplyResources(this.progressLabel, "progressLabel");
+            this.progressLabel.ForeColor = System.Drawing.Color.White;
             this.progressLabel.Name = "progressLabel";
             // 
             // filepath
             // 
             this.filepath.AllowDrop = true;
+            this.filepath.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(34)))), ((int)(((byte)(37)))));
             this.filepath.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.filepath.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(221)))), ((int)(((byte)(222)))));
             resources.ApplyResources(this.filepath, "filepath");
             this.filepath.Name = "filepath";
             this.filepath.Click += new System.EventHandler(this.filepath_Click);
@@ -81,6 +92,7 @@
             // destinationLabel
             // 
             resources.ApplyResources(this.destinationLabel, "destinationLabel");
+            this.destinationLabel.ForeColor = System.Drawing.Color.White;
             this.destinationLabel.Name = "destinationLabel";
             // 
             // openFolderBtn
@@ -92,10 +104,46 @@
             this.openFolderBtn.UseVisualStyleBackColor = false;
             this.openFolderBtn.Click += new System.EventHandler(this.openFolderBtn_Click);
             // 
+            // panel1
+            // 
+            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(34)))), ((int)(((byte)(37)))));
+            this.panel1.Controls.Add(this.minimizeBtn);
+            this.panel1.Controls.Add(this.label1);
+            this.panel1.Controls.Add(this.closeBtn);
+            resources.ApplyResources(this.panel1, "panel1");
+            this.panel1.Name = "panel1";
+            this.panel1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Form1_MouseDown);
+            this.panel1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Form1_MouseMove);
+            // 
+            // minimizeBtn
+            // 
+            resources.ApplyResources(this.minimizeBtn, "minimizeBtn");
+            this.minimizeBtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(221)))), ((int)(((byte)(222)))));
+            this.minimizeBtn.Name = "minimizeBtn";
+            this.minimizeBtn.UseVisualStyleBackColor = true;
+            this.minimizeBtn.Click += new System.EventHandler(this.minimizeBtn_Click);
+            // 
+            // label1
+            // 
+            resources.ApplyResources(this.label1, "label1");
+            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(221)))), ((int)(((byte)(222)))));
+            this.label1.Name = "label1";
+            // 
+            // closeBtn
+            // 
+            this.closeBtn.BackColor = System.Drawing.Color.Salmon;
+            resources.ApplyResources(this.closeBtn, "closeBtn");
+            this.closeBtn.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.closeBtn.Name = "closeBtn";
+            this.closeBtn.UseVisualStyleBackColor = false;
+            this.closeBtn.Click += new System.EventHandler(this.closeBtn_Click);
+            // 
             // Form1
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(57)))), ((int)(((byte)(63)))));
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.openFolderBtn);
             this.Controls.Add(this.destinationLabel);
             this.Controls.Add(this.filepath);
@@ -104,10 +152,14 @@
             this.Controls.Add(this.downloadBtn);
             this.Controls.Add(this.urlLabel);
             this.Controls.Add(this.urlBox);
-            this.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Cursor = System.Windows.Forms.Cursors.Arrow;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
+            this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Form1_MouseDown);
+            this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Form1_MouseMove);
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -125,6 +177,10 @@
         private System.Windows.Forms.Label destinationLabel;
         private System.Windows.Forms.Button openFolderBtn;
         private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Button closeBtn;
+        private System.Windows.Forms.Button minimizeBtn;
+        private System.Windows.Forms.Label label1;
     }
 }
 
