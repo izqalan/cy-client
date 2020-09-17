@@ -42,17 +42,20 @@
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
             this.minimizeBtn = new System.Windows.Forms.Button();
-            this.versionLabel = new System.Windows.Forms.Label();
             this.closeBtn = new System.Windows.Forms.Button();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.versionLabel = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // urlBox
             // 
             this.urlBox.AcceptsReturn = true;
             this.urlBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(34)))), ((int)(((byte)(37)))));
-            this.urlBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(221)))), ((int)(((byte)(222)))));
+            this.urlBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             resources.ApplyResources(this.urlBox, "urlBox");
+            this.urlBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(221)))), ((int)(((byte)(222)))));
             this.urlBox.Name = "urlBox";
             // 
             // urlLabel
@@ -63,9 +66,13 @@
             // 
             // downloadBtn
             // 
+            this.downloadBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(34)))), ((int)(((byte)(37)))));
             resources.ApplyResources(this.downloadBtn, "downloadBtn");
+            this.downloadBtn.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.downloadBtn.FlatAppearance.BorderSize = 0;
+            this.downloadBtn.ForeColor = System.Drawing.Color.Transparent;
             this.downloadBtn.Name = "downloadBtn";
-            this.downloadBtn.UseVisualStyleBackColor = true;
+            this.downloadBtn.UseVisualStyleBackColor = false;
             this.downloadBtn.Click += new System.EventHandler(this.downloadBtn_Click);
             // 
             // downloadProgressBar
@@ -83,9 +90,10 @@
             // 
             this.filepath.AllowDrop = true;
             this.filepath.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(34)))), ((int)(((byte)(37)))));
+            this.filepath.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.filepath.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.filepath.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(221)))), ((int)(((byte)(222)))));
             resources.ApplyResources(this.filepath, "filepath");
+            this.filepath.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(221)))), ((int)(((byte)(222)))));
             this.filepath.Name = "filepath";
             this.filepath.Click += new System.EventHandler(this.filepath_Click);
             // 
@@ -99,6 +107,9 @@
             // 
             resources.ApplyResources(this.openFolderBtn, "openFolderBtn");
             this.openFolderBtn.BackColor = System.Drawing.Color.Transparent;
+            this.openFolderBtn.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.openFolderBtn.FlatAppearance.BorderSize = 0;
+            this.openFolderBtn.ForeColor = System.Drawing.Color.Transparent;
             this.openFolderBtn.Image = global::cyberdropDownloader.Properties.Resources.folder;
             this.openFolderBtn.Name = "openFolderBtn";
             this.openFolderBtn.UseVisualStyleBackColor = false;
@@ -107,6 +118,7 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(34)))), ((int)(((byte)(37)))));
+            this.panel1.Controls.Add(this.pictureBox1);
             this.panel1.Controls.Add(this.minimizeBtn);
             this.panel1.Controls.Add(this.versionLabel);
             this.panel1.Controls.Add(this.closeBtn);
@@ -118,25 +130,36 @@
             // minimizeBtn
             // 
             resources.ApplyResources(this.minimizeBtn, "minimizeBtn");
+            this.minimizeBtn.FlatAppearance.BorderSize = 0;
             this.minimizeBtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(221)))), ((int)(((byte)(222)))));
             this.minimizeBtn.Name = "minimizeBtn";
             this.minimizeBtn.UseVisualStyleBackColor = true;
             this.minimizeBtn.Click += new System.EventHandler(this.minimizeBtn_Click);
             // 
-            // versionLabel
-            // 
-            resources.ApplyResources(this.versionLabel, "versionLabel");
-            this.versionLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(221)))), ((int)(((byte)(222)))));
-            this.versionLabel.Name = "versionLabel";
-            // 
             // closeBtn
             // 
             this.closeBtn.BackColor = System.Drawing.Color.Salmon;
+            this.closeBtn.FlatAppearance.BorderSize = 0;
             resources.ApplyResources(this.closeBtn, "closeBtn");
             this.closeBtn.ForeColor = System.Drawing.SystemColors.ButtonFace;
             this.closeBtn.Name = "closeBtn";
             this.closeBtn.UseVisualStyleBackColor = false;
             this.closeBtn.Click += new System.EventHandler(this.closeBtn_Click);
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
+            resources.ApplyResources(this.pictureBox1, "pictureBox1");
+            this.pictureBox1.Image = global::cyberdropDownloader.Properties.Resources.duck15;
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.TabStop = false;
+            // 
+            // versionLabel
+            // 
+            resources.ApplyResources(this.versionLabel, "versionLabel");
+            this.versionLabel.BackColor = System.Drawing.Color.Transparent;
+            this.versionLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(221)))), ((int)(((byte)(222)))));
+            this.versionLabel.Name = "versionLabel";
             // 
             // Form1
             // 
@@ -160,6 +183,7 @@
             this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Form1_MouseMove);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -181,6 +205,7 @@
         private System.Windows.Forms.Button closeBtn;
         private System.Windows.Forms.Button minimizeBtn;
         private System.Windows.Forms.Label versionLabel;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }
 

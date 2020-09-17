@@ -48,7 +48,7 @@ namespace cyberdropDownloader
             string version = Assembly.GetExecutingAssembly().GetName().Version.ToString();
             filepath.Text = KnownFolders.Downloads.Path;
             this.path = filepath.Text;
-            this.versionLabel.Text = $"cy client - {version}";
+            this.versionLabel.Text = $"cy client - v{version}";
             downloader.ChunkDownloadProgressChanged += OnChunkDownloadProgressChanged;
             toolTip1.AutoPopDelay = 5000;
             toolTip1.InitialDelay = 1000;
