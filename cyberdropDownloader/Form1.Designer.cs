@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.urlBox = new System.Windows.Forms.TextBox();
             this.urlLabel = new System.Windows.Forms.Label();
@@ -37,6 +38,8 @@
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.filepath = new System.Windows.Forms.TextBox();
             this.destinationLabel = new System.Windows.Forms.Label();
+            this.openFolderBtn = new System.Windows.Forms.Button();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.SuspendLayout();
             // 
             // urlBox
@@ -80,10 +83,20 @@
             resources.ApplyResources(this.destinationLabel, "destinationLabel");
             this.destinationLabel.Name = "destinationLabel";
             // 
+            // openFolderBtn
+            // 
+            resources.ApplyResources(this.openFolderBtn, "openFolderBtn");
+            this.openFolderBtn.BackColor = System.Drawing.Color.Transparent;
+            this.openFolderBtn.Image = global::cyberdropDownloader.Properties.Resources.folder_1_;
+            this.openFolderBtn.Name = "openFolderBtn";
+            this.openFolderBtn.UseVisualStyleBackColor = false;
+            this.openFolderBtn.Click += new System.EventHandler(this.openFolderBtn_Click);
+            // 
             // Form1
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.openFolderBtn);
             this.Controls.Add(this.destinationLabel);
             this.Controls.Add(this.filepath);
             this.Controls.Add(this.progressLabel);
@@ -91,6 +104,7 @@
             this.Controls.Add(this.downloadBtn);
             this.Controls.Add(this.urlLabel);
             this.Controls.Add(this.urlBox);
+            this.Cursor = System.Windows.Forms.Cursors.Hand;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -109,6 +123,8 @@
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
         private System.Windows.Forms.TextBox filepath;
         private System.Windows.Forms.Label destinationLabel;
+        private System.Windows.Forms.Button openFolderBtn;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }
 

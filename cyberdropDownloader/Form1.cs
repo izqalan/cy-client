@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using HtmlAgilityPack;
 using Downloader;
 using Syroot.Windows.IO;
+using System.Diagnostics;
 
 namespace cyberdropDownloader
 {
@@ -24,9 +25,15 @@ namespace cyberdropDownloader
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            ToolTip toolTip1 = new ToolTip();
             filepath.Text = KnownFolders.Downloads.Path;
             this.path = filepath.Text;
             downloader.ChunkDownloadProgressChanged += OnChunkDownloadProgressChanged;
+            toolTip1.AutoPopDelay = 5000;
+            toolTip1.InitialDelay = 1000;
+            toolTip1.ReshowDelay = 500;
+            toolTip1.ShowAlways = true;
+            toolTip1.SetToolTip(this.openFolderBtn, "Open destination folder in explorer");
         }
 
         private void OnChunkDownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
@@ -71,6 +78,10 @@ namespace cyberdropDownloader
              
         }
 
+        private void openFolderBtn_Click(object sender, EventArgs e)
+        {
+            Process.Start(path);
+        }
     }
 
     public class CyScraper
