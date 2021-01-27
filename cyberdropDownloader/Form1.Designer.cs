@@ -33,20 +33,22 @@
             this.urlBox = new System.Windows.Forms.TextBox();
             this.urlLabel = new System.Windows.Forms.Label();
             this.downloadBtn = new System.Windows.Forms.Button();
-            this.downloadProgressBar = new System.Windows.Forms.ProgressBar();
-            this.progressLabel = new System.Windows.Forms.Label();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.filepath = new System.Windows.Forms.TextBox();
             this.destinationLabel = new System.Windows.Forms.Label();
             this.openFolderBtn = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
-            this.minimizeBtn = new System.Windows.Forms.Button();
-            this.closeBtn = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.minimizeBtn = new System.Windows.Forms.Button();
             this.versionLabel = new System.Windows.Forms.Label();
+            this.closeBtn = new System.Windows.Forms.Button();
+            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.toolTip3 = new System.Windows.Forms.ToolTip(this.components);
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // urlBox
@@ -74,17 +76,6 @@
             this.downloadBtn.Name = "downloadBtn";
             this.downloadBtn.UseVisualStyleBackColor = false;
             this.downloadBtn.Click += new System.EventHandler(this.downloadBtn_Click);
-            // 
-            // downloadProgressBar
-            // 
-            resources.ApplyResources(this.downloadProgressBar, "downloadProgressBar");
-            this.downloadProgressBar.Name = "downloadProgressBar";
-            // 
-            // progressLabel
-            // 
-            resources.ApplyResources(this.progressLabel, "progressLabel");
-            this.progressLabel.ForeColor = System.Drawing.Color.White;
-            this.progressLabel.Name = "progressLabel";
             // 
             // filepath
             // 
@@ -127,6 +118,14 @@
             this.panel1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Form1_MouseDown);
             this.panel1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Form1_MouseMove);
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
+            resources.ApplyResources(this.pictureBox1, "pictureBox1");
+            this.pictureBox1.Image = global::cyberdropDownloader.Properties.Resources.duck15;
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.TabStop = false;
+            // 
             // minimizeBtn
             // 
             resources.ApplyResources(this.minimizeBtn, "minimizeBtn");
@@ -135,6 +134,13 @@
             this.minimizeBtn.Name = "minimizeBtn";
             this.minimizeBtn.UseVisualStyleBackColor = true;
             this.minimizeBtn.Click += new System.EventHandler(this.minimizeBtn_Click);
+            // 
+            // versionLabel
+            // 
+            resources.ApplyResources(this.versionLabel, "versionLabel");
+            this.versionLabel.BackColor = System.Drawing.Color.Transparent;
+            this.versionLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(221)))), ((int)(((byte)(222)))));
+            this.versionLabel.Name = "versionLabel";
             // 
             // closeBtn
             // 
@@ -146,20 +152,26 @@
             this.closeBtn.UseVisualStyleBackColor = false;
             this.closeBtn.Click += new System.EventHandler(this.closeBtn_Click);
             // 
-            // pictureBox1
+            // listBox1
             // 
-            this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
-            resources.ApplyResources(this.pictureBox1, "pictureBox1");
-            this.pictureBox1.Image = global::cyberdropDownloader.Properties.Resources.duck15;
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.TabStop = false;
+            this.listBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(34)))), ((int)(((byte)(37)))));
+            this.listBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.listBox1.ForeColor = System.Drawing.Color.Chartreuse;
+            this.listBox1.FormattingEnabled = true;
+            resources.ApplyResources(this.listBox1, "listBox1");
+            this.listBox1.Name = "listBox1";
             // 
-            // versionLabel
+            // toolTip3
             // 
-            resources.ApplyResources(this.versionLabel, "versionLabel");
-            this.versionLabel.BackColor = System.Drawing.Color.Transparent;
-            this.versionLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(221)))), ((int)(((byte)(222)))));
-            this.versionLabel.Name = "versionLabel";
+            this.toolTip3.ToolTipTitle = "Choose destination folder";
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.listBox1);
+            this.groupBox1.ForeColor = System.Drawing.SystemColors.ControlDark;
+            resources.ApplyResources(this.groupBox1, "groupBox1");
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.TabStop = false;
             // 
             // Form1
             // 
@@ -170,11 +182,10 @@
             this.Controls.Add(this.openFolderBtn);
             this.Controls.Add(this.destinationLabel);
             this.Controls.Add(this.filepath);
-            this.Controls.Add(this.progressLabel);
-            this.Controls.Add(this.downloadProgressBar);
             this.Controls.Add(this.downloadBtn);
             this.Controls.Add(this.urlLabel);
             this.Controls.Add(this.urlBox);
+            this.Controls.Add(this.groupBox1);
             this.Cursor = System.Windows.Forms.Cursors.Arrow;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Form1";
@@ -184,6 +195,7 @@
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.groupBox1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -194,8 +206,6 @@
         private System.Windows.Forms.TextBox urlBox;
         private System.Windows.Forms.Label urlLabel;
         private System.Windows.Forms.Button downloadBtn;
-        private System.Windows.Forms.ProgressBar downloadProgressBar;
-        private System.Windows.Forms.Label progressLabel;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
         private System.Windows.Forms.TextBox filepath;
         private System.Windows.Forms.Label destinationLabel;
@@ -206,6 +216,9 @@
         private System.Windows.Forms.Button minimizeBtn;
         private System.Windows.Forms.Label versionLabel;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.ToolTip toolTip3;
+        private System.Windows.Forms.GroupBox groupBox1;
     }
 }
 

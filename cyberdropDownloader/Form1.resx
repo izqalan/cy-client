@@ -122,12 +122,15 @@
     <value>Microsoft Sans Serif, 10pt</value>
   </data>
   <data name="urlBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>60, 50</value>
-  </data>
-  <data name="urlBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>233, 16</value>
+    <value>30, 46</value>
   </data>
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="urlBox.Multiline" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="urlBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>465, 61</value>
+  </data>
   <data name="urlBox.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
@@ -141,7 +144,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;urlBox.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>6</value>
   </data>
   <data name="urlLabel.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -154,7 +157,7 @@
     <value>NoControl</value>
   </data>
   <data name="urlLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>27, 50</value>
+    <value>27, 30</value>
   </data>
   <data name="urlLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>31, 13</value>
@@ -175,7 +178,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;urlLabel.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>5</value>
   </data>
   <data name="downloadBtn.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
     <value>None</value>
@@ -190,7 +193,7 @@
     <value>NoControl</value>
   </data>
   <data name="downloadBtn.Location" type="System.Drawing.Point, System.Drawing">
-    <value>533, 45</value>
+    <value>420, 115</value>
   </data>
   <data name="downloadBtn.Size" type="System.Drawing.Size, System.Drawing">
     <value>75, 23</value>
@@ -211,63 +214,6 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;downloadBtn.ZOrder" xml:space="preserve">
-    <value>6</value>
-  </data>
-  <data name="downloadProgressBar.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="downloadProgressBar.Location" type="System.Drawing.Point, System.Drawing">
-    <value>62, 85</value>
-  </data>
-  <data name="downloadProgressBar.Size" type="System.Drawing.Size, System.Drawing">
-    <value>465, 23</value>
-  </data>
-  <data name="downloadProgressBar.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
-  </data>
-  <data name="&gt;&gt;downloadProgressBar.Name" xml:space="preserve">
-    <value>downloadProgressBar</value>
-  </data>
-  <data name="&gt;&gt;downloadProgressBar.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ProgressBar, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;downloadProgressBar.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;downloadProgressBar.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="progressLabel.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="progressLabel.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Verdana, 8.25pt</value>
-  </data>
-  <data name="progressLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="progressLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>267, 120</value>
-  </data>
-  <data name="progressLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>103, 13</value>
-  </data>
-  <data name="progressLabel.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
-  </data>
-  <data name="progressLabel.Text" xml:space="preserve">
-    <value>Downloading 0%</value>
-  </data>
-  <data name="&gt;&gt;progressLabel.Name" xml:space="preserve">
-    <value>progressLabel</value>
-  </data>
-  <data name="&gt;&gt;progressLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;progressLabel.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;progressLabel.ZOrder" xml:space="preserve">
     <value>4</value>
   </data>
   <metadata name="folderBrowserDialog1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
@@ -277,16 +223,19 @@
     <value>Microsoft Sans Serif, 10pt</value>
   </data>
   <data name="filepath.Location" type="System.Drawing.Point, System.Drawing">
-    <value>376, 50</value>
+    <value>104, 118</value>
   </data>
   <data name="filepath.RightToLeft" type="System.Windows.Forms.RightToLeft, System.Windows.Forms">
     <value>Yes</value>
   </data>
   <data name="filepath.Size" type="System.Drawing.Size, System.Drawing">
-    <value>115, 16</value>
+    <value>274, 16</value>
   </data>
   <data name="filepath.TabIndex" type="System.Int32, mscorlib">
     <value>5</value>
+  </data>
+  <data name="filepath.TextAlign" type="System.Windows.Forms.HorizontalAlignment, System.Windows.Forms">
+    <value>Right</value>
   </data>
   <data name="&gt;&gt;filepath.Name" xml:space="preserve">
     <value>filepath</value>
@@ -310,7 +259,7 @@
     <value>NoControl</value>
   </data>
   <data name="destinationLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>299, 52</value>
+    <value>27, 120</value>
   </data>
   <data name="destinationLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>71, 13</value>
@@ -349,7 +298,7 @@
     <value>NoControl</value>
   </data>
   <data name="openFolderBtn.Location" type="System.Drawing.Point, System.Drawing">
-    <value>497, 45</value>
+    <value>384, 115</value>
   </data>
   <data name="openFolderBtn.Size" type="System.Drawing.Size, System.Drawing">
     <value>30, 23</value>
@@ -409,7 +358,7 @@
     <value>NoControl</value>
   </data>
   <data name="minimizeBtn.Location" type="System.Drawing.Point, System.Drawing">
-    <value>576, -3</value>
+    <value>468, 0</value>
   </data>
   <data name="minimizeBtn.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>1, 1, 1, 1</value>
@@ -472,7 +421,7 @@
     <value>NoControl</value>
   </data>
   <data name="closeBtn.Location" type="System.Drawing.Point, System.Drawing">
-    <value>606, -3</value>
+    <value>498, 0</value>
   </data>
   <data name="closeBtn.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>0, 0, 0, 0</value>
@@ -519,6 +468,54 @@
   <data name="&gt;&gt;panel1.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <data name="listBox1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 18</value>
+  </data>
+  <data name="listBox1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>447, 117</value>
+  </data>
+  <data name="listBox1.TabIndex" type="System.Int32, mscorlib">
+    <value>9</value>
+  </data>
+  <data name="&gt;&gt;listBox1.Name" xml:space="preserve">
+    <value>listBox1</value>
+  </data>
+  <data name="&gt;&gt;listBox1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ListBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;listBox1.Parent" xml:space="preserve">
+    <value>groupBox1</value>
+  </data>
+  <data name="&gt;&gt;listBox1.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <metadata name="toolTip3.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>370, 11</value>
+  </metadata>
+  <data name="groupBox1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>36, 156</value>
+  </data>
+  <data name="groupBox1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>459, 141</value>
+  </data>
+  <data name="groupBox1.TabIndex" type="System.Int32, mscorlib">
+    <value>10</value>
+  </data>
+  <data name="groupBox1.Text" xml:space="preserve">
+    <value>Download Log</value>
+  </data>
+  <data name="&gt;&gt;groupBox1.Name" xml:space="preserve">
+    <value>groupBox1</value>
+  </data>
+  <data name="&gt;&gt;groupBox1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;groupBox1.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;groupBox1.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
@@ -529,7 +526,7 @@
     <value>6, 13</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>629, 151</value>
+    <value>523, 337</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -4701,9 +4698,6 @@
         ////////////////////8AAA
 </value>
   </data>
-  <data name="$this.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
   <data name="$this.Text" xml:space="preserve">
     <value>Cyberdrop Client</value>
   </data>
@@ -4717,6 +4711,12 @@
     <value>toolTip1</value>
   </data>
   <data name="&gt;&gt;toolTip1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolTip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolTip3.Name" xml:space="preserve">
+    <value>toolTip3</value>
+  </data>
+  <data name="&gt;&gt;toolTip3.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolTip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
