@@ -28,7 +28,7 @@ namespace cyberdropDownloader
         {
         }
 
-        private string GetTitle(HtmlAgilityPack.HtmlDocument htmlDoc)
+        public string GetTitle(HtmlAgilityPack.HtmlDocument htmlDoc)
         {
             var title = htmlDoc.DocumentNode.SelectNodes("//div/h1[@id='title']").First().Attributes["title"].Value;
             return title;
