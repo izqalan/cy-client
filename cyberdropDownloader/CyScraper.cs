@@ -24,13 +24,46 @@ namespace cyberdropDownloader
             this.listBox = listBox;
         }
 
-        private string Title(HtmlAgilityPack.HtmlDocument htmlDoc)
+        public CyScraper()
+        {
+        }
+
+        private string GetTitle(HtmlAgilityPack.HtmlDocument htmlDoc)
         {
             var title = htmlDoc.DocumentNode.SelectNodes("//div/h1[@id='title']").First().Attributes["title"].Value;
             return title;
         }
 
-        public async void StartAsync()
+        public List<string> GetAlbumUrls(HtmlAgilityPack.HtmlDocument htmlDoc)
+        {
+            List<string> urls = new List<string>();
+
+            foreach (HtmlNode link in htmlDoc.DocumentNode.SelectNodes("//a[@class='image'][@href]"))
+            {
+                string url = link.Attributes["href"].Value;
+                urls.Add(url);
+            }
+            return urls;
+        }
+
+        private async void GetUrlsAndDownload(HtmlAgilityPack.HtmlDocument htmlDoc)
+        {
+            string title = this.GetTitle(htmlDoc);
+            // scuffed af; having form controls in business logic
+            listBox.Items.Insert(0, "Album: " + title);
+            foreach (HtmlNode link in htmlDoc.DocumentNode.SelectNodes("//a[@class='image'][@href]"))
+            {
+                string url = link.Attributes["href"].Value;
+                itemName = link.Attributes["title"].Value;
+                // scuffed af; having form controls in business logic
+                listBox.Items.Insert(0, "Downloading item: " + itemName);
+                // download here
+                string filepath = String.Format(@"{0}\{1}\{2}", dest, title, itemName);
+                await downloader.DownloadFileAsync(url, filepath);
+            }
+        }
+
+        public void StartAsync()
         {
             try
             {
@@ -38,19 +71,7 @@ namespace cyberdropDownloader
                 {
                     HtmlWeb web = new HtmlWeb();
                     var htmlDoc = web.Load(url.Lines[i]);
-                    string title = this.Title(htmlDoc);
-                    listBox.Items.Insert(0, "Album: " + title);
-                    //listBox.Items.Add("Downloading album: " + title);
-                    foreach (HtmlNode link in htmlDoc.DocumentNode.SelectNodes("//a[@class='image'][@href]"))
-                    {
-                        string url = link.Attributes["href"].Value;
-                        itemName = link.Attributes["title"].Value;
-                        listBox.Items.Insert(0, "Downloading item: " + itemName);
-                        //listBox.Items.Add("Downloading item: " + itemName);
-                        // download here
-                        string filepath = String.Format(@"{0}\{1}\{2}", dest, title, itemName);
-                        await downloader.DownloadFileAsync(url, filepath);
-                    }
+                    GetUrlsAndDownload(htmlDoc);
                 }
                 
             }
