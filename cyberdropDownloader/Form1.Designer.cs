@@ -46,6 +46,8 @@
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.toolTip3 = new System.Windows.Forms.ToolTip(this.components);
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.issueUrlLabel = new System.Windows.Forms.LinkLabel();
+            this.releasesUrlLabel = new System.Windows.Forms.LinkLabel();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -173,11 +175,33 @@
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.TabStop = false;
             // 
+            // issueUrlLabel
+            // 
+            this.issueUrlLabel.ActiveLinkColor = System.Drawing.Color.Lime;
+            resources.ApplyResources(this.issueUrlLabel, "issueUrlLabel");
+            this.issueUrlLabel.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline;
+            this.issueUrlLabel.LinkColor = System.Drawing.Color.Silver;
+            this.issueUrlLabel.Name = "issueUrlLabel";
+            this.issueUrlLabel.TabStop = true;
+            this.issueUrlLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.issueUrlLabel_LinkClicked);
+            // 
+            // releasesUrlLabel
+            // 
+            this.releasesUrlLabel.ActiveLinkColor = System.Drawing.Color.Lime;
+            resources.ApplyResources(this.releasesUrlLabel, "releasesUrlLabel");
+            this.releasesUrlLabel.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline;
+            this.releasesUrlLabel.LinkColor = System.Drawing.Color.Silver;
+            this.releasesUrlLabel.Name = "releasesUrlLabel";
+            this.releasesUrlLabel.TabStop = true;
+            this.releasesUrlLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.releasesUrlLabel_LinkClicked);
+            // 
             // Form1
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(57)))), ((int)(((byte)(63)))));
+            this.Controls.Add(this.releasesUrlLabel);
+            this.Controls.Add(this.issueUrlLabel);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.openFolderBtn);
             this.Controls.Add(this.destinationLabel);
@@ -219,6 +243,8 @@
         private System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.ToolTip toolTip3;
         private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.LinkLabel issueUrlLabel;
+        private System.Windows.Forms.LinkLabel releasesUrlLabel;
     }
 }
 

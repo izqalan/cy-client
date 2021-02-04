@@ -108,5 +108,15 @@ namespace cyberdropDownloader
         {
             this.WindowState = FormWindowState.Minimized;
         }
+
+        private void issueUrlLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Process.Start("https://github.com/izqalan/cy-client/issues");
+        }
+
+        private void releasesUrlLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Process.Start("https://github.com/izqalan/cy-client/releases");
+        }
     }
 }
