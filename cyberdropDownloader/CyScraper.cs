@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Downloader;
 using HtmlAgilityPack;
 using System.Windows.Forms;
 using System.IO;
-using System.Diagnostics;
 using System.Text.RegularExpressions;
 
 namespace cyberdropDownloader
