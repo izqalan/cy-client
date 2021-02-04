@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Downloader;
 using HtmlAgilityPack;
 using System.Windows.Forms;
+using System.IO;
+using System.Text.RegularExpressions;
 
 namespace cyberdropDownloader
 {
@@ -46,9 +46,20 @@ namespace cyberdropDownloader
             return urls;
         }
 
+        public string CheckIllegalChars(string s)
+        {
+            string regexSearch = new string(Path.GetInvalidFileNameChars()) + new string(Path.GetInvalidPathChars());
+            Regex r = new Regex(string.Format("[{0}]", Regex.Escape(regexSearch)));
+            s = r.Replace(s, "");
+            s = s.Length == 0 ? "cy_album" : s; 
+            return s;
+        }
+
         private async void GetUrlsAndDownload(HtmlAgilityPack.HtmlDocument htmlDoc)
         {
             string title = this.GetTitle(htmlDoc);
+            // check for illegal chars
+            title = CheckIllegalChars(title);
             // scuffed af; having form controls in business logic
             listBox.Items.Insert(0, "Album: " + title);
             foreach (HtmlNode link in htmlDoc.DocumentNode.SelectNodes("//a[@class='image'][@href]"))

@@ -29,6 +29,13 @@ namespace CyClientTests
             }
             Assert.True(connection);
         }
+        [Fact]
+        public void CheckIllegalChars()
+        {
+            string illegals = "\"M\"\\a/ry/ h**ad:>> a\\/:*?\"| li*tt|le|| la\"mb.?";
+            illegals = scraper.CheckIllegalChars(illegals);
+            Assert.Equal("Mary had a little lamb.", illegals);
+        }
 
         [Fact]
         public void ScrapeKnownAlbumTitle()
