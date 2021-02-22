@@ -6,6 +6,7 @@ using HtmlAgilityPack;
 using System.Windows.Forms;
 using System.IO;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 
 namespace cyberdropDownloader
 {
@@ -55,9 +56,9 @@ namespace cyberdropDownloader
             return s;
         }
 
-        private async void GetUrlsAndDownload(HtmlAgilityPack.HtmlDocument htmlDoc)
+        public virtual async Task GetUrlsAndDownload(HtmlAgilityPack.HtmlDocument htmlDoc)
         {
-            string title = this.GetTitle(htmlDoc);
+            string title = GetTitle(htmlDoc);
             // check for illegal chars
             title = CheckIllegalChars(title);
             // scuffed af; having form controls in business logic
@@ -70,19 +71,22 @@ namespace cyberdropDownloader
                 listBox.Items.Insert(0, "Downloading item: " + itemName);
                 // download here
                 string filepath = String.Format(@"{0}\{1}\{2}", dest, title, itemName);
+                Console.WriteLine(url);
                 await downloader.DownloadFileAsync(url, filepath);
             }
         }
 
-        public void StartAsync()
+        public async Task StartAsync()
         {
+            var userAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36";
             try
             {
                 for (int i = 0; i < url.Lines.Length; i++)
                 {
                     HtmlWeb web = new HtmlWeb();
+                    web.UserAgent = userAgent;
                     var htmlDoc = web.Load(url.Lines[i]);
-                    GetUrlsAndDownload(htmlDoc);
+                    await GetUrlsAndDownload(htmlDoc);
                 }
                 
             }
