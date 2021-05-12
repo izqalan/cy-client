@@ -59,14 +59,16 @@ namespace cyberdropDownloader
         public virtual async Task GetUrlsAndDownload(HtmlAgilityPack.HtmlDocument htmlDoc)
         {
             string title = GetTitle(htmlDoc);
+            int i = 0;
             // check for illegal chars
             title = CheckIllegalChars(title);
             // scuffed af; having form controls in business logic
             listBox.Items.Insert(0, "Album: " + title);
             foreach (HtmlNode link in htmlDoc.DocumentNode.SelectNodes("//a[@class='image'][@href]"))
             {
+                i++;
                 string url = link.Attributes["href"].Value;
-                itemName = link.Attributes["title"].Value;
+                itemName = CheckIllegalChars(link.Attributes["title"].Value);
                 // scuffed af; having form controls in business logic
                 listBox.Items.Insert(0, "Downloading item: " + itemName);
                 // download here
@@ -74,6 +76,7 @@ namespace cyberdropDownloader
                 Console.WriteLine(url);
                 await downloader.DownloadFileAsync(url, filepath);
             }
+            listBox.Items.Insert(0, "------Completed " + i + " Downloads------");
         }
 
         public async Task StartAsync()
