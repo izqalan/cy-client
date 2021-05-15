@@ -52,7 +52,7 @@ namespace cyberdropDownloader
             string regexSearch = new string(Path.GetInvalidFileNameChars()) + new string(Path.GetInvalidPathChars());
             Regex r = new Regex(string.Format("[{0}]", Regex.Escape(regexSearch)));
             s = r.Replace(s, "");
-            s = s.Length == 0 ? "cy_album" : s; 
+            s = s.Length == 0 ? "cy_album" : Mono.Web.HttpUtility.HtmlDecode(s); ;
             return s;
         }
 
@@ -67,7 +67,7 @@ namespace cyberdropDownloader
             foreach (HtmlNode link in htmlDoc.DocumentNode.SelectNodes("//a[@class='image'][@href]"))
             {
                 i++;
-                string url = link.Attributes["href"].Value;
+                string url = Mono.Web.HttpUtility.HtmlDecode(link.Attributes["href"].Value);
                 itemName = CheckIllegalChars(link.Attributes["title"].Value);
                 // scuffed af; having form controls in business logic
                 listBox.Items.Insert(0, "Downloading item: " + itemName);
