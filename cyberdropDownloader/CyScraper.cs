@@ -72,10 +72,8 @@ namespace cyberdropDownloader
                 string filepath = String.Format(@"{0}\{1}\{2}", dest, title, itemName);
                 if (!File.Exists(filepath))
                 {
-                    // scuffed af; having form controls in business logic
-                    listBox.Items.Insert(0, "Downloading item: " + itemName);
                     // download here
-                    await downloader.DownloadFileAsync(url, filepath);
+                    await downloader.DownloadFileTaskAsync(url, filepath);
                 } else
                 {
                     listBox.Items.Insert(0, "[File Existed] [SKIP]: " + itemName);

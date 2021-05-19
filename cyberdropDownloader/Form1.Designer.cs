@@ -226,7 +226,6 @@
         }
 
         #endregion
-
         private System.Windows.Forms.TextBox urlBox;
         private System.Windows.Forms.Label urlLabel;
         private System.Windows.Forms.Button downloadBtn;

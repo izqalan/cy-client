@@ -69,8 +69,8 @@
     <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Downloader, Version=2.0.4.0, Culture=neutral, PublicKeyToken=844973e732f6cdf4, processorArchitecture=MSIL">
-      <HintPath>..\packages\Downloader.2.0.4\lib\netstandard2.0\Downloader.dll</HintPath>
+    <Reference Include="Downloader, Version=2.2.8.0, Culture=neutral, PublicKeyToken=844973e732f6cdf4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Downloader.2.2.8\lib\net45\Downloader.dll</HintPath>
     </Reference>
     <Reference Include="HtmlAgilityPack, Version=1.11.24.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
       <HintPath>..\packages\HtmlAgilityPack.1.11.24\lib\Net45\HtmlAgilityPack.dll</HintPath>
