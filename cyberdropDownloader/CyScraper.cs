@@ -69,12 +69,17 @@ namespace cyberdropDownloader
                 i++;
                 string url = Mono.Web.HttpUtility.HtmlDecode(link.Attributes["href"].Value);
                 itemName = CheckIllegalChars(link.Attributes["title"].Value);
-                // scuffed af; having form controls in business logic
-                listBox.Items.Insert(0, "Downloading item: " + itemName);
-                // download here
                 string filepath = String.Format(@"{0}\{1}\{2}", dest, title, itemName);
-                Console.WriteLine(url);
-                await downloader.DownloadFileAsync(url, filepath);
+                if (!File.Exists(filepath))
+                {
+                    // scuffed af; having form controls in business logic
+                    listBox.Items.Insert(0, "Downloading item: " + itemName);
+                    // download here
+                    await downloader.DownloadFileAsync(url, filepath);
+                } else
+                {
+                    listBox.Items.Insert(0, "[File Existed] [SKIP]: " + itemName);
+                }
             }
             listBox.Items.Insert(0, "------Completed " + i + " Downloads------");
         }
