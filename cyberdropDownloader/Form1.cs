@@ -10,8 +10,16 @@ namespace cyberdropDownloader
 {
     public partial class Form1 : Form
     {
-        private String path;
-        private DownloadService downloader = new DownloadService();
+        private string path;
+        private DownloadService downloader = new DownloadService(new DownloadConfiguration() {
+            ChunkCount = 8, // file parts to download
+            MaxTryAgainOnFailover = 3,
+            OnTheFlyDownload = false,
+            ParallelDownload = true,
+            RequestConfiguration = {
+                UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36"
+            }
+        });
         public Point mouseLocation;
 
         public Form1()
@@ -56,7 +64,7 @@ namespace cyberdropDownloader
         {
             Invoke(new MethodInvoker(delegate ()
             {
-                listBox1.Items.Insert(0, "Downloading item: " + System.IO.Path.GetFileName(e.FileName)); 
+                listBox1.Items.Insert(0, "Downloading item: " + System.IO.Path.GetFileName(e.FileName));
             }));
         }
 

@@ -76,7 +76,7 @@ namespace cyberdropDownloader
                 title = CheckIllegalChars(title);
 
                 // hacky way of getting album total file size from album
-                // initially I wanted to use the hidden album size which shown in bytes but htmlagility doesn't seem to pick up that node 
+                // initially I wanted to use the hidden album size which shown in bytes but htmlagility doesn't seem to pick up that 
                 var totalAlbumSizeNode = htmlDoc.DocumentNode.SelectNodes("//div/p[@class='title']");
                 string totalAlbumSize = totalAlbumSizeNode[1].InnerHtml;
 
@@ -131,13 +131,12 @@ namespace cyberdropDownloader
 
         public async Task StartAsync()
         {
-            var userAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36";
+            
             try
             {
                 for (int i = 0; i < url.Lines.Length; i++)
                 {
                     HtmlWeb web = new HtmlWeb();
-                    web.UserAgent = userAgent;
                     var htmlDoc = web.Load(url.Lines[i]);
                     await GetUrlsAndDownload(htmlDoc);
                 }
