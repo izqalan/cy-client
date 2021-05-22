@@ -10,8 +10,16 @@ namespace cyberdropDownloader
 {
     public partial class Form1 : Form
     {
-        private String path;
-        private DownloadService downloader = new DownloadService();
+        private string path;
+        private DownloadService downloader = new DownloadService(new DownloadConfiguration() {
+            ChunkCount = 8, // file parts to download
+            MaxTryAgainOnFailover = 3,
+            OnTheFlyDownload = false,
+            ParallelDownload = true,
+            RequestConfiguration = {
+                UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36"
+            }
+        });
         public Point mouseLocation;
 
         public Form1()
@@ -43,7 +51,7 @@ namespace cyberdropDownloader
             filepath.Text = KnownFolders.Downloads.Path;
             this.path = filepath.Text;
             this.versionLabel.Text = $"cy client - v{version}";
-            downloader.ChunkDownloadProgressChanged += OnChunkDownloadProgressChanged;
+            downloader.DownloadStarted += OnDownloadStarted;
             toolTip1.AutoPopDelay = 5000;
             toolTip1.InitialDelay = 500;
             toolTip1.ReshowDelay = 500;
@@ -52,16 +60,11 @@ namespace cyberdropDownloader
             toolTip1.SetToolTip(this.filepath, "Choose file destination");
         }
 
-        private void OnChunkDownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
+        private void OnDownloadStarted(object sender, DownloadStartedEventArgs e)
         {
             Invoke(new MethodInvoker(delegate ()
             {
-                //downloadProgressBar.Minimum = 0;
-                //double receive = e.ReceivedBytesSize;
-                //double total = e.TotalBytesToReceive;
-                //double percentage = receive / total * 100;
-                //progressLabel.Text = $"Downloading {string.Format("{0}", percentage)}%";
-                // downloadProgressBar.Value = int.Parse(Math.Truncate(percentage).ToString());
+                listBox1.Items.Insert(0, "Downloading item: " + System.IO.Path.GetFileName(e.FileName));
             }));
         }
 
