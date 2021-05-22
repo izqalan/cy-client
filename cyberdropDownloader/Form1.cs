@@ -5,7 +5,6 @@ using Downloader;
 using Syroot.Windows.IO;
 using System.Diagnostics;
 using System.Reflection;
-using System.ComponentModel;
 
 namespace cyberdropDownloader
 {
