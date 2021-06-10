@@ -6,6 +6,7 @@ labels: bug
 assignees: izqalan
 
 ---
+**DO NOT SHARE YOUR URL!**
 
 **Describe the bug / Error message**
 A clear and concise description of what the bug is.
