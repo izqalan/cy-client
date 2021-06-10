@@ -5,6 +5,7 @@ using Downloader;
 using Syroot.Windows.IO;
 using System.Diagnostics;
 using System.Reflection;
+using Microsoft.WindowsAPICodePack.Dialogs;
 
 namespace cyberdropDownloader
 {
@@ -48,7 +49,8 @@ namespace cyberdropDownloader
             ToolTip toolTip1 = new ToolTip();
             ToolTip toolTip3 = new ToolTip();
             string version = Assembly.GetExecutingAssembly().GetName().Version.ToString();
-            filepath.Text = KnownFolders.Downloads.Path;
+            filepath.Text = Properties.Settings.Default["destinationPath"].ToString().Length > 0
+                    ? Properties.Settings.Default["destinationPath"].ToString() : KnownFolders.Downloads.Path;
             this.path = filepath.Text;
             this.versionLabel.Text = $"cy client - v{version}";
             downloader.DownloadStarted += OnDownloadStarted;
@@ -88,13 +90,26 @@ namespace cyberdropDownloader
 
         private void filepath_Click(object sender, EventArgs e)
         {
-            FolderBrowserDialog fbd = new FolderBrowserDialog();
-            fbd.SelectedPath = KnownFolders.Downloads.Path;
-            if (fbd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            using (CommonOpenFileDialog dialog = new CommonOpenFileDialog())
             {
-                filepath.Text = fbd.SelectedPath;
-                this.path = filepath.Text;
+                dialog.InitialDirectory = this.path;
+                dialog.IsFolderPicker = true;
+                dialog.RestoreDirectory = true;
+                if (dialog.ShowDialog() == CommonFileDialogResult.Ok)
+                {
+                    Properties.Settings.Default["destinationPath"] = dialog.FileName;
+                    Properties.Settings.Default.Save();
+                    filepath.Text = dialog.FileName;
+                    this.path = filepath.Text;
+                }
             }
+            //FolderBrowserDialog fbd = new FolderBrowserDialog();
+            //fbd.SelectedPath = KnownFolders.Downloads.Path;
+            //if (fbd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            //{
+            //    filepath.Text = fbd.SelectedPath;
+            //    this.path = filepath.Text;
+            //}
         }
 
         private void openFolderBtn_Click(object sender, EventArgs e)
