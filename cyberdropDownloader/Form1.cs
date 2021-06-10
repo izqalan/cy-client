@@ -103,13 +103,6 @@ namespace cyberdropDownloader
                     this.path = filepath.Text;
                 }
             }
-            //FolderBrowserDialog fbd = new FolderBrowserDialog();
-            //fbd.SelectedPath = KnownFolders.Downloads.Path;
-            //if (fbd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            //{
-            //    filepath.Text = fbd.SelectedPath;
-            //    this.path = filepath.Text;
-            //}
         }
 
         private void openFolderBtn_Click(object sender, EventArgs e)
