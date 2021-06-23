@@ -48,6 +48,7 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.issueUrlLabel = new System.Windows.Forms.LinkLabel();
             this.releasesUrlLabel = new System.Windows.Forms.LinkLabel();
+            this.albumTitle = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -195,11 +196,18 @@
             this.releasesUrlLabel.TabStop = true;
             this.releasesUrlLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.releasesUrlLabel_LinkClicked);
             // 
+            // albumTitle
+            // 
+            resources.ApplyResources(this.albumTitle, "albumTitle");
+            this.albumTitle.ForeColor = System.Drawing.Color.White;
+            this.albumTitle.Name = "albumTitle";
+            // 
             // Form1
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(57)))), ((int)(((byte)(63)))));
+            this.Controls.Add(this.albumTitle);
             this.Controls.Add(this.releasesUrlLabel);
             this.Controls.Add(this.issueUrlLabel);
             this.Controls.Add(this.panel1);
@@ -244,6 +252,7 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.LinkLabel issueUrlLabel;
         private System.Windows.Forms.LinkLabel releasesUrlLabel;
+        private System.Windows.Forms.Label albumTitle;
     }
 }
 
