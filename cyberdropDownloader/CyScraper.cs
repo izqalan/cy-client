@@ -17,12 +17,14 @@ namespace cyberdropDownloader
         private DownloadService downloader;
         public string itemName;
         ListBox listBox;
-        public CyScraper(TextBox url, String path, DownloadService downloader, ListBox listBox)
+        Label albumLabel;
+        public CyScraper(TextBox url, String path, DownloadService downloader, ListBox listBox, Label albumLabel)
         {
             this.url = url;
             this.dest = path;
             this.downloader = downloader;
             this.listBox = listBox;
+            this.albumLabel = albumLabel;
         }
 
         public CyScraper()
@@ -105,6 +107,10 @@ namespace cyberdropDownloader
                 }
 
                 listBox.Items.Insert(0, "Album: " + title);
+                if (title != null)
+                {
+                    albumLabel.Text = "Downloading: " + title;
+                }
                 foreach (HtmlNode link in htmlDoc.DocumentNode.SelectNodes("//a[@class='image'][@href]"))
                 {
                     i++;

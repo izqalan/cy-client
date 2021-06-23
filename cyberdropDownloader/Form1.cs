@@ -78,7 +78,7 @@ namespace cyberdropDownloader
                 {
                     throw new System.ArgumentException("URL cannot be null");
                 }
-                var scraper = new CyScraper(urlBox, this.path, this.downloader, listBox1);
+                var scraper = new CyScraper(urlBox, this.path, this.downloader, listBox1, albumTitle);
                 scraper.StartAsync();
             }
             catch (Exception ex)
