@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net5.0</TargetFramework>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Remove="Assets\duck15.png" />
+    <None Remove="Assets\duck24.png" />
+    <None Remove="Assets\folder.png" />
+    <None Remove="duck.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <AvaloniaResource Include="Assets\duck15.png" />
+    <AvaloniaResource Include="Assets\duck24.png" />
+    <AvaloniaResource Include="Assets\folder.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\duck.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Avalonia" Version="0.10.6" />
+    <PackageReference Include="Avalonia.Desktop" Version="0.10.6" />
+    <PackageReference Include="Avalonia.Diagnostics" Version="0.10.6" />
+   </ItemGroup>
+</Project>
