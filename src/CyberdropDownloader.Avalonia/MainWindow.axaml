@@ -7,37 +7,35 @@
         Width="523" Height="342"
         x:Class="CyberdropDownloader.Avalonia.MainWindow"
         Title="CyberdropDownloader.Avalonia">
-  
-  <Grid Background="{DynamicResource MainGridBackground}">
-    <Grid.RowDefinitions>
-      <RowDefinition Height="23"/>
-    </Grid.RowDefinitions>
 
-    <!-- Title bar-->
-    <Panel Grid.Row="0"
-           Background="{DynamicResource TitleBarBackground}"
-           HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+    <Grid Background="{DynamicResource MainGridBackground}">
+      <Grid.RowDefinitions>
+        <RowDefinition Height="23"/>
+      </Grid.RowDefinitions>
 
-      <StackPanel Orientation="Horizontal"
-                  HorizontalAlignment="Left" VerticalAlignment="Stretch">
-        
-        <Image Source="avares://CyberdropDownloader.Avalonia/Assets/duck15.png"
-               Margin="14 0 0 0"
-               HorizontalAlignment="Left" VerticalAlignment="Center"/>
+      <!-- Title bar-->
+      <Panel Grid.Row="0"
+             Background="{DynamicResource TitleBarBackground}"
+             HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
 
-        <Label Content="cy client"
-               Foreground="{DynamicResource MainLabelForeground}"
-               FontSize="12" FontFamily="Microsoft Sans Serif" FontWeight="Normal"
-               HorizontalContentAlignment="Left" VerticalContentAlignment="Bottom"
-               HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
-      </StackPanel>
+        <StackPanel Orientation="Horizontal"
+                    HorizontalAlignment="Left" VerticalAlignment="Stretch">
 
-      <StackPanel Orientation="Horizontal"
-                  HorizontalAlignment="Right" VerticalAlignment="Stretch">
+          <Image Classes="LogoImage"/>
 
-        <Button Classes="MinimizeButton" Width="26"/>
-        <Button Classes="ExitButton" Width="26"/>
-      </StackPanel>
-    </Panel>
-  </Grid>
+          <Label Content="cy client"
+                 Foreground="{DynamicResource MainLabelForeground}"
+                 FontSize="12" FontFamily="Microsoft Sans Serif" FontWeight="Normal"
+                 HorizontalContentAlignment="Left" VerticalContentAlignment="Bottom"
+                 HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal"
+                    HorizontalAlignment="Right" VerticalAlignment="Stretch">
+
+          <Button Classes="MinimizeButton" Width="26"/>
+          <Button Classes="ExitButton" Width="26"/>
+        </StackPanel>
+      </Panel>
+    </Grid>
 </Window>
