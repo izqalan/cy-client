@@ -7,11 +7,6 @@
         Width="523" Height="342"
         x:Class="CyberdropDownloader.Avalonia.MainWindow"
         Title="CyberdropDownloader.Avalonia">
-
-
-  <Window.Styles>
-      <StyleInclude Source="/ColorScheme.axaml"/>
-  </Window.Styles>
   
   <Grid Background="{DynamicResource MainGridBackground}">
     <Grid.RowDefinitions>

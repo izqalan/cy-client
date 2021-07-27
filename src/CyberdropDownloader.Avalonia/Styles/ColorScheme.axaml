@@ -1,13 +1,21 @@
 ﻿<Styles xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     
-    <!-- Add Styles Here -->
   <Style>
     <Style.Resources>
       <SolidColorBrush x:Key="MainLabelForeground" Color="#DCDDDE"/>
       <SolidColorBrush x:Key="TitleBarBackground" Color="#202225"/>
       <SolidColorBrush x:Key="MainGridBackground" Color="#36393F"/>
+
+      <!-- Exit button ColorScheme -->
       <SolidColorBrush x:Key="ExitButtonBackground" Color="#ed4245"/>
+      <SolidColorBrush x:Key="ExitButtonMouseOver" Color="#cb1317"/>
+      <SolidColorBrush x:Key="ExitButtonForeground" Color="#DCDDDE"/>
+
+      <!-- Minizine button ColorScheme -->
+      <SolidColorBrush x:Key="MinimizeButtonBackground" Color="#202225"/>
+      <SolidColorBrush x:Key="MinimizeButtonMouseOver" Color="#26282c"/>
+      <SolidColorBrush x:Key="MinimizeButtonForeground" Color="#DCDDDE"/>
     </Style.Resources>
   </Style>
 </Styles>

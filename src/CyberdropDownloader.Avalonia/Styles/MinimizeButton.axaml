@@ -1,17 +1,12 @@
 ﻿<Styles xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Design.PreviewWith>
+      <!-- Preview of minimize button -->
       <Button Classes="MinimizeButton" Height="23" Width="26"/>
     </Design.PreviewWith>
 
   <!-- Default Exit button style -->
   <Style Selector="Button.MinimizeButton">
-    <Style.Resources>
-      <SolidColorBrush x:Key="MinimizeButtonBackground" Color="#202225"/>
-      <SolidColorBrush x:Key="MinimizeButtonMouseOver" Color="#26282c"/>
-      <SolidColorBrush x:Key="MinimizeButtonForeground" Color="#DCDDDE"/>
-    </Style.Resources>
-
     <Setter Property="FontSize" Value="8.5"/>
     <Setter Property="FontFamily" Value="Microsoft Sans Serif"/>
     <Setter Property="FontWeight" Value="Normal"/>

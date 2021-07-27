@@ -3,9 +3,13 @@
              x:Class="CyberdropDownloader.Avalonia.App">
   
   <Application.Styles>
+    <!-- Redundant -->
     <FluentTheme Mode="Light"/>
-    <StyleInclude Source="avares://CyberdropDownloader.Avalonia/Styles/ExitButton.axaml"/>
-    <StyleInclude Source="avares://CyberdropDownloader.Avalonia/Styles/MinimizeButton.axaml"/>
 
+    <!-- Color scheme for whole application -->
+    <StyleInclude Source="avares://CyberdropDownloader.Avalonia/Styles/ColorScheme.axaml"/>
+
+    <!-- All custom control styles -->
+    <StyleInclude Source="avares://CyberdropDownloader.Avalonia/Styles/Controls.axaml"/>
   </Application.Styles>
 </Application>

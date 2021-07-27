@@ -7,12 +7,6 @@
 
   <!-- Default Exit button style -->
   <Style Selector="Button.ExitButton">
-    <Style.Resources>
-      <SolidColorBrush x:Key="ExitButtonBackground" Color="#ed4245"/>
-      <SolidColorBrush x:Key="ExitButtonMouseOver" Color="#cb1317"/>
-      <SolidColorBrush x:Key="ExitButtonForeground" Color="#DCDDDE"/>
-    </Style.Resources>
-    
     <Setter Property="FontSize" Value="9"/>
     <Setter Property="FontFamily" Value="Microsoft Sans Serif"/>
     <Setter Property="FontWeight" Value="Normal"/>
