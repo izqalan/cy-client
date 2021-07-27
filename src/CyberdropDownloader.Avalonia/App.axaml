@@ -5,5 +5,7 @@
   <Application.Styles>
     <FluentTheme Mode="Light"/>
     <StyleInclude Source="avares://CyberdropDownloader.Avalonia/Styles/ExitButton.axaml"/>
+    <StyleInclude Source="avares://CyberdropDownloader.Avalonia/Styles/MinimizeButton.axaml"/>
+
   </Application.Styles>
 </Application>
