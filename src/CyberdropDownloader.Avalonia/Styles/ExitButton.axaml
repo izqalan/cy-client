@@ -1,0 +1,36 @@
+﻿<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Design.PreviewWith>
+      <!-- Preview of exit button -->
+      <Button Classes="Exit" Height="50" Width="50" />
+    </Design.PreviewWith>
+
+  <!-- Default Exit button style -->
+  <Style Selector="Button.ExitButton">
+    <Style.Resources>
+      <SolidColorBrush x:Key="ExitButtonBackground" Color="#ed4245"/>
+      <SolidColorBrush x:Key="ExitButtonMouseOver" Color="#cb1317"/>
+      <SolidColorBrush x:Key="ExitButtonForeground" Color="#DCDDDE"/>
+    </Style.Resources>
+    
+    <Setter Property="FontSize" Value="9.2"/>
+    <Setter Property="FontFamily" Value="Microsoft Sans Serif"/>
+    <Setter Property="FontWeight" Value="Normal"/>
+    
+    <Setter Property="Content" Value="X"/>
+    
+    <Setter Property="Background" Value="{DynamicResource ExitButtonBackground}"/>
+    <Setter Property="Foreground" Value="{DynamicResource ExitButtonForeground}"/>
+    
+    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+    <Setter Property="VerticalContentAlignment" Value="Center"/>
+    <Setter Property="HorizontalAlignment" Value="Stretch"/>
+    <Setter Property="VerticalAlignment" Value="Stretch"/>
+  </Style>
+
+  <!-- Exit button when hovered -->
+  <Style Selector="Button.ExitButton:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+    <Setter Property="Background" Value="{DynamicResource ExitButtonMouseOver}"/>
+    <Setter Property="TextBlock.Foreground" Value="{DynamicResource ExitButtonForeground}"/>
+  </Style>
+</Styles>
