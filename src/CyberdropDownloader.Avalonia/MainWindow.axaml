@@ -22,12 +22,7 @@
                     HorizontalAlignment="Left" VerticalAlignment="Stretch">
 
           <Image Classes="LogoImage"/>
-
-          <Label Content="cy client"
-                 Foreground="{DynamicResource MainLabelForeground}"
-                 FontSize="12" FontFamily="Microsoft Sans Serif" FontWeight="Normal"
-                 HorizontalContentAlignment="Left" VerticalContentAlignment="Bottom"
-                 HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+          <Label Classes="TitleLabel"/>
         </StackPanel>
 
         <StackPanel Orientation="Horizontal"

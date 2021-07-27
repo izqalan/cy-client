@@ -16,6 +16,9 @@
       <SolidColorBrush x:Key="MinimizeButtonBackground" Color="#202225"/>
       <SolidColorBrush x:Key="MinimizeButtonMouseOver" Color="#26282c"/>
       <SolidColorBrush x:Key="MinimizeButtonForeground" Color="#DCDDDE"/>
+
+      <!-- Title Label ColorScheme -->
+      <SolidColorBrush x:Key="TitleLabelForeground" Color="#DCDDDE"/>
     </Style.Resources>
   </Style>
 </Styles>

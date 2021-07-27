@@ -4,4 +4,5 @@
   <StyleInclude Source="avares://CyberdropDownloader.Avalonia/Styles/ExitButton.axaml"/>
   <StyleInclude Source="avares://CyberdropDownloader.Avalonia/Styles/MinimizeButton.axaml"/>
   <StyleInclude Source="avares://CyberdropDownloader.Avalonia/Styles/LogoImage.axaml"/>
+  <StyleInclude Source="avares://CyberdropDownloader.Avalonia/Styles/TitleLabel.axaml"/>
 </Styles>

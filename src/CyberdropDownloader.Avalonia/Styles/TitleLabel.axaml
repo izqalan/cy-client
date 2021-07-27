@@ -1,0 +1,22 @@
+﻿<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <Design.PreviewWith>
+    <Label Classes="TitleLabel"/>
+  </Design.PreviewWith>
+
+  <!-- Title label style -->
+  <Style Selector="Label.TitleLabel">
+    <Setter Property="Foreground" Value="{DynamicResource TitleLabelForeground}"/>
+    
+    <Setter Property="FontSize" Value="12"/>
+    <Setter Property="FontFamily" Value="Microsoft Sans Serif"/>
+    <Setter Property="FontWeight" Value="Normal"/>
+    
+    <Setter Property="Content" Value="cy client"/>
+    
+    <Setter Property="HorizontalContentAlignment" Value="Left"/>
+    <Setter Property="VerticalContentAlignment" Value="Bottom"/>
+    <Setter Property="HorizontalAlignment" Value="Stretch"/>
+    <Setter Property="VerticalAlignment" Value="Stretch"/>
+  </Style>
+</Styles>
