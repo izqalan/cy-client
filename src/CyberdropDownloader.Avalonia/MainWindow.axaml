@@ -15,7 +15,7 @@
   
   <Grid Background="{DynamicResource MainGridBackground}">
     <Grid.RowDefinitions>
-      <RowDefinition Height="22"/>
+      <RowDefinition Height="23"/>
     </Grid.RowDefinitions>
 
     <!-- Title bar-->
@@ -40,32 +40,9 @@
       <StackPanel Orientation="Horizontal"
                   HorizontalAlignment="Right" VerticalAlignment="Stretch">
 
-        <Button Name="MinimizeButton"
-                Foreground="{DynamicResource MainLabelForeground}"
-                FontSize="9.2" FontFamily="Microsoft Sans Serif" FontWeight="Normal"
-                Content="_"
-                Background="{DynamicResource TitleBarBackground}"
-                HorizontalContentAlignment="Center" VerticalContentAlignment="Stretch"
-                HorizontalAlignment="Center" VerticalAlignment="Stretch"/>
-
-        <Button Name="ExitButton"
-                Foreground="{DynamicResource MainLabelForeground}"
-                FontSize="9.2" FontFamily="Microsoft Sans Serif" FontWeight="Normal"
-                Content="X" ClickMode="Release" Template="{DynamicResource bruh}"
-                Background="{DynamicResource ExitButtonBackground}"
-                HorizontalContentAlignment="Center" VerticalContentAlignment="Stretch"
-                HorizontalAlignment="Center" VerticalAlignment="Stretch">
- 
-          <Button.Styles>
-              <Style Selector=":pointerover /template/ ContentPresenter#PART_ContentPresenter">
-                <Setter Property="Background" Value="Green"/>
-                <Setter Property="TextBlock.Foreground" Value="{DynamicResource MainLabelForeground}"/>
-              </Style>
-          </Button.Styles>
-        </Button>
+        <Button Classes="MinimizeButton" Width="26"/>
+        <Button Classes="ExitButton" Width="26"/>
       </StackPanel>
     </Panel>
-    
-    
   </Grid>
 </Window>
