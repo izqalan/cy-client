@@ -1,7 +1,5 @@
 using Avalonia;
-using Avalonia.Controls;
-using Avalonia.Controls.ApplicationLifetimes;
-using System;
+using Avalonia.ReactiveUI;
 
 namespace CyberdropDownloader.Avalonia
 {
@@ -17,6 +15,7 @@ namespace CyberdropDownloader.Avalonia
         public static AppBuilder BuildAvaloniaApp()
             => AppBuilder.Configure<App>()
                 .UsePlatformDetect()
-                .LogToTrace();
+                .LogToTrace()
+                .UseReactiveUI();
     }
 }

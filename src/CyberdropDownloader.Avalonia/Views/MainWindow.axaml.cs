@@ -1,9 +1,8 @@
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
-using Avalonia.Platform;
 
-namespace CyberdropDownloader.Avalonia
+namespace CyberdropDownloader.Avalonia.Views
 {
     public partial class MainWindow : Window
     {
@@ -17,9 +16,6 @@ namespace CyberdropDownloader.Avalonia
 
         private void InitializeComponent()
         {
-            ExtendClientAreaToDecorationsHint = true;
-            ExtendClientAreaChromeHints = ExtendClientAreaChromeHints.NoChrome;
-            ExtendClientAreaTitleBarHeightHint = -1;
             AvaloniaXamlLoader.Load(this);
         }
     }
