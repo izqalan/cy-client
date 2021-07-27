@@ -5,7 +5,7 @@
       <Button Classes="ExitButton" Height="22" Width="26" />
     </Design.PreviewWith>
 
-  <!-- Default Exit button style -->
+  <!-- Exit button style -->
   <Style Selector="Button.ExitButton">
     <Setter Property="FontSize" Value="9"/>
     <Setter Property="FontFamily" Value="Microsoft Sans Serif"/>

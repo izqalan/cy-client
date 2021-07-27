@@ -5,7 +5,7 @@
       <Button Classes="MinimizeButton" Height="23" Width="26"/>
     </Design.PreviewWith>
 
-  <!-- Default Exit button style -->
+  <!-- Minimize button style -->
   <Style Selector="Button.MinimizeButton">
     <Setter Property="FontSize" Value="8.5"/>
     <Setter Property="FontFamily" Value="Microsoft Sans Serif"/>
@@ -22,7 +22,7 @@
     <Setter Property="VerticalAlignment" Value="Stretch"/>
   </Style>
 
-  <!-- Exit button when hovered -->
+  <!-- Minimize button when hovered -->
   <Style Selector="Button.MinimizeButton:pointerover /template/ ContentPresenter#PART_ContentPresenter">
     <Setter Property="Background" Value="{DynamicResource MinimizeButtonMouseOver}"/>
     <Setter Property="TextBlock.Foreground" Value="{DynamicResource MinimizeButtonForeground}"/>
