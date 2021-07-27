@@ -2,7 +2,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Design.PreviewWith>
       <!-- Preview of exit button -->
-      <Button Classes="ExitButton" Height="50" Width="50" />
+      <Button Classes="ExitButton" Height="22" Width="26" />
     </Design.PreviewWith>
 
   <!-- Default Exit button style -->
@@ -13,7 +13,7 @@
       <SolidColorBrush x:Key="ExitButtonForeground" Color="#DCDDDE"/>
     </Style.Resources>
     
-    <Setter Property="FontSize" Value="9.2"/>
+    <Setter Property="FontSize" Value="9"/>
     <Setter Property="FontFamily" Value="Microsoft Sans Serif"/>
     <Setter Property="FontWeight" Value="Normal"/>
     
