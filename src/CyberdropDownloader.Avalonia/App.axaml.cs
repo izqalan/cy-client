@@ -25,8 +25,6 @@ namespace CyberdropDownloader.Avalonia
                     ExtendClientAreaChromeHints = ExtendClientAreaChromeHints.NoChrome,
                     ExtendClientAreaTitleBarHeightHint = -1,
                     #endregion
-
-                    DataContext = new MainWindowViewModel()
                 };
             }
 
