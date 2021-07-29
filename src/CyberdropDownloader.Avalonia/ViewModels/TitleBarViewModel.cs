@@ -1,4 +1,5 @@
-﻿using Avalonia.Controls;
+﻿using Avalonia;
+using Avalonia.Controls;
 using Avalonia.Input;
 using ReactiveUI;
 using System.Reactive;
@@ -9,6 +10,10 @@ namespace CyberdropDownloader.Avalonia.ViewModels
     {
         private readonly Window _mainWindow;
         private readonly DockPanel _titleBar;
+
+        private bool _isPointerPressed;
+        private PixelPoint _windowPosition;
+        private Point _mouseOffset;
 
         public TitleBarViewModel(Window mainWindow, DockPanel titleBar)
         {
@@ -29,17 +34,26 @@ namespace CyberdropDownloader.Avalonia.ViewModels
         private void CloseWindow() => _mainWindow.Close();
         private void MinimizeWindow() => _mainWindow.WindowState = WindowState.Minimized;
 
-        private void TitleBar_PointerReleased(object? sender, PointerReleasedEventArgs e)
-        {
-            throw new System.NotImplementedException();
-        }
-        private void TitleBar_PointerMoved(object? sender, PointerEventArgs e)
-        {
-            throw new System.NotImplementedException();
-        }
         private void TitleBar_PointerPressed(object? sender, PointerPressedEventArgs e)
         {
-            throw new System.NotImplementedException();
+            _mouseOffset = e.GetPosition(_titleBar);
+            _windowPosition = _mainWindow.Position;
+            _isPointerPressed = true;
+        }
+
+        private void TitleBar_PointerMoved(object? sender, PointerEventArgs e)
+        {
+            if (_isPointerPressed)
+            {
+                var tempPosition = e.GetPosition(_titleBar);
+                _windowPosition = new PixelPoint((int)(_windowPosition.X + tempPosition.X - _mouseOffset.X), (int)(_windowPosition.Y + tempPosition.Y - _mouseOffset.Y));
+                _mainWindow.Position = _windowPosition;
+            }
+        }
+
+        private void TitleBar_PointerReleased(object? sender, PointerReleasedEventArgs e)
+        {
+            _isPointerPressed = false;
         }
     }
 }
