@@ -8,7 +8,7 @@
   </Application.DataTemplates>
 
   <Application.Styles>
-    <!-- Redundant -->
+    <!-- Redundant, but don't remove -->
     <FluentTheme Mode="Light"/>
 
     <!-- Color scheme for whole application -->
