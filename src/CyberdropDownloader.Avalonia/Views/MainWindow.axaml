@@ -3,24 +3,15 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:vm="using:CyberdropDownloader.Avalonia.ViewModels"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="523" d:DesignHeight="342" Width="523" Height="342"
+        mc:Ignorable="d" 
+        d:DesignWidth="523" d:DesignHeight="342" Width="523" Height="342"
         x:Class="CyberdropDownloader.Avalonia.Views.MainWindow"
         Title="MainWindow">
 
-  <Window.DataContext>
-    <vm:MainWindowViewModel/>
-  </Window.DataContext>
-
-  <Grid Background="{DynamicResource MainGridBackground}">
-    <Grid.RowDefinitions>
-      <RowDefinition Height="23"/>
-    </Grid.RowDefinitions>
-
-    <!-- Title bar -->
-    <Panel Grid.Row="0" Classes="TitleBar">
-
+  <StackPanel>
+    <DockPanel Classes="TitleBar" x:Name="TitleBar">
       <StackPanel Orientation="Horizontal"
-                  HorizontalAlignment="Left" VerticalAlignment="Stretch">
+                 HorizontalAlignment="Left" VerticalAlignment="Stretch">
 
         <Image Classes="LogoImage"/>
         <Label Classes="TitleLabel"/>
@@ -29,11 +20,9 @@
       <StackPanel Orientation="Horizontal"
                   HorizontalAlignment="Right" VerticalAlignment="Stretch">
 
-        <Button Classes="MinimizeButton" Width="26"/>
-        <Button Classes="ExitButton" Width="26"/>
+        <Button Classes="MinimizeButton" Command="{Binding MinimizeCommand}"/>
+        <Button Classes="ExitButton" Command="{Binding QuitCommand}"/>
       </StackPanel>
-    </Panel>
-    
-    
-  </Grid>
+    </DockPanel>
+  </StackPanel>
 </Window>
