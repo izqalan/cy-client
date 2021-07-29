@@ -3,7 +3,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:vm="using:CyberdropDownloader.Avalonia.ViewModels"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        mc:Ignorable="d" d:DesignWidth="523" d:DesignHeight="342" Width="523" Height="342"
         x:Class="CyberdropDownloader.Avalonia.Views.MainWindow"
         Title="MainWindow">
 
@@ -16,10 +16,8 @@
       <RowDefinition Height="23"/>
     </Grid.RowDefinitions>
 
-    <!-- Title bar-->
-    <Panel Grid.Row="0"
-           Background="{DynamicResource TitleBarBackground}"
-           HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+    <!-- Title bar -->
+    <Panel Grid.Row="0" Classes="TitleBar">
 
       <StackPanel Orientation="Horizontal"
                   HorizontalAlignment="Left" VerticalAlignment="Stretch">
@@ -35,5 +33,7 @@
         <Button Classes="ExitButton" Width="26"/>
       </StackPanel>
     </Panel>
+    
+    
   </Grid>
 </Window>

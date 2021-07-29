@@ -1,8 +1,16 @@
 ﻿<Styles xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
+  <!-- Buttons -->
   <StyleInclude Source="avares://CyberdropDownloader.Avalonia/Styles/ExitButton.axaml"/>
   <StyleInclude Source="avares://CyberdropDownloader.Avalonia/Styles/MinimizeButton.axaml"/>
+
+  <!-- Images -->
   <StyleInclude Source="avares://CyberdropDownloader.Avalonia/Styles/LogoImage.axaml"/>
+
+  <!-- Labels -->
   <StyleInclude Source="avares://CyberdropDownloader.Avalonia/Styles/TitleLabel.axaml"/>
+
+  <!-- Panels -->
+  <StyleInclude Source="avares://CyberdropDownloader.Avalonia/Styles/TitleBar.axaml"/>
 </Styles>

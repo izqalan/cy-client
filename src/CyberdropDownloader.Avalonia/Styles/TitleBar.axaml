@@ -1,0 +1,11 @@
+﻿<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  
+  <!-- TitleBar panel style -->
+  <Style Selector="Panel.TitleBar">
+    <Setter Property="Background" Value="{DynamicResource TitleBarBackground}"/>
+    
+    <Setter Property="HorizontalAlignment" Value="Stretch"/>
+    <Setter Property="VerticalAlignment" Value="Stretch"/>
+  </Style>
+</Styles>
