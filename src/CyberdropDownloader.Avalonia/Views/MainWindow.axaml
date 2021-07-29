@@ -8,7 +8,7 @@
         x:Class="CyberdropDownloader.Avalonia.Views.MainWindow"
         Title="MainWindow">
 
-  <StackPanel>
+  <StackPanel Background="{DynamicResource MainWindowBackground}">
     <DockPanel Classes="TitleBar" x:Name="TitleBar" DataContext="{Binding TitleBar}">
       <StackPanel Orientation="Horizontal"
                  HorizontalAlignment="Left" VerticalAlignment="Stretch">

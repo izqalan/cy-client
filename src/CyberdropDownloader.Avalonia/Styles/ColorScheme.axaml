@@ -5,7 +5,7 @@
     <Style.Resources>
       <SolidColorBrush x:Key="MainLabelForeground" Color="#DCDDDE"/>
       <SolidColorBrush x:Key="TitleBarBackground" Color="#202225"/>
-      <SolidColorBrush x:Key="MainGridBackground" Color="#36393F"/>
+      <SolidColorBrush x:Key="MainWindowBackground" Color="#36393F"/>
 
       <!-- Exit button ColorScheme -->
       <SolidColorBrush x:Key="ExitButtonBackground" Color="#ed4245"/>
