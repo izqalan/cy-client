@@ -9,7 +9,7 @@
         Title="MainWindow">
 
   <StackPanel>
-    <DockPanel Classes="TitleBar" x:Name="TitleBar">
+    <DockPanel Classes="TitleBar" x:Name="TitleBar" DataContext="{Binding TitleBar}">
       <StackPanel Orientation="Horizontal"
                  HorizontalAlignment="Left" VerticalAlignment="Stretch">
 
