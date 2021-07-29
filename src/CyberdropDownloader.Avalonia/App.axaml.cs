@@ -2,7 +2,6 @@ using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using Avalonia.Platform;
-using CyberdropDownloader.Avalonia.ViewModels;
 using CyberdropDownloader.Avalonia.Views;
 
 namespace CyberdropDownloader.Avalonia
