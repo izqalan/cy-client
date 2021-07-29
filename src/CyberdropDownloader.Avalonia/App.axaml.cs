@@ -1,6 +1,7 @@
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
+using Avalonia.Platform;
 using CyberdropDownloader.Avalonia.ViewModels;
 using CyberdropDownloader.Avalonia.Views;
 
@@ -19,6 +20,12 @@ namespace CyberdropDownloader.Avalonia
             {
                 desktop.MainWindow = new MainWindow()
                 {
+                    #region Disable Native TitleBar
+                    ExtendClientAreaToDecorationsHint = true,
+                    ExtendClientAreaChromeHints = ExtendClientAreaChromeHints.NoChrome,
+                    ExtendClientAreaTitleBarHeightHint = -1,
+                    #endregion
+
                     DataContext = new MainWindowViewModel()
                 };
             }
