@@ -3,26 +3,29 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:vm="using:CyberdropDownloader.Avalonia.ViewModels"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" 
+        mc:Ignorable="d"
         d:DesignWidth="523" d:DesignHeight="342" Width="523" Height="342"
         x:Class="CyberdropDownloader.Avalonia.Views.MainWindow"
         Title="MainWindow">
 
   <StackPanel Background="{DynamicResource MainWindowBackground}">
-    <DockPanel Classes="TitleBar" x:Name="TitleBar" DataContext="{Binding TitleBar}">
-      <StackPanel Orientation="Horizontal"
-                 HorizontalAlignment="Left" VerticalAlignment="Stretch">
-
-        <Image Classes="LogoImage"/>
-        <Label Classes="TitleLabel"/>
+    <!-- Title Bar -->
+    <DockPanel Classes="TitleBar" x:Name="TitleBar">
+      <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Stretch">
+        <Image Classes="TitleBarLogo"/>
+        <Label Classes="TitleBarLabel"/>
       </StackPanel>
 
-      <StackPanel Orientation="Horizontal"
-                  HorizontalAlignment="Right" VerticalAlignment="Stretch">
-
-        <Button Classes="MinimizeButton" Command="{Binding MinimizeCommand}"/>
-        <Button Classes="ExitButton" Command="{Binding QuitCommand}"/>
+      <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Stretch">
+        <Button Classes="MinimizeButton"/>
+        <Button Classes="ExitButton"/>
       </StackPanel>
     </DockPanel>
+
+    <!-- Input Box -->
+    <StackPanel Classes="UrlInput">
+      <Label Classes="UrlInputLabel"/>
+      <TextBox Classes="UrlInputBox"/>
+    </StackPanel>
   </StackPanel>
 </Window>
