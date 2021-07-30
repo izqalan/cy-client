@@ -146,7 +146,6 @@ namespace cyberdropDownloader
 
         public async Task StartAsync()
         {
-            
             try
             {
                 for (int i = 0; i < url.Lines.Length; i++)
