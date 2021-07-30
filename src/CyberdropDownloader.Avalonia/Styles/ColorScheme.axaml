@@ -12,7 +12,7 @@
       <SolidColorBrush x:Key="ExitButtonMouseOver" Color="#e92528"/>
       <SolidColorBrush x:Key="ExitButtonForeground" Color="#DCDDDE"/>
 
-      <!-- Minizine button ColorScheme -->
+      <!-- Minimize button ColorScheme -->
       <SolidColorBrush x:Key="MinimizeButtonBackground" Color="#202225"/>
       <SolidColorBrush x:Key="MinimizeButtonMouseOver" Color="#26282c"/>
       <SolidColorBrush x:Key="MinimizeButtonForeground" Color="#DCDDDE"/>
@@ -20,6 +20,9 @@
       <!-- TitleBar ColorScheme -->
       <SolidColorBrush x:Key="TitleBarLabelForeground" Color="#DCDDDE"/>
       <SolidColorBrush x:Key="TitleBarBackground" Color="#202225"/>
+
+      <!-- UrlInput ColorScheme -->
+      <SolidColorBrush x:Key="UrlInputForeground" Color="#FFFFFF"/>
     </Style.Resources>
   </Style>
 </Styles>
