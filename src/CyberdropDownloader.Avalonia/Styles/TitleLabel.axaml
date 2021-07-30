@@ -6,11 +6,11 @@
 
   <!-- Title label style -->
   <Style Selector="Label.TitleLabel">
-    <Setter Property="Foreground" Value="{DynamicResource TitleLabelForeground}"/>
+    <Setter Property="Foreground" Value="{DynamicResource TitleBarLabelForeground}"/>
     
-    <Setter Property="FontSize" Value="12"/>
+    <Setter Property="FontSize" Value="11"/>
     <Setter Property="FontFamily" Value="Microsoft Sans Serif"/>
-    <Setter Property="FontWeight" Value="Normal"/>
+    <Setter Property="FontWeight" Value="Thin"/>
     
     <Setter Property="Content" Value="cy client"/>
     
