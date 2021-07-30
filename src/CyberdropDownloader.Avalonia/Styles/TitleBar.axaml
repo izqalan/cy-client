@@ -1,7 +1,7 @@
 ﻿<Styles xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-  
-  <!-- TitleBar panel style -->
+
+  <!-- TitleBar -->
   <Style Selector="DockPanel.TitleBar">
     <Setter Property="Background" Value="{DynamicResource TitleBarBackground}"/>
 
@@ -11,5 +11,37 @@
     <Setter Property="IsHitTestVisible" Value="True"/>
 
     <Setter Property="Height" Value="23"/>
+
+    <Setter Property="DataContext" Value="{Binding TitleBar}"/>
   </Style>
+
+  <!-- TitleBar Title Label -->
+  <Style Selector="Label.TitleBarLabel">
+    <Setter Property="Foreground" Value="{DynamicResource TitleBarLabelForeground}"/>
+
+    <Setter Property="FontSize" Value="11"/>
+    <Setter Property="FontFamily" Value="Microsoft Sans Serif"/>
+    <Setter Property="FontWeight" Value="Thin"/>
+
+    <Setter Property="Content" Value="cy client"/>
+
+    <Setter Property="HorizontalContentAlignment" Value="Left"/>
+    <Setter Property="VerticalContentAlignment" Value="Bottom"/>
+    <Setter Property="HorizontalAlignment" Value="Stretch"/>
+    <Setter Property="VerticalAlignment" Value="Stretch"/>
+  </Style>
+
+  <!-- TitleBar Logo -->
+  <Style Selector="Image.TitleBarLogo">
+    <Setter Property="Source" Value="avares://CyberdropDownloader.Avalonia/Assets/duck15.png"/>
+
+    <Setter Property="Margin" Value="13 0 0 0"/>
+
+    <Setter Property="HorizontalAlignment" Value="Left"/>
+    <Setter Property="VerticalAlignment" Value="Center"/>
+
+    <Setter Property="Height" Value="16"/>
+    <Setter Property="Width" Value="15"/>
+  </Style>
+  
 </Styles>
