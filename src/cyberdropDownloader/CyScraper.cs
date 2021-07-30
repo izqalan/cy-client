@@ -127,7 +127,7 @@ namespace cyberdropDownloader
                         }
                         catch(Exception timeout)
                         {
-                            listBox.Items.Insert(0, "[File Failed] [SKIP]" + itemName);
+                            listBox.Items.Insert(0, "[File Failed] [SKIP]: " + itemName);
                             continue;
                         }
                     }
