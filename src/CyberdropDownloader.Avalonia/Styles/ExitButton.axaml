@@ -24,6 +24,8 @@
     <Setter Property="IsHitTestVisible" Value="True"/>
 
     <Setter Property="Width" Value="26"/>
+    
+    <Setter Property="Command" Value="{Binding QuitCommand}"/> 
   </Style>
 
   <!-- Exit button when hovered -->
