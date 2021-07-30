@@ -1,0 +1,31 @@
+﻿<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  
+  <!-- UrlInput -->
+  <Style Selector="StackPanel.UrlInput">
+    <Setter Property="Margin" Value="27 5 27 0"/>
+  </Style>
+
+  <!-- UrlInput Label -->
+  <Style Selector="Label.UrlInputLabel">
+    <Setter Property="Content" Value="URL"/>
+    
+    <Setter Property="FontFamily" Value="Verdana"/>
+    <Setter Property="FontWeight" Value="Bold"/>
+    <Setter Property="FontSize" Value="12"/>
+    
+    <Setter Property="Foreground" Value="{DynamicResource UrlInputForeground}"/>
+  </Style>
+
+  <!-- UrlInput Box -->
+  <Style Selector="TextBox.UrlInputBox">
+    <Setter Property="FontFamily" Value="Microsoft Sans Serif"/>
+    
+    <Setter Property="AcceptsReturn" Value="True"/>
+    <Setter Property="TextWrapping" Value="Wrap"/>
+    
+    <Setter Property="Padding" Value="0"/>
+    <Setter Property="Width" Value="465"/>
+    <Setter Property="Height" Value="61"/>
+  </Style>
+</Styles>
