@@ -8,8 +8,8 @@
       <SolidColorBrush x:Key="MainWindowBackground" Color="#36393F"/>
       
       <!-- Exit button ColorScheme -->
-      <SolidColorBrush x:Key="ExitButtonBackground" Color="#e92528"/>
-      <SolidColorBrush x:Key="ExitButtonMouseOver" Color="#cb1317"/>
+      <SolidColorBrush x:Key="ExitButtonBackground" Color="#ed4245"/>
+      <SolidColorBrush x:Key="ExitButtonMouseOver" Color="#e92528"/>
       <SolidColorBrush x:Key="ExitButtonForeground" Color="#DCDDDE"/>
 
       <!-- Minizine button ColorScheme -->
