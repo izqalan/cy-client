@@ -125,7 +125,7 @@ namespace cyberdropDownloader
                         {
                             await downloader.DownloadFileTaskAsync(url, filepath);
                         }
-                        catch(Exception timeout)
+                        catch(Exception)
                         {
                             listBox.Items.Insert(0, "[File Failed] [SKIP]: " + itemName);
                             continue;
