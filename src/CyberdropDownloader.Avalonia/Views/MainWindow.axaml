@@ -6,7 +6,7 @@
         mc:Ignorable="d"
         d:DesignWidth="523" d:DesignHeight="342" Width="523" Height="342"
         x:Class="CyberdropDownloader.Avalonia.Views.MainWindow"
-        Title="MainWindow">
+        Title="MainWindow" CanResize="False">
 
   <StackPanel Background="{DynamicResource MainWindowBackground}">
     <!-- Title Bar -->
