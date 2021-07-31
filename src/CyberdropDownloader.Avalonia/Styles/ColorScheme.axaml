@@ -22,7 +22,10 @@
       <SolidColorBrush x:Key="TitleBarBackground" Color="#202225"/>
 
       <!-- UrlInput ColorScheme -->
-      <SolidColorBrush x:Key="UrlInputForeground" Color="#FFFFFF"/>
+      <SolidColorBrush x:Key="UrlInputLabelForeground" Color="#FFFFFF"/>
+      <SolidColorBrush x:Key="UrlInputBoxBackground" Color="#202225"/>
+      <SolidColorBrush x:Key="UrlInputBoxForeground" Color="#DCDDDE"/>
+      <SolidColorBrush x:Key="UrlInputBoxCaret" Color="#FFFFFF"/>
     </Style.Resources>
   </Style>
 </Styles>
