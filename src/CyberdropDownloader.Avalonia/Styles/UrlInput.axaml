@@ -1,5 +1,10 @@
 ﻿<Styles xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <Design.PreviewWith>
+    <TextBox Classes="UrlInputBox">
+      
+    </TextBox>  
+  </Design.PreviewWith>
   
   <!-- UrlInput -->
   <Style Selector="StackPanel.UrlInput">
@@ -14,11 +19,17 @@
     <Setter Property="FontWeight" Value="Bold"/>
     <Setter Property="FontSize" Value="12"/>
     
-    <Setter Property="Foreground" Value="{DynamicResource UrlInputForeground}"/>
+    <Setter Property="Foreground" Value="{DynamicResource UrlInputLabelForeground}"/>
   </Style>
 
   <!-- UrlInput Box -->
   <Style Selector="TextBox.UrlInputBox">
+    <Setter Property="Background" Value="{DynamicResource UrlInputBoxBackground}"/>
+    <Setter Property="Foreground" Value="{DynamicResource UrlInputBoxForeground}"/>
+    <Setter Property="CaretBrush" Value="{DynamicResource UrlInputBoxCaret}"/>
+    
+    <Setter Property="BorderThickness" Value="0"/>
+    
     <Setter Property="FontFamily" Value="Microsoft Sans Serif"/>
     
     <Setter Property="AcceptsReturn" Value="True"/>
@@ -27,5 +38,15 @@
     <Setter Property="Padding" Value="0"/>
     <Setter Property="Width" Value="465"/>
     <Setter Property="Height" Value="61"/>
+  </Style>
+
+  <Style Selector="TextBox.UrlInputBox:pointerover /template/ Border#PART_BorderElement">
+    <Setter Property="Background" Value="{DynamicResource UrlInputBoxBackground}"/>
+  </Style>
+
+  <Style Selector="TextBox.UrlInputBox:focus /template/ Border#PART_BorderElement">
+    <Setter Property="Background" Value="{DynamicResource UrlInputBoxBackground}"/>
+    
+    <Setter Property="BorderThickness" Value="0"/>
   </Style>
 </Styles>
