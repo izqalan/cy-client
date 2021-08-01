@@ -1,0 +1,25 @@
+﻿<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+  <!-- OpenFolder Button -->
+  <Style Selector="Button.OpenFolderButton">
+    <Setter Property="Height" Value="23"/>
+    <Setter Property="Width" Value="30"/>
+
+    <Setter Property="Cursor" Value="Hand"/>
+
+    <Setter Property="Padding" Value="0"/>
+    <Setter Property="Margin" Value="0"/>
+
+    <Setter Property="Background" Value="Transparent"/>
+  </Style>
+
+  <!-- OpenFolder Icon -->
+  <Style Selector="Image.OpenFolderIcon">
+    <Setter Property="Source" Value="avares://CyberdropDownloader.Avalonia/Assets/folder.png"/>
+    
+    <Setter Property="Stretch" Value="None"/>
+    
+    <Setter Property="Margin" Value="0"/>
+  </Style>
+</Styles>
