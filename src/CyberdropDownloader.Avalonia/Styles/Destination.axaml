@@ -26,16 +26,42 @@
   </Style>
   
   <Style Selector="TextBox.DestinationTextBox">
+    <Setter Property="Background" Value="{DynamicResource DestinationTextBoxBackground}"/>
+    <Setter Property="Foreground" Value="{DynamicResource DestinationTextBoxForeground}"/>
+    <Setter Property="CaretBrush" Value="{DynamicResource DestinationTextBoxCaret}"/>
+    
+    <Setter Property="Cursor" Value="Hand"/>
+
+    <Setter Property="BorderThickness" Value="0"/>
+
+    <Setter Property="AcceptsReturn" Value="False"/>
+    <Setter Property="TextWrapping" Value="NoWrap"/>
+
     <Setter Property="FontFamily" Value="Microsoft Sans Serif"/>
     <Setter Property="FontSize" Value="13"/>
     <Setter Property="FontWeight" Value="Thin"/>
-    
+
+    <Setter Property="Padding" Value="0"/>
+    <Setter Property="Margin" Value="6 0 4 0"/>
     <Setter Property="Height" Value="16"/>
     <Setter Property="Width" Value="274"/>
     
     <Setter Property="MinHeight" Value="0"/>
     
-    <Setter Property="Padding" Value="0"/>
-    <Setter Property="Margin" Value="6 0 4 0"/>
+    <Setter Property="ToolTip.Tip" Value="Choose file destination"/>
+  </Style>
+
+  <Style Selector="TextBox.DestinationTextBox:pointerover /template/ Border#PART_BorderElement">
+    <Setter Property="Background" Value="{DynamicResource DestinationTextBoxBackground}"/>
+  </Style>
+
+  <Style Selector="TextBox.DestinationTextBox:focus /template/ Border#PART_BorderElement">
+    <Setter Property="Background" Value="{DynamicResource DestinationTextBoxBackground}"/>
+
+    <Setter Property="BorderThickness" Value="0"/>
+  </Style>
+
+  <Style Selector="TextBox.DestinationTextBox /template/ DockPanel#PART_InnerDockPanel">
+    <Setter Property="Cursor" Value="Hand"/>
   </Style>
 </Styles>
