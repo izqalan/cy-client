@@ -29,19 +29,18 @@
     </StackPanel>
 
     <!-- Destination  -->
-    <StackPanel Orientation="Horizontal" Margin="27 8 27 0">
+    <StackPanel Classes="Destination">
       <!-- DestinationLabel -->
-      <Label Content="Destination" FontFamily="Verdana" FontSize="12" Padding="0" Margin="3 0 0 0" Height="13" Width="71" VerticalContentAlignment="Bottom" FontStyle="Normal" HorizontalContentAlignment="Left" Foreground="White" FontWeight="Thin"/>
+      <Label Classes="DestinationLabel"/>
       <!-- DestinationTextBox-->
-      <TextBox Width="274" Height="16" FontFamily="Microsoft Sans Serif" FontWeight="Thin" FontSize="13" MinHeight="0" Padding="0" Margin="6 0 4 0"/>
+      <TextBox Classes="DestinationTextBox"/>
       <!-- OpenFolderButton-->
-      <Button Width="30" Height="23" Cursor="Hand" Padding="0" Background="Transparent" Margin="0">
-        <!-- OpenFolderButtonImage-->
-        <Image Source="avares://CyberdropDownloader.Avalonia/Assets/folder.png" Stretch="None" Margin="0"/>
+      <Button Classes="OpenFolderButton">
+        <Image Classes="OpenFolderIcon"/>
       </Button>
 
       <!-- DownloadButton -->
-      <Button Content="Download" Margin="4 0 0 0" Cursor="Hand" FontFamily="Verdana" FontSize="12" FontWeight="Thin" Padding="0" Width="77" Height="23" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Foreground="White"/>
+      <Button Classes="DownloadButton"/>
     </StackPanel>
   </StackPanel>
 </Window>
