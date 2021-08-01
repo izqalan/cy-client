@@ -1,0 +1,24 @@
+﻿<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+  <!-- Download Button -->
+  <Style Selector="Button.DownloadButton">
+    <Setter Property="Content" Value="Download"/>
+    <Setter Property="Foreground" Value="{DynamicResource DownloadButtonForeground}"/>
+
+    <Setter Property="FontFamily" Value="Verdana"/>
+    <Setter Property="FontSize" Value="12"/>
+    <Setter Property="FontWeight" Value="Thin"/>
+
+    <Setter Property="Padding" Value="0"/>
+    <Setter Property="Margin" Value="4 0 0 0"/>
+
+    <Setter Property="Cursor" Value="Hand"/>
+
+    <Setter Property="Height" Value="23"/>
+    <Setter Property="Width" Value="76"/>
+
+    <Setter Property="VerticalContentAlignment" Value="Center"/>
+    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+  </Style>
+</Styles>
