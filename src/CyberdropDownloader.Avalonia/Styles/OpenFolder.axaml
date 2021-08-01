@@ -12,6 +12,8 @@
     <Setter Property="Margin" Value="0"/>
 
     <Setter Property="Background" Value="Transparent"/>
+
+    <Setter Property="ToolTip.Tip" Value="Open destination folder"/>
   </Style>
 
   <!-- OpenFolder Icon -->
