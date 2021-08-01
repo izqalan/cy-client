@@ -26,6 +26,8 @@
     <Setter Property="Width" Value="26"/>
     
     <Setter Property="Command" Value="{Binding MinimizeCommand}"/>
+
+    <Setter Property="ToolTip.Tip" Value="Minimize cyclient"/>
   </Style>
 
   <!-- Minimize button when hovered -->
