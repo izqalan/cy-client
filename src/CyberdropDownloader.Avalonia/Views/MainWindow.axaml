@@ -30,16 +30,11 @@
 
     <!-- Destination  -->
     <StackPanel Classes="Destination">
-      <!-- DestinationLabel -->
       <Label Classes="DestinationLabel"/>
-      <!-- DestinationTextBox-->
       <TextBox Classes="DestinationTextBox"/>
-      <!-- OpenFolderButton-->
       <Button Classes="OpenFolderButton">
         <Image Classes="OpenFolderIcon"/>
       </Button>
-
-      <!-- DownloadButton -->
       <Button Classes="DownloadButton"/>
     </StackPanel>
   </StackPanel>
