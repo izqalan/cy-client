@@ -120,7 +120,16 @@ namespace cyberdropDownloader
                     if (!File.Exists(filepath))
                     {
                         // download here
-                        await downloader.DownloadFileTaskAsync(url, filepath);
+                        // PATCH FOR GATEWAY TIMEOUT
+                        try
+                        {
+                            await downloader.DownloadFileTaskAsync(url, filepath);
+                        }
+                        catch(Exception)
+                        {
+                            listBox.Items.Insert(0, "[File Failed] [SKIP]: " + itemName);
+                            continue;
+                        }
                     }
                     else
                     {
@@ -137,7 +146,6 @@ namespace cyberdropDownloader
 
         public async Task StartAsync()
         {
-            
             try
             {
                 for (int i = 0; i < url.Lines.Length; i++)
