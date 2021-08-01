@@ -26,6 +26,12 @@
       <SolidColorBrush x:Key="UrlInputTextBoxBackground" Color="#202225"/>
       <SolidColorBrush x:Key="UrlInputTextBoxForeground" Color="#DCDDDE"/>
       <SolidColorBrush x:Key="UrlInputTextBoxCaret" Color="#FFFFFF"/>
+
+      <!-- Destination ColorScheme -->
+      <SolidColorBrush x:Key="DestinationLabelForeground" Color="#FFFFFF"/>
+
+      <!-- DownloadButton ColorScheme -->
+      <SolidColorBrush x:Key="DownloadButtonForeground" Color="#FFFFFF"/>
     </Style.Resources>
   </Style>
 </Styles>
