@@ -9,7 +9,7 @@
 
   <Application.Styles>
     <!-- Redundant, but don't remove -->
-    <FluentTheme Mode="Light"/>
+    <FluentTheme Mode="Dark"/>
 
     <!-- Color scheme for whole application -->
     <StyleInclude Source="avares://CyberdropDownloader.Avalonia/Styles/ColorScheme.axaml"/>
