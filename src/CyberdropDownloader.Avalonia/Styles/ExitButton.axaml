@@ -25,7 +25,9 @@
 
     <Setter Property="Width" Value="26"/>
     
-    <Setter Property="Command" Value="{Binding QuitCommand}"/> 
+    <Setter Property="Command" Value="{Binding QuitCommand}"/>
+
+    <Setter Property="ToolTip.Tip" Value="Close cyclient"/>
   </Style>
 
   <!-- Exit button when hovered -->
