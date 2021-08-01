@@ -22,8 +22,8 @@
     <Setter Property="Foreground" Value="{DynamicResource UrlInputLabelForeground}"/>
   </Style>
 
-  <!-- UrlInput Box -->
-  <Style Selector="TextBox.UrlInputBox">
+  <!-- UrlInput TextBox -->
+  <Style Selector="TextBox.UrlInputTextBox">
     <Setter Property="Background" Value="{DynamicResource UrlInputBoxBackground}"/>
     <Setter Property="Foreground" Value="{DynamicResource UrlInputBoxForeground}"/>
     <Setter Property="CaretBrush" Value="{DynamicResource UrlInputBoxCaret}"/>
@@ -40,11 +40,11 @@
     <Setter Property="Height" Value="61"/>
   </Style>
 
-  <Style Selector="TextBox.UrlInputBox:pointerover /template/ Border#PART_BorderElement">
+  <Style Selector="TextBox.UrlInputTextBox:pointerover /template/ Border#PART_BorderElement">
     <Setter Property="Background" Value="{DynamicResource UrlInputBoxBackground}"/>
   </Style>
 
-  <Style Selector="TextBox.UrlInputBox:focus /template/ Border#PART_BorderElement">
+  <Style Selector="TextBox.UrlInputTextBox:focus /template/ Border#PART_BorderElement">
     <Setter Property="Background" Value="{DynamicResource UrlInputBoxBackground}"/>
     
     <Setter Property="BorderThickness" Value="0"/>
