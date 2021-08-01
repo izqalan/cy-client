@@ -29,6 +29,9 @@
 
       <!-- Destination ColorScheme -->
       <SolidColorBrush x:Key="DestinationLabelForeground" Color="#FFFFFF"/>
+      <SolidColorBrush x:Key="DestinationTextBoxBackground" Color="#202225"/>
+      <SolidColorBrush x:Key="DestinationTextBoxForeground" Color="#DCDDDE"/>
+      <SolidColorBrush x:Key="DestinationTextBoxCaret" Color="#FFFFFF"/>
 
       <!-- DownloadButton ColorScheme -->
       <SolidColorBrush x:Key="DownloadButtonForeground" Color="#FFFFFF"/>
