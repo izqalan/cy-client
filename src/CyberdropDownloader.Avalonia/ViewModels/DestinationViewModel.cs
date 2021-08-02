@@ -1,12 +1,5 @@
-﻿using Avalonia;
-using Avalonia.Controls;
-using ReactiveUI;
+﻿using Avalonia.Controls;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reactive;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CyberdropDownloader.Avalonia.ViewModels
 {
@@ -30,8 +23,11 @@ namespace CyberdropDownloader.Avalonia.ViewModels
                 Directory = Environment.CurrentDirectory,
                 Title = "Choose download destination"
             };
-            
-            _destinationTextBox.Text = await dialog.ShowAsync(_mainWindow);
+
+            string result = await dialog.ShowAsync(_mainWindow);
+
+            if(result != string.Empty)
+                _destinationTextBox.Text = result;
         }
     }
 }
