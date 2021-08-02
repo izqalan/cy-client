@@ -14,6 +14,9 @@
     <Setter Property="Background" Value="{DynamicResource OpenFolderButtonBackground}"/>
 
     <Setter Property="ToolTip.Tip" Value="Open destination folder"/>
+    
+    <Setter Property="DataContext" Value="{Binding OpenFolderViewModel}"/>
+    <Setter Property="Command" Value="{Binding OpenFolderCommand}"/>
   </Style>
 
   <Style Selector="Button.OpenFolderButton:pointerover /template/ ContentPresenter#PART_ContentPresenter">
