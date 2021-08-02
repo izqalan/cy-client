@@ -11,9 +11,17 @@
     <Setter Property="Padding" Value="0"/>
     <Setter Property="Margin" Value="0"/>
 
-    <Setter Property="Background" Value="Transparent"/>
+    <Setter Property="Background" Value="{DynamicResource OpenFolderButtonBackground}"/>
 
     <Setter Property="ToolTip.Tip" Value="Open destination folder"/>
+  </Style>
+
+  <Style Selector="Button.OpenFolderButton:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+    <Setter Property="Background" Value="{DynamicResource OpenFolderButtonMouseOver}"/>
+  </Style>
+
+  <Style Selector="Button.OpenFolderButton:pressed /template/ ContentPresenter#PART_ContentPresenter">
+    <Setter Property="Background" Value="{DynamicResource OpenFolderButtonPressed}"/>
   </Style>
 
   <!-- OpenFolder Icon -->
