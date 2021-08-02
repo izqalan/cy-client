@@ -4,6 +4,8 @@
   <!-- Download Button -->
   <Style Selector="Button.DownloadButton">
     <Setter Property="Content" Value="Download"/>
+    
+    <Setter Property="Background" Value="{DynamicResource DownloadButtonBackground}"/>
     <Setter Property="Foreground" Value="{DynamicResource DownloadButtonForeground}"/>
 
     <Setter Property="FontFamily" Value="Verdana"/>
@@ -22,5 +24,11 @@
     <Setter Property="HorizontalContentAlignment" Value="Center"/>
 
     <Setter Property="ToolTip.Tip" Value="Begin download"/>
+  </Style>
+
+  <!-- Download Button when hovered -->
+  <Style Selector="Button.DownloadButton:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+    <Setter Property="Background" Value="{DynamicResource DownloadButtonMouseOver}"/>
+    <Setter Property="TextBlock.Foreground" Value="{DynamicResource DownloadButtonForeground}"/>
   </Style>
 </Styles>
