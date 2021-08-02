@@ -4,9 +4,9 @@
   <Style>
     <Style.Resources>
       <!-- Main Window ColorScheme -->
-      <SolidColorBrush x:Key="MainLabelForeground" Color="#DCDDDE"/>
       <SolidColorBrush x:Key="MainWindowBackground" Color="#36393F"/>
-      
+      <SolidColorBrush x:Key="MainLabelForeground" Color="#DCDDDE"/>
+     
       <!-- Exit button ColorScheme -->
       <SolidColorBrush x:Key="ExitButtonBackground" Color="#ed4245"/>
       <SolidColorBrush x:Key="ExitButtonMouseOver" Color="#e92528"/>
@@ -33,7 +33,14 @@
       <SolidColorBrush x:Key="DestinationTextBoxForeground" Color="#DCDDDE"/>
       <SolidColorBrush x:Key="DestinationTextBoxCaret" Color="#FFFFFF"/>
 
+      <!-- OpenFolder ColorScheme -->
+      <SolidColorBrush x:Key="OpenFolderButtonBackground" Color="#000000" Opacity="0"/>
+      <SolidColorBrush x:Key="OpenFolderButtonMouseOver" Color="#303338"/>
+      <SolidColorBrush x:Key="OpenFolderButtonPressed" Color="#202225"/>
+      
       <!-- DownloadButton ColorScheme -->
+      <SolidColorBrush x:Key="DownloadButtonBackground" Color="#202225"/>
+      <SolidColorBrush x:Key="DownloadButtonMouseOver" Color="#26282c"/>
       <SolidColorBrush x:Key="DownloadButtonForeground" Color="#FFFFFF"/>
     </Style.Resources>
   </Style>
