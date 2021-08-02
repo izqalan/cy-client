@@ -31,11 +31,11 @@
     <!-- Destination  -->
     <StackPanel Classes="Destination">
       <Label Classes="DestinationLabel"/>
-      <TextBox Classes="DestinationTextBox" x:Name="Destination"/>
-      <Button Classes="OpenFolderButton">
+      <TextBox Classes="DestinationTextBox" x:Name="DestinationTextBox"/>
+      <Button Classes="OpenFolderButton" x:Name="OpenFolderButton">
         <Image Classes="OpenFolderIcon"/>
       </Button>
-      <Button Classes="DownloadButton"/>
+      <Button Classes="DownloadButton" x:Name="DownloadButton"/>
     </StackPanel>
   </StackPanel>
 </Window>
