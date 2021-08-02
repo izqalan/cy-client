@@ -21,14 +21,13 @@ namespace CyberdropDownloader.Avalonia.ViewModels
 
         private void OpenFolder()
         {
-            if (Directory.Exists(_destinationTextBox.Text))
-            {
-                Process.Start("explorer.exe", _destinationTextBox.Text);
-            }
-            else
+            if (!Directory.Exists(_destinationTextBox.Text))
             {
                 //TODO Report to log that path isn't real
+                return;
             }
+
+            Process.Start("explorer.exe", _destinationTextBox.Text);
         }
     }
 }
