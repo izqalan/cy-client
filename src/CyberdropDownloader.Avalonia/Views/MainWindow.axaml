@@ -31,7 +31,7 @@
     <!-- Destination  -->
     <StackPanel Classes="Destination">
       <Label Classes="DestinationLabel"/>
-      <TextBox Classes="DestinationTextBox"/>
+      <TextBox Classes="DestinationTextBox" x:Name="Destination"/>
       <Button Classes="OpenFolderButton">
         <Image Classes="OpenFolderIcon"/>
       </Button>
