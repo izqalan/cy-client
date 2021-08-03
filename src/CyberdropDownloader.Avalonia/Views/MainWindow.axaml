@@ -37,5 +37,11 @@
       </Button>
       <Button Classes="DownloadButton" x:Name="DownloadButton"/>
     </StackPanel>
+
+    <StackPanel>
+      <Label Classes="AlbumTitleLabel"/>
+      <Label Classes="DownloadLogLabel"/>
+      <TextBox Classes="DownloadLogTextBox"/>
+    </StackPanel>
   </StackPanel>
 </Window>
