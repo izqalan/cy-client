@@ -29,7 +29,7 @@
     </StackPanel>
 
     <!-- Destination  -->
-    <StackPanel Classes="Destination">
+    <StackPanel Classes="DestinationStackPanel">
       <Label Classes="DestinationLabel"/>
       <TextBox Classes="DestinationTextBox" x:Name="DestinationTextBox"/>
       <Button Classes="OpenFolderButton" x:Name="OpenFolderButton">
@@ -38,10 +38,13 @@
       <Button Classes="DownloadButton" x:Name="DownloadButton"/>
     </StackPanel>
 
-    <StackPanel>
+    <!-- DownloadLog -->
+    <StackPanel Classes="DownloadLogStackPanel">
       <Label Classes="AlbumTitleLabel"/>
       <Label Classes="DownloadLogLabel"/>
-      <TextBox Classes="DownloadLogTextBox"/>
+      <Border Classes="DownloadLogBorder">
+        <TextBlock Classes="DownloadLogTextBlock"/>
+      </Border>
     </StackPanel>
   </StackPanel>
 </Window>
