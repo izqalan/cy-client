@@ -44,11 +44,12 @@
       <SolidColorBrush x:Key="DownloadButtonForeground" Color="#FFFFFF"/>
 
       <!-- DownloadLog ColorScheme -->
-      <SolidColorBrush x:Key="DownloadLogTextBoxBackground" Color="#202225"/>
-      <SolidColorBrush x:Key="DownloadLogTextBoxForeground" Color="#7fff00"/>
-      <SolidColorBrush x:Key="DownloadLogTextBoxCaret" Color="#202225"/>
+      <SolidColorBrush x:Key="DownloadLogTextBlockBackground" Color="#000000" Opacity="0"/>
+      <SolidColorBrush x:Key="DownloadLogTextBlockForeground" Color="#7fff00"/>
       <SolidColorBrush x:Key="DownloadLogLabelForeground" Color="#FFFFFF"/>
-
+      <SolidColorBrush x:Key="DownloadLogBorderBackground" Color="#202225"/>
+      
+      
       <!-- Album Label ColorScheme-->
       <SolidColorBrush x:Key="AlbumTitleLabelForeground" Color="#FFFFFF"/>
     </Style.Resources>
