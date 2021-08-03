@@ -18,7 +18,6 @@
     
     <Setter Property="HorizontalAlignment" Value="Left"/>
     
-    <Setter Property="Margin" Value="30 13 30 0"/>
     <Setter Property="Padding" Value="0"/>
   </Style>
 </Styles>
