@@ -9,6 +9,7 @@
 
   <Style Selector="Label.DestinationLabel">
     <Setter Property="Content" Value="Destination"/>
+    
     <Setter Property="Foreground" Value="{DynamicResource DestinationLabelForeground}"/>
 
     <Setter Property="FontFamily" Value="Verdana"/>
