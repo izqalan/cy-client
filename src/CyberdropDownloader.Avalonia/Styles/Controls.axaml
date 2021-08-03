@@ -8,4 +8,6 @@
   <StyleInclude Source="avares://CyberdropDownloader.Avalonia/Styles/Destination.axaml"/>
   <StyleInclude Source="avares://CyberdropDownloader.Avalonia/Styles/OpenFolder.axaml"/>
   <StyleInclude Source="avares://CyberdropDownloader.Avalonia/Styles/DownloadButton.axaml"/>
+  <StyleInclude Source="avares://CyberdropDownloader.Avalonia/Styles/DownloadLog.axaml"/>
+  <StyleInclude Source="avares://CyberdropDownloader.Avalonia/Styles/AlbumTitle.axaml"/>
 </Styles>
