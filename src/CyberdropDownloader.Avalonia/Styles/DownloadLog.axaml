@@ -1,0 +1,57 @@
+﻿<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+  <!-- DownloadLog ListBox -->
+  <Style Selector="TextBox.DownloadLogTextBox">
+    <Setter Property="Height" Value="123"/>
+    <Setter Property="Width" Value="465"/>
+    
+    <Setter Property="Foreground" Value="{DynamicResource DownloadLogTextBoxForeground}"/>
+    <Setter Property="Background" Value="{DynamicResource DownloadLogTextBoxBackground}"/>
+    <Setter Property="CaretBrush" Value="{DynamicResource DownloadLogTextBoxCaret}"/>
+    
+    <Setter Property="FontFamily" Value="Microsoft Sans Serif"/>
+    <Setter Property="FontSize" Value="12"/>
+    
+    <Setter Property="Margin" Value="30 0 30 0"/>
+    <Setter Property="Padding" Value="0"/>
+    
+    <Setter Property="Cursor" Value="Arrow"/>
+
+    <Setter Property="BorderThickness" Value="0"/>
+    
+    <Setter Property="IsReadOnly" Value="True"/>
+  </Style>
+
+  <Style Selector="TextBox.DownloadLogTextBox:pointerover /template/ Border#PART_BorderElement">
+    <Setter Property="Background" Value="{DynamicResource DownloadLogTextBoxBackground}"/>
+    
+    <Setter Property="Cursor" Value="Arrow"/>
+  </Style>
+
+  <Style Selector="TextBox.DownloadLogTextBox:focus /template/ Border#PART_BorderElement">
+    <Setter Property="Background" Value="{DynamicResource DownloadLogTextBoxBackground}"/>
+    
+    <Setter Property="Cursor" Value="Arrow"/>
+    
+    <Setter Property="BorderThickness" Value="0"/>
+  </Style>
+
+  <Style Selector="TextBox.DownloadLogTextBox /template/ DockPanel#PART_InnerDockPanel">
+    <Setter Property="Cursor" Value="Arrow"/>
+  </Style>
+  
+  <!-- DownloadLog Label-->
+  <Style Selector="Label.DownloadLogLabel">
+    <Setter Property="Content" Value="Download Log"/>
+    
+    <Setter Property="Foreground" Value="{DynamicResource DownloadLogLabelForeground}"/>
+    
+    <Setter Property="FontFamily" Value="Verdana"/>
+    <Setter Property="FontSize" Value="12"/>
+    <Setter Property="FontWeight" Value="Bold"/>
+    
+    <Setter Property="Margin" Value="30 0 30 5"/>
+    <Setter Property="Padding" Value="0"/>
+  </Style>
+</Styles>
