@@ -42,6 +42,15 @@
       <SolidColorBrush x:Key="DownloadButtonBackground" Color="#202225"/>
       <SolidColorBrush x:Key="DownloadButtonMouseOver" Color="#26282c"/>
       <SolidColorBrush x:Key="DownloadButtonForeground" Color="#FFFFFF"/>
+
+      <!-- DownloadLog ColorScheme -->
+      <SolidColorBrush x:Key="DownloadLogTextBoxBackground" Color="#202225"/>
+      <SolidColorBrush x:Key="DownloadLogTextBoxForeground" Color="#7fff00"/>
+      <SolidColorBrush x:Key="DownloadLogTextBoxCaret" Color="#202225"/>
+      <SolidColorBrush x:Key="DownloadLogLabelForeground" Color="#FFFFFF"/>
+
+      <!-- Album Label ColorScheme-->
+      <SolidColorBrush x:Key="AlbumTitleLabelForeground" Color="#FFFFFF"/>
     </Style.Resources>
   </Style>
 </Styles>
