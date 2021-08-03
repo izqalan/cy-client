@@ -2,43 +2,29 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
   <!-- DownloadLog ListBox -->
-  <Style Selector="TextBox.DownloadLogTextBox">
+  <Style Selector="TextBlock.DownloadLogTextBlock">
     <Setter Property="Height" Value="123"/>
     <Setter Property="Width" Value="465"/>
     
-    <Setter Property="Foreground" Value="{DynamicResource DownloadLogTextBoxForeground}"/>
-    <Setter Property="Background" Value="{DynamicResource DownloadLogTextBoxBackground}"/>
-    <Setter Property="CaretBrush" Value="{DynamicResource DownloadLogTextBoxCaret}"/>
+    <Setter Property="Foreground" Value="{DynamicResource DownloadLogTextBlockForeground}"/>
+    <Setter Property="Background" Value="{DynamicResource DownloadLogTextBlockBackground}"/>
     
     <Setter Property="FontFamily" Value="Microsoft Sans Serif"/>
     <Setter Property="FontSize" Value="12"/>
-    
-    <Setter Property="Margin" Value="30 0 30 0"/>
+
     <Setter Property="Padding" Value="0"/>
-    
-    <Setter Property="Cursor" Value="Arrow"/>
-
-    <Setter Property="BorderThickness" Value="0"/>
-    
-    <Setter Property="IsReadOnly" Value="True"/>
   </Style>
 
-  <Style Selector="TextBox.DownloadLogTextBox:pointerover /template/ Border#PART_BorderElement">
-    <Setter Property="Background" Value="{DynamicResource DownloadLogTextBoxBackground}"/>
+  <!-- DownloadLog Border -->
+  <Style Selector="Border.DownloadLogBorder">
+    <Setter Property="CornerRadius" Value="4"/>
     
-    <Setter Property="Cursor" Value="Arrow"/>
+    <Setter Property="Background" Value="{DynamicResource DownloadLogBorderBackground}"/>
   </Style>
 
-  <Style Selector="TextBox.DownloadLogTextBox:focus /template/ Border#PART_BorderElement">
-    <Setter Property="Background" Value="{DynamicResource DownloadLogTextBoxBackground}"/>
-    
-    <Setter Property="Cursor" Value="Arrow"/>
-    
-    <Setter Property="BorderThickness" Value="0"/>
-  </Style>
-
-  <Style Selector="TextBox.DownloadLogTextBox /template/ DockPanel#PART_InnerDockPanel">
-    <Setter Property="Cursor" Value="Arrow"/>
+  <!-- DownloadLog Stack Panel -->
+  <Style Selector="StackPanel.DownloadLogStackPanel">
+    <Setter Property="Margin" Value="30 13 30 0"/>
   </Style>
   
   <!-- DownloadLog Label-->
@@ -51,7 +37,7 @@
     <Setter Property="FontSize" Value="12"/>
     <Setter Property="FontWeight" Value="Bold"/>
     
-    <Setter Property="Margin" Value="30 0 30 5"/>
+    <Setter Property="Margin" Value="0 0 0 5"/>
     <Setter Property="Padding" Value="0"/>
   </Style>
 </Styles>
