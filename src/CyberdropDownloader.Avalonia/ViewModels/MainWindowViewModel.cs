@@ -8,12 +8,20 @@ namespace CyberdropDownloader.Avalonia.ViewModels
         private TitleBarViewModel _titleBarViewModel = null!;
         private DestinationViewModel _destinationViewModel = null!;
         private OpenFolderViewModel _openFolderViewModel = null!;
+        private DownloadViewModel _downloadViewModel = null!;
 
         public MainWindowViewModel(Window mainWindow)
         {
-            TitleBarViewModel = new TitleBarViewModel(mainWindow, mainWindow.Find<DockPanel>("TitleBar"));
-            DestinationViewModel = new DestinationViewModel(mainWindow, mainWindow.Find<TextBox>("DestinationTextBox"));
-            OpenFolderViewModel = new OpenFolderViewModel(mainWindow.Find<TextBox>("DestinationTextBox"));
+            TitleBarViewModel = new TitleBarViewModel(mainWindow);
+            DestinationViewModel = new DestinationViewModel(mainWindow);
+            OpenFolderViewModel = new OpenFolderViewModel(mainWindow);
+            DownloadViewModel = new DownloadViewModel(mainWindow);
+        }
+
+        public DownloadViewModel DownloadViewModel
+        {
+            get => _downloadViewModel;
+            set => this.RaiseAndSetIfChanged(ref _downloadViewModel, value);
         }
 
         public TitleBarViewModel TitleBarViewModel
