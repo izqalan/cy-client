@@ -15,10 +15,10 @@ namespace CyberdropDownloader.Avalonia.ViewModels
         private PixelPoint _windowPosition;
         private Point _mouseOffset;
 
-        public TitleBarViewModel(Window mainWindow, DockPanel titleBar)
+        public TitleBarViewModel(Window mainWindow)
         {
             _mainWindow = mainWindow;
-            _titleBar = titleBar;
+            _titleBar = mainWindow.Find<DockPanel>("TitleBar");
 
             QuitCommand = ReactiveCommand.Create(CloseWindow);
             MinimizeCommand = ReactiveCommand.Create(MinimizeWindow);
