@@ -25,7 +25,7 @@
     <!-- Input Box -->
     <StackPanel Classes="UrlInput">
       <Label Classes="UrlInputLabel"/>
-      <TextBox Classes="UrlInputTextBox"/>
+      <TextBox Classes="UrlInputTextBox" x:Name="UrlInputTextBox"/>
     </StackPanel>
 
     <!-- Destination  -->
@@ -40,11 +40,36 @@
 
     <!-- DownloadLog -->
     <StackPanel Classes="DownloadLogStackPanel">
-      <Label Classes="AlbumTitleLabel"/>
+      <Label Classes="AlbumTitleLabel" x:Name="AlbumTitleLabel"/>
       <Label Classes="DownloadLogLabel"/>
       <Border Classes="DownloadLogBorder">
-        <TextBlock Classes="DownloadLogTextBlock"/>
+        <TextBlock Classes="DownloadLogTextBlock" x:Name="DownloadLogTextBlock"/>
       </Border>
+    </StackPanel>
+
+    <!-- BottomLinks -->
+    <StackPanel Orientation="Horizontal" 
+                HorizontalAlignment="Right"
+                Margin="0 5 27 0" VerticalAlignment="Stretch">
+      <Label 
+             Content="Releases"
+             HorizontalAlignment="Right"
+             FontSize="12"
+             FontFamily="Microsoft Sans Serif"
+             VerticalAlignment="Center"
+             Margin="0 0 8 0"
+             Foreground="#c0c0c0">
+
+      </Label>
+      <Label
+             Content="Report an issue"
+             HorizontalAlignment="Right"
+             FontSize="12"
+             FontFamily="Microsoft Sans Serif"
+             VerticalAlignment="Center"
+             Foreground="#c0c0c0">
+
+      </Label>
     </StackPanel>
   </StackPanel>
 </Window>
