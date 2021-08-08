@@ -1,7 +1,6 @@
 ﻿using Avalonia.Controls;
 using ReactiveUI;
 using System;
-using System.Collections.Generic;
 using System.Reactive;
 
 namespace CyberdropDownloader.Avalonia.ViewModels
@@ -10,29 +9,39 @@ namespace CyberdropDownloader.Avalonia.ViewModels
     {
         private Label _albumTitle = null!;
         private TextBlock _downloadLog = null!;
+        private TextBox _urlInput = null!;
 
-        public DownloadViewModel(Label albumTitle, TextBox urlInput, TextBlock downloadLog)
+        public DownloadViewModel(Window mainWindow)
         {
-            _albumTitle = albumTitle;
-            _downloadLog = downloadLog;
+            _albumTitle = mainWindow.Find<Label>("AlbumTitleLabel");
+            _downloadLog = mainWindow.Find<TextBlock>("DownloadLogTextBlock");
+            _urlInput = mainWindow.Find<TextBox>("UrlInputTextBox");
 
-            DownloadCommand = ReactiveCommand.Create(DownloadFiles);
-        }
-
-        private List<string>? ParseUrlInput(string text)
-        {
-            throw new NotImplementedException();
+            DownloadCommand = ReactiveCommand.Create(FetchAndDownload);
         }
 
         public ReactiveCommand<Unit, Unit> DownloadCommand { get; }
         
-        private void DownloadFiles()
+        private void FetchAndDownload()
         {
-            // download files
-            /* if _albumTitle.Text != empty
-             * foreach line in _albumTitle.Text
-             * download line
-             */
+            foreach(string entry in _urlInput.Text.Split(@"\n\r"))
+            {
+                // fetch url 
+                // update album title
+                // fetch files
+                // download files
+                // log result
+            }
+        }
+
+        private void UpdateAlbumTitle(string title)
+        {
+            _albumTitle.Content = $"Downloading + {title}"; 
+        }
+
+        private void Log(string data)
+        {
+            _downloadLog.Text += $"{data}\n";
         }
     }
 }
