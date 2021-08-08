@@ -8,10 +8,10 @@ namespace CyberdropDownloader.Avalonia.ViewModels
         private TextBox _destinationTextBox;
         private Window _mainWindow;
 
-        public DestinationViewModel(Window mainWindow, TextBox destinationTextbox)
+        public DestinationViewModel(Window mainWindow)
         {
             _mainWindow = mainWindow;
-            _destinationTextBox = destinationTextbox;
+            _destinationTextBox = mainWindow.Find<TextBox>("DestinationTextBox");
 
             _destinationTextBox.PointerReleased += DestinationTextBox_Tapped;
         }
