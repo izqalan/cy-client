@@ -10,9 +10,9 @@ namespace CyberdropDownloader.Avalonia.ViewModels
     {
         private TextBox _destinationTextBox;
 
-        public OpenFolderViewModel(TextBox destinationTextBox)
+        public OpenFolderViewModel(Window mainWindow)
         {
-            _destinationTextBox = destinationTextBox;
+            _destinationTextBox = mainWindow.Find<TextBox>("DestinationTextBox");
 
             OpenFolderCommand = ReactiveCommand.Create(OpenFolder);
         }
