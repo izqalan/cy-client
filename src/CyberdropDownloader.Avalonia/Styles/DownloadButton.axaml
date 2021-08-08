@@ -22,8 +22,11 @@
 
     <Setter Property="VerticalContentAlignment" Value="Center"/>
     <Setter Property="HorizontalContentAlignment" Value="Center"/>
-
+    
     <Setter Property="ToolTip.Tip" Value="Begin download"/>
+    
+    <Setter Property="DataContext" Value="{Binding DownloadViewModel}"/>
+    <Setter Property="Command" Value="{Binding DownloadCommand}"/>
   </Style>
 
   <!-- Download Button when hovered -->
