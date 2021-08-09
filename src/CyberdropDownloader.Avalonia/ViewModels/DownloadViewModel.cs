@@ -36,7 +36,7 @@ namespace CyberdropDownloader.Avalonia.ViewModels
 
         private void UpdateAlbumTitle(string title)
         {
-            _albumTitle.Content = $"Downloading + {title}"; 
+            _albumTitle.Content = $"Downloading: {title}"; 
         }
 
         private void Log(string data)
