@@ -52,6 +52,9 @@
       
       <!-- Album Label ColorScheme-->
       <SolidColorBrush x:Key="AlbumTitleLabelForeground" Color="#FFFFFF"/>
+
+      <!-- Links ColorScheme -->
+      <SolidColorBrush x:Key="LinkForeground" Color="#c0c0c0"/>
     </Style.Resources>
   </Style>
 </Styles>
