@@ -3,73 +3,29 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:vm="using:CyberdropDownloader.Avalonia.ViewModels"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:Views="clr-namespace:CyberdropDownloader.Avalonia.Views;assembly=CyberdropDownloader.Avalonia"
         mc:Ignorable="d"
         d:DesignWidth="523" d:DesignHeight="342" Width="523" Height="342"
         x:Class="CyberdropDownloader.Avalonia.Views.MainWindow"
         Title="cyclient" CanResize="False">
 
   <StackPanel Background="{DynamicResource MainWindowBackground}">
-    <!-- Title Bar -->
-    <DockPanel Classes="TitleBar" x:Name="TitleBar">
-      <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Stretch">
-        <Image Classes="TitleBarLogo"/>
-        <Label Classes="TitleBarLabel"/>
-      </StackPanel>
+    <Views:TitleBar x:Name="TitleBar" DataContext="{Binding TitleBarViewModel}"/>
+    
+    <Views:UrlInput x:Name="UrlInput"/>
 
-      <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Stretch">
-        <Button Classes="MinimizeButton"/>
-        <Button Classes="ExitButton"/>
-      </StackPanel>
-    </DockPanel>
-
-    <!-- Input Box -->
-    <StackPanel Classes="UrlInput">
-      <Label Classes="UrlInputLabel"/>
-      <TextBox Classes="UrlInputTextBox" x:Name="UrlInputTextBox"/>
-    </StackPanel>
-
-    <!-- Destination  -->
-    <StackPanel Classes="DestinationStackPanel">
-      <Label Classes="DestinationLabel"/>
-      <TextBox Classes="DestinationTextBox" x:Name="DestinationTextBox"/>
-      <Button Classes="OpenFolderButton" x:Name="OpenFolderButton">
-        <Image Classes="OpenFolderIcon"/>
-      </Button>
-      <Button Classes="DownloadButton" x:Name="DownloadButton"/>
-    </StackPanel>
-
-    <!-- DownloadLog -->
-    <StackPanel Classes="DownloadLogStackPanel">
-      <Label Classes="AlbumTitleLabel" x:Name="AlbumTitleLabel"/>
-      <Label Classes="DownloadLogLabel"/>
-      <Border Classes="DownloadLogBorder">
-        <TextBlock Classes="DownloadLogTextBlock" x:Name="DownloadLogTextBlock"/>
-      </Border>
-    </StackPanel>
-
-    <!-- BottomLinks -->
     <StackPanel Orientation="Horizontal" 
-                HorizontalAlignment="Right"
-                Margin="0 5 27 0" VerticalAlignment="Stretch">
-      <Label 
-             Content="Releases"
-             HorizontalAlignment="Right"
-             FontSize="12"
-             FontFamily="Microsoft Sans Serif"
-             VerticalAlignment="Center"
-             Margin="0 0 8 0"
-             Foreground="#c0c0c0">
-
-      </Label>
-      <Label
-             Content="Report an issue"
-             HorizontalAlignment="Right"
-             FontSize="12"
-             FontFamily="Microsoft Sans Serif"
-             VerticalAlignment="Center"
-             Foreground="#c0c0c0">
-
-      </Label>
+                Margin="27 8 27 0">
+      <Views:FolderDestination x:Name="FolderDestination" DataContext="{Binding FolderDestinationViewModel}"/>
+      <Views:OpenFolderDestination x:Name="OpenFolderDestination" DataContext="{Binding OpenFolderDestinationViewModel}"/>
+      <Views:DownloadButton x:Name="DownloadButton" DataContext="{Binding DownloadButtonViewModel}"/>
     </StackPanel>
+
+    <StackPanel Margin="30 13 30 0">
+      <Views:AlbumTitle x:Name="AlbumTitle"/>
+      <Views:DownloadLog x:Name="DownloadLog"/>
+    </StackPanel>
+
+    <Views:HyperLinks />
   </StackPanel>
 </Window>

@@ -2,6 +2,7 @@
 using ReactiveUI;
 using System;
 using System.Reactive;
+using CyberdropDownloader.Avalonia.Views;
 
 namespace CyberdropDownloader.Avalonia.ViewModels
 {
@@ -13,10 +14,10 @@ namespace CyberdropDownloader.Avalonia.ViewModels
 
         public DownloadViewModel(Window mainWindow)
         {
-            _albumTitle = mainWindow.Find<Label>("AlbumTitleLabel");
-            _downloadLog = mainWindow.Find<TextBlock>("DownloadLogTextBlock");
-            _urlInput = mainWindow.Find<TextBox>("UrlInputTextBox");
-
+            _albumTitle = mainWindow.Find<AlbumTitle>("AlbumTitle").Find<Label>("AlbumTitleLabel");
+            _downloadLog = mainWindow.Find<DownloadLog>("DownloadLog").Find<TextBlock>("DownloadLogTextBlock");
+            _urlInput = mainWindow.Find<UrlInput>("UrlInput").Find<TextBox>("UrlInputTextBox");
+             
             DownloadCommand = ReactiveCommand.Create(FetchAndDownload);
         }
 

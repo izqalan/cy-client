@@ -1,22 +1,23 @@
 ﻿using Avalonia.Controls;
+using CyberdropDownloader.Avalonia.Views;
 using System;
 
 namespace CyberdropDownloader.Avalonia.ViewModels
 {
-    public class DestinationViewModel : ViewModelBase
+    public class FolderDestinationViewModel : ViewModelBase
     {
-        private TextBox _destinationTextBox;
+        private TextBox _folderDestinationTextBox;
         private Window _mainWindow;
 
-        public DestinationViewModel(Window mainWindow)
+        public FolderDestinationViewModel(Window mainWindow)
         {
             _mainWindow = mainWindow;
-            _destinationTextBox = mainWindow.Find<TextBox>("DestinationTextBox");
+            _folderDestinationTextBox = mainWindow.Find<FolderDestination>("FolderDestination").Find<TextBox>("FolderDestinationTextBox");
 
-            _destinationTextBox.PointerReleased += DestinationTextBox_Tapped;
+            _folderDestinationTextBox.PointerReleased += TextBox_Tapped;
         }
 
-        private async void DestinationTextBox_Tapped(object? sender, global::Avalonia.Interactivity.RoutedEventArgs e)
+        private async void TextBox_Tapped(object? sender, global::Avalonia.Interactivity.RoutedEventArgs e)
         {
             var dialog = new OpenFolderDialog()
             {
@@ -27,7 +28,7 @@ namespace CyberdropDownloader.Avalonia.ViewModels
             string result = await dialog.ShowAsync(_mainWindow);
 
             if(result != string.Empty)
-                _destinationTextBox.Text = result;
+                _folderDestinationTextBox.Text = result;
         }
     }
 }

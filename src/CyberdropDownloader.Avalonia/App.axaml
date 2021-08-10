@@ -13,8 +13,5 @@
 
     <!-- Color scheme for whole application -->
     <StyleInclude Source="avares://CyberdropDownloader.Avalonia/Styles/ColorScheme.axaml"/>
-
-    <!-- All custom control styles -->
-    <StyleInclude Source="avares://CyberdropDownloader.Avalonia/Styles/Controls.axaml"/>
   </Application.Styles>
 </Application>

@@ -28,15 +28,15 @@
       <SolidColorBrush x:Key="UrlInputTextBoxCaret" Color="#FFFFFF"/>
 
       <!-- Destination ColorScheme -->
-      <SolidColorBrush x:Key="DestinationLabelForeground" Color="#FFFFFF"/>
-      <SolidColorBrush x:Key="DestinationTextBoxBackground" Color="#202225"/>
-      <SolidColorBrush x:Key="DestinationTextBoxForeground" Color="#DCDDDE"/>
-      <SolidColorBrush x:Key="DestinationTextBoxCaret" Color="#FFFFFF"/>
+      <SolidColorBrush x:Key="FolderDestinationLabelForeground" Color="#FFFFFF"/>
+      <SolidColorBrush x:Key="FolderDestinationTextBoxBackground" Color="#202225"/>
+      <SolidColorBrush x:Key="FolderDestinationTextBoxForeground" Color="#DCDDDE"/>
+      <SolidColorBrush x:Key="FolderDestinationTextBoxCaret" Color="#FFFFFF"/>
 
       <!-- OpenFolder ColorScheme -->
-      <SolidColorBrush x:Key="OpenFolderButtonBackground" Color="#000000" Opacity="0"/>
-      <SolidColorBrush x:Key="OpenFolderButtonMouseOver" Color="#303338"/>
-      <SolidColorBrush x:Key="OpenFolderButtonPressed" Color="#202225"/>
+      <SolidColorBrush x:Key="OpenFolderDestinationButtonBackground" Color="#000000" Opacity="0"/>
+      <SolidColorBrush x:Key="OpenFolderDestinationButtonMouseOver" Color="#303338"/>
+      <SolidColorBrush x:Key="OpenFolderDestinationButtonPressed" Color="#202225"/>
       
       <!-- DownloadButton ColorScheme -->
       <SolidColorBrush x:Key="DownloadButtonBackground" Color="#202225"/>
@@ -49,12 +49,12 @@
       <SolidColorBrush x:Key="DownloadLogLabelForeground" Color="#FFFFFF"/>
       <SolidColorBrush x:Key="DownloadLogBorderBackground" Color="#202225"/>
       
-      
       <!-- Album Label ColorScheme-->
       <SolidColorBrush x:Key="AlbumTitleLabelForeground" Color="#FFFFFF"/>
 
       <!-- Links ColorScheme -->
       <SolidColorBrush x:Key="LinkForeground" Color="#c0c0c0"/>
+      <SolidColorBrush x:Key="LinkForegroundPressed" Color="#00ff00"/>
     </Style.Resources>
   </Style>
 </Styles>

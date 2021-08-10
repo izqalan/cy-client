@@ -6,22 +6,22 @@ namespace CyberdropDownloader.Avalonia.ViewModels
     public class MainWindowViewModel : ViewModelBase
     {
         private TitleBarViewModel _titleBarViewModel = null!;
-        private DestinationViewModel _destinationViewModel = null!;
-        private OpenFolderViewModel _openFolderViewModel = null!;
-        private DownloadViewModel _downloadViewModel = null!;
+        private FolderDestinationViewModel _folderDestinationViewModel = null!;
+        private OpenFolderViewModel _openFolderDestinationViewModel = null!;
+        private DownloadViewModel _downloadButtonViewModel = null!;
 
         public MainWindowViewModel(Window mainWindow)
         {
             TitleBarViewModel = new TitleBarViewModel(mainWindow);
-            DestinationViewModel = new DestinationViewModel(mainWindow);
-            OpenFolderViewModel = new OpenFolderViewModel(mainWindow);
-            DownloadViewModel = new DownloadViewModel(mainWindow);
+            FolderDestinationViewModel = new FolderDestinationViewModel(mainWindow);
+            OpenFolderDestinationViewModel = new OpenFolderViewModel(mainWindow);
+            DownloadButtonViewModel = new DownloadViewModel(mainWindow);
         }
 
-        public DownloadViewModel DownloadViewModel
+        public DownloadViewModel DownloadButtonViewModel
         {
-            get => _downloadViewModel;
-            set => this.RaiseAndSetIfChanged(ref _downloadViewModel, value);
+            get => _downloadButtonViewModel;
+            set => this.RaiseAndSetIfChanged(ref _downloadButtonViewModel, value);
         }
 
         public TitleBarViewModel TitleBarViewModel
@@ -30,16 +30,16 @@ namespace CyberdropDownloader.Avalonia.ViewModels
             set => this.RaiseAndSetIfChanged(ref _titleBarViewModel, value);
         }
 
-        public DestinationViewModel DestinationViewModel
+        public FolderDestinationViewModel FolderDestinationViewModel
         {
-            get => _destinationViewModel;
-            set => this.RaiseAndSetIfChanged(ref _destinationViewModel, value);
+            get => _folderDestinationViewModel;
+            set => this.RaiseAndSetIfChanged(ref _folderDestinationViewModel, value);
         }
 
-        public OpenFolderViewModel OpenFolderViewModel
+        public OpenFolderViewModel OpenFolderDestinationViewModel
         {
-            get => _openFolderViewModel;
-            set => this.RaiseAndSetIfChanged(ref _openFolderViewModel, value);
+            get => _openFolderDestinationViewModel;
+            set => this.RaiseAndSetIfChanged(ref _openFolderDestinationViewModel, value);
         }
     }
 }

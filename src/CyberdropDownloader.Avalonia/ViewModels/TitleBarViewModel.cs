@@ -1,6 +1,7 @@
 ﻿using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Input;
+using CyberdropDownloader.Avalonia.Views;
 using ReactiveUI;
 using System.Reactive;
 
@@ -9,7 +10,7 @@ namespace CyberdropDownloader.Avalonia.ViewModels
     public class TitleBarViewModel : ViewModelBase
     {
         private readonly Window _mainWindow;
-        private readonly DockPanel _titleBar;
+        private readonly TitleBar _titleBar;
 
         private bool _isPointerPressed;
         private PixelPoint _windowPosition;
@@ -18,7 +19,7 @@ namespace CyberdropDownloader.Avalonia.ViewModels
         public TitleBarViewModel(Window mainWindow)
         {
             _mainWindow = mainWindow;
-            _titleBar = mainWindow.Find<DockPanel>("TitleBar");
+            _titleBar = mainWindow.Find<TitleBar>("TitleBar");
 
             QuitCommand = ReactiveCommand.Create(CloseWindow);
             MinimizeCommand = ReactiveCommand.Create(MinimizeWindow);

@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.IO;
 using ReactiveUI;
 using System.Reactive;
+using CyberdropDownloader.Avalonia.Views;
 
 namespace CyberdropDownloader.Avalonia.ViewModels
 {
@@ -12,12 +13,12 @@ namespace CyberdropDownloader.Avalonia.ViewModels
 
         public OpenFolderViewModel(Window mainWindow)
         {
-            _destinationTextBox = mainWindow.Find<TextBox>("DestinationTextBox");
+            _destinationTextBox = mainWindow.Find<FolderDestination>("FolderDestination").Find<TextBox>("FolderDestinationTextBox");
 
-            OpenFolderCommand = ReactiveCommand.Create(OpenFolder);
+            OpenFolderDestinationCommand = ReactiveCommand.Create(OpenFolder);
         }
 
-        public ReactiveCommand<Unit, Unit> OpenFolderCommand { get; }
+        public ReactiveCommand<Unit, Unit> OpenFolderDestinationCommand { get; }
 
         private void OpenFolder()
         {
