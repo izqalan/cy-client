@@ -1,0 +1,17 @@
+﻿<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+  <Style Selector="Label.Link">
+    <Setter Property="Foreground" Value="{DynamicResource LinkForeground}"/>
+    <Setter Property="FontFamily" Value="Microsoft Sans Serif"/>
+    <Setter Property="FontSize" Value="12"/>
+  </Style>
+
+  <Style Selector="Label.Link:pressed">
+    <Setter Property="Foreground" Value="{DynamicResource LinkForegroundPressed}"/>
+  </Style>
+
+  <Style Selector="Label.Link:pointerover">
+    <Setter Property="Cursor" Value="Hand"/>
+  </Style>
+</Styles>
