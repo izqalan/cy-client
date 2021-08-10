@@ -1,0 +1,30 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="CyberdropDownloader.Avalonia.Views.OpenFolderDestination">
+
+  <UserControl.Styles>
+    <Style Selector="Button.OpenFolderDestinationButton:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+      <Setter Property="Background" Value="{DynamicResource OpenFolderDestinationButtonMouseOver}"/>
+    </Style>
+
+    <Style Selector="Button.OpenFolderDestinationButton:pressed /template/ ContentPresenter#PART_ContentPresenter">
+      <Setter Property="Background" Value="{DynamicResource OpenFolderDestinationButtonPressed}"/>
+    </Style>
+  </UserControl.Styles>
+  
+  <Button Background="{DynamicResource OpenFolderDestinationButtonBackground}"
+          Height="23" Width="30"
+          Cursor="Hand"
+          Classes="OpenFolderDestinationButton"
+          Padding="0" Margin="0"
+          Command="{Binding OpenFolderDestinationCommand}">
+    
+    <Image Source="avares://CyberdropDownloader.Avalonia/Assets/folder.png"
+           Stretch="None"
+           Margin="0"/>
+    
+  </Button>
+</UserControl>

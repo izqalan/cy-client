@@ -1,0 +1,45 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="CyberdropDownloader.Avalonia.Views.FolderDestination">
+
+  <UserControl.Styles>
+    <Style Selector="TextBox.FolderDestinationTextBox:pointerover /template/ Border#PART_BorderElement">
+      <Setter Property="Background" Value="{DynamicResource FolderDestinationTextBoxBackground}"/>
+    </Style>
+
+    <Style Selector="TextBox.FolderDestinationTextBox:focus /template/ Border#PART_BorderElement">
+      <Setter Property="Background" Value="{DynamicResource FolderDestinationTextBoxBackground}"/>
+      <Setter Property="BorderThickness" Value="0"/>
+    </Style>
+
+    <Style Selector="TextBox.FolderDestinationTextBox /template/ DockPanel#PART_InnerDockPanel">
+      <Setter Property="Cursor" Value="Hand"/>
+    </Style>
+  </UserControl.Styles>
+  
+  <StackPanel Orientation="Horizontal">
+    
+    <Label Foreground="{DynamicResource FolderDestinationLabelForeground}"
+           FontSize="12" FontFamily="Verdana" FontWeight="Thin"
+           Height="13" Width="71"
+           HorizontalContentAlignment="Left" VerticalContentAlignment="Bottom"
+           Padding="0" Margin="3 0 0 0"
+           Content="Destination"/>
+    
+    <TextBox Classes="FolderDestinationTextBox" x:Name="FolderDestinationTextBox"
+             Background="{DynamicResource FolderDestinationTextBoxBackground}"
+             Foreground="{DynamicResource FolderDestinationTextBoxForeground}"
+             CaretBrush="{DynamicResource FolderDestinationTextBoxCaret}"
+             Cursor="Hand"
+             BorderThickness="0"
+             AcceptsReturn="False" TextWrapping="NoWrap"
+             FontSize="13" FontFamily="Microsoft Sans Serif" FontWeight="Thin"
+             Padding="0" Margin="6 0 4 0"
+             MinHeight="0"
+             Height="16" Width="274"
+             ToolTip.Tip="Choose file destination"/>
+  </StackPanel>
+</UserControl>

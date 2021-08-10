@@ -1,0 +1,27 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="CyberdropDownloader.Avalonia.Views.HyperLinks">
+
+  <UserControl.Styles>
+    <StyleInclude Source="avares://CyberdropDownloader.Avalonia/Styles/Link.axaml"/>
+  </UserControl.Styles>
+  
+  <StackPanel Orientation="Horizontal" Margin="0 5 27 0"
+              HorizontalAlignment="Right" VerticalAlignment="Stretch">
+
+    <Label Content="Releases"
+           Classes="Link"
+           HorizontalAlignment="Right"
+           VerticalAlignment="Center"
+           Margin="0 0 8 0"/>
+
+    <Label Content="Report an issue"
+           Classes="Link"
+           HorizontalAlignment="Right"
+           VerticalAlignment="Center"/>
+    
+  </StackPanel>
+</UserControl>
