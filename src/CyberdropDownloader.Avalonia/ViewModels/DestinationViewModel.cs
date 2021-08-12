@@ -14,6 +14,8 @@ namespace CyberdropDownloader.Avalonia.ViewModels
             _mainWindow = mainWindow;
             _folderDestinationTextBox = mainWindow.Find<FolderDestination>("FolderDestination").Find<TextBox>("FolderDestinationTextBox");
 
+            _folderDestinationTextBox.Text = Environment.CurrentDirectory;
+
             _folderDestinationTextBox.PointerReleased += TextBox_Tapped;
         }
 
