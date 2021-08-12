@@ -9,19 +9,23 @@
     <StyleInclude Source="avares://CyberdropDownloader.Avalonia/Styles/Link.axaml"/>
   </UserControl.Styles>
   
-  <StackPanel Orientation="Horizontal" Margin="0 5 27 0"
+  <StackPanel Orientation="Horizontal" Margin="0 8 30 0"
               HorizontalAlignment="Right" VerticalAlignment="Stretch">
 
-    <Label Content="Releases"
-           Classes="Link"
-           HorizontalAlignment="Right"
-           VerticalAlignment="Center"
-           Margin="0 0 8 0"/>
+    <Button Content="Releases"
+            x:Name="ReleasesButton"
+            Classes="Link"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Center"
+            Margin="0 0 8 0"
+            Command="{Binding OpenReleases}"/>
 
-    <Label Content="Report an issue"
-           Classes="Link"
-           HorizontalAlignment="Right"
-           VerticalAlignment="Center"/>
+    <Button Content="Report an issue"
+            x:Name="IssuesButton"
+            Classes="Link"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Center"
+            Command="{Binding OpenIssues}"/>
     
   </StackPanel>
 </UserControl>
