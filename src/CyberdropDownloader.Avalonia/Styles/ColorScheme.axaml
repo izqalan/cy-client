@@ -54,7 +54,7 @@
 
       <!-- Links ColorScheme -->
       <SolidColorBrush x:Key="LinkForeground" Color="#c0c0c0"/>
-      <SolidColorBrush x:Key="LinkForegroundPressed" Color="#00ff00"/>
+      <SolidColorBrush x:Key="LinkForegroundPressed" Color="#7fff00"/>
     </Style.Resources>
   </Style>
 </Styles>
