@@ -9,6 +9,7 @@ namespace CyberdropDownloader.Avalonia.ViewModels
         private FolderDestinationViewModel _folderDestinationViewModel = null!;
         private OpenFolderViewModel _openFolderDestinationViewModel = null!;
         private DownloadViewModel _downloadButtonViewModel = null!;
+        private HyperLinksViewModel _hyperLinksViewModel = null!;
 
         public MainWindowViewModel(Window mainWindow)
         {
@@ -16,6 +17,7 @@ namespace CyberdropDownloader.Avalonia.ViewModels
             FolderDestinationViewModel = new FolderDestinationViewModel(mainWindow);
             OpenFolderDestinationViewModel = new OpenFolderViewModel(mainWindow);
             DownloadButtonViewModel = new DownloadViewModel(mainWindow);
+            HyperLinksViewModel = new HyperLinksViewModel();
         }
 
         public DownloadViewModel DownloadButtonViewModel
@@ -40,6 +42,12 @@ namespace CyberdropDownloader.Avalonia.ViewModels
         {
             get => _openFolderDestinationViewModel;
             set => this.RaiseAndSetIfChanged(ref _openFolderDestinationViewModel, value);
+        }
+
+        public HyperLinksViewModel HyperLinksViewModel
+        {
+            get => _hyperLinksViewModel;
+            set => this.RaiseAndSetIfChanged(ref _hyperLinksViewModel, value);
         }
     }
 }
