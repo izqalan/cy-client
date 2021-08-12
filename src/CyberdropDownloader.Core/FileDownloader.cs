@@ -34,6 +34,8 @@ namespace CyberdropDownloader.Core
             }
 
             // Check if enough space TODO
+
+
             DownloadResponse response = DownloadResponse.None;
 
             await Task.Run(async () =>
@@ -51,6 +53,16 @@ namespace CyberdropDownloader.Core
             });
 
             return response;
+        }
+
+        private static bool isThereSpace(string disk, int tagetFileSize)
+        {
+            DriveInfo drive = new DriveInfo(disk);
+            if (drive.IsReady)
+            {
+                return drive.AvailableFreeSpace > tagetFileSize;
+            }
+            return false;
         }
     }
 }
