@@ -4,6 +4,7 @@ using Avalonia.Input;
 using CyberdropDownloader.Avalonia.Views;
 using ReactiveUI;
 using System.Reactive;
+using System.Reflection;
 
 namespace CyberdropDownloader.Avalonia.ViewModels
 {
@@ -11,6 +12,7 @@ namespace CyberdropDownloader.Avalonia.ViewModels
     {
         private readonly Window _mainWindow;
         private readonly TitleBar _titleBar;
+        private readonly Label _titleBarLabel;
 
         private bool _isPointerPressed;
         private PixelPoint _windowPosition;
@@ -20,6 +22,9 @@ namespace CyberdropDownloader.Avalonia.ViewModels
         {
             _mainWindow = mainWindow;
             _titleBar = mainWindow.Find<TitleBar>("TitleBar");
+            _titleBarLabel = mainWindow.Find<TitleBar>("TitleBar").Find<Label>("TitleBarLabel");
+
+            _titleBarLabel.Content = $"cy client - v{Assembly.GetExecutingAssembly().GetName().Version}";
 
             QuitCommand = ReactiveCommand.Create(CloseWindow);
             MinimizeCommand = ReactiveCommand.Create(MinimizeWindow);
