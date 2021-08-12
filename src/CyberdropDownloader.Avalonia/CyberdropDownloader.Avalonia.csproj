@@ -24,4 +24,7 @@
     <PackageReference Include="Avalonia.Diagnostics" Version="0.10.6" />
     <PackageReference Include="Avalonia.ReactiveUI" Version="0.10.6" />
    </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CyberdropDownloader.Core\CyberdropDownloader.Core.csproj" />
+  </ItemGroup>
 </Project>
