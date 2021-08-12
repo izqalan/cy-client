@@ -7,7 +7,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "cyberdropDownloader", "cybe
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CyClientTests", "CyScraperTests\CyClientTests.csproj", "{C0CBC3CD-59E0-4854-82A7-86E06CF9DF7A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CyberdropDownloader.Avalonia", "CyberdropDownloader.Avalonia\CyberdropDownloader.Avalonia.csproj", "{73135677-C64E-419A-BAE1-21FFD415C320}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CyberdropDownloader.Avalonia", "CyberdropDownloader.Avalonia\CyberdropDownloader.Avalonia.csproj", "{73135677-C64E-419A-BAE1-21FFD415C320}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CyberdropDownloader.Core", "CyberdropDownloader.Core\CyberdropDownloader.Core.csproj", "{F052435A-8793-4F04-A590-3589BC8F04B9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{73135677-C64E-419A-BAE1-21FFD415C320}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{73135677-C64E-419A-BAE1-21FFD415C320}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{73135677-C64E-419A-BAE1-21FFD415C320}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F052435A-8793-4F04-A590-3589BC8F04B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F052435A-8793-4F04-A590-3589BC8F04B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F052435A-8793-4F04-A590-3589BC8F04B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F052435A-8793-4F04-A590-3589BC8F04B9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
