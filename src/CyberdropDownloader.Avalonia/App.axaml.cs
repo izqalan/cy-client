@@ -3,6 +3,7 @@ using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using Avalonia.Platform;
 using CyberdropDownloader.Avalonia.Views;
+using CyberdropDownloader.Core;
 
 namespace CyberdropDownloader.Avalonia
 {
@@ -11,6 +12,7 @@ namespace CyberdropDownloader.Avalonia
         public override void Initialize()
         {
             AvaloniaXamlLoader.Load(this);
+            FileDownloader.Initialize();
         }
 
         public override void OnFrameworkInitializationCompleted()
