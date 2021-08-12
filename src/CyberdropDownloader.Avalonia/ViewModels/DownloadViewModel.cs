@@ -37,12 +37,6 @@ namespace CyberdropDownloader.Avalonia.ViewModels
 
             foreach (string entry in entries)
             {
-                // fetch url 
-                // update album title
-                // fetch files
-                // download files
-                // log result
-
                 WebScraper webScraper = new WebScraper(entry);
                 string albumTitle = webScraper.FetchAlbumTitle();
 
@@ -50,7 +44,7 @@ namespace CyberdropDownloader.Avalonia.ViewModels
 
                 Queue<AlbumFile> files = webScraper.FetchAlbumFiles();
 
-                for (int x = 0; x <= files.Count; x++)
+                while (files.Count > 0)
                 {
                     AlbumFile file = files.Peek();
 
@@ -62,7 +56,6 @@ namespace CyberdropDownloader.Avalonia.ViewModels
                     {
                         case DownloadResponse.Downloaded:
                             files.Dequeue();
-                            x++;
                             continue;
 
                         case DownloadResponse.Failed:
@@ -72,13 +65,11 @@ namespace CyberdropDownloader.Avalonia.ViewModels
                         case DownloadResponse.FileExists:
                             Log($"[File Existed] [SKIP]: {file.Name}");
                             files.Dequeue();
-                            x++;
                             continue;
 
                         case DownloadResponse.NotEnoughSpace:
                             Log($"[Not Enough Storage] [SKIP]: {file.Name}");
                             files.Dequeue();
-                            x++;
                             continue;
                     }
                 }
