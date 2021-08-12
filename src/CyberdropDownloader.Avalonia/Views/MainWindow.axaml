@@ -26,6 +26,6 @@
       <Views:DownloadLog x:Name="DownloadLog"/>
     </StackPanel>
 
-    <Views:HyperLinks />
+    <Views:HyperLinks x:Name="HyperLinks" DataContext="{Binding HyperLinksViewModel}"/>
   </StackPanel>
 </Window>
