@@ -32,7 +32,7 @@
 
       <Label Foreground="{DynamicResource TitleBarLabelBackground}"
              FontSize="11" FontFamily="Microsoft Sans Serif" FontWeight="Thin"
-             Content="cy client"
+             Content="cy client" x:Name="TitleBarLabel"
              HorizontalContentAlignment="Left" VerticalContentAlignment="Bottom"
              HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
     </StackPanel>
