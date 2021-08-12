@@ -17,6 +17,9 @@ jobs:
       matrix:
         dotnet-version: ['3.1']
     steps:
+    - name: Set env value
+      run: |
+        echo "ACTIONS_ALLOW_UNSECURE_COMMANDS=true" >> $GITHUB_ENV
     - name: Checkout Code
       uses: actions/checkout@v2
     - name: Setup .NET
