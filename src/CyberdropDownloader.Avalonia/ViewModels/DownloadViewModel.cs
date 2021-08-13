@@ -1,11 +1,11 @@
 ﻿using Avalonia.Controls;
-using ReactiveUI;
-using System.Reactive;
 using CyberdropDownloader.Avalonia.Views;
 using CyberdropDownloader.Core;
-using System.Collections.Generic;
 using CyberdropDownloader.Core.DataModels;
 using CyberdropDownloader.Core.Enums;
+using ReactiveUI;
+using System.Collections.Generic;
+using System.Reactive;
 
 namespace CyberdropDownloader.Avalonia.ViewModels
 {

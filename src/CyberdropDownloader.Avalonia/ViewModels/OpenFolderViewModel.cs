@@ -1,9 +1,9 @@
 ﻿using Avalonia.Controls;
+using CyberdropDownloader.Avalonia.Views;
+using ReactiveUI;
 using System.Diagnostics;
 using System.IO;
-using ReactiveUI;
 using System.Reactive;
-using CyberdropDownloader.Avalonia.Views;
 
 namespace CyberdropDownloader.Avalonia.ViewModels
 {

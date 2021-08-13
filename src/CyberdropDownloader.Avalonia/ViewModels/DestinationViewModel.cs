@@ -29,7 +29,7 @@ namespace CyberdropDownloader.Avalonia.ViewModels
 
             string result = await dialog.ShowAsync(_mainWindow);
 
-            if(result != string.Empty)
+            if (result != string.Empty)
                 _folderDestinationTextBox.Text = result;
         }
     }

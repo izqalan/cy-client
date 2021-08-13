@@ -2,9 +2,8 @@
 using System;
 using System.IO;
 using System.Net.Http;
-using System.Threading.Tasks;
 using System.Threading;
-using System.Net;
+using System.Threading.Tasks;
 
 namespace CyberdropDownloader.Core
 {
@@ -50,7 +49,7 @@ namespace CyberdropDownloader.Core
 
                 try
                 {
-                    while(clientResponse.ReasonPhrase == "Moved Temporarily")
+                    while (clientResponse.ReasonPhrase == "Moved Temporarily")
                     {
                         clientResponse = await DownloadClient.GetAsync(clientResponse.Headers.Location);
                     }
@@ -66,7 +65,7 @@ namespace CyberdropDownloader.Core
                 }
                 catch (Exception)
                 {
-                    File.Delete(filePath); 
+                    File.Delete(filePath);
                     response = DownloadResponse.Failed;
                 }
 
