@@ -5,9 +5,9 @@ VisualStudioVersion = 16.0.31515.178
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CyberdropDownloader.Avalonia", "CyberdropDownloader.Avalonia\CyberdropDownloader.Avalonia.csproj", "{73135677-C64E-419A-BAE1-21FFD415C320}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CyberdropDownloader.Core", "CyberdropDownloader.Core\CyberdropDownloader.Core.csproj", "{F052435A-8793-4F04-A590-3589BC8F04B9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CyberdropDownloader.Core", "CyberdropDownloader.Core\CyberdropDownloader.Core.csproj", "{F052435A-8793-4F04-A590-3589BC8F04B9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CyberdropDownloader.Tests", "CyberdropDownloader.Tests\CyberdropDownloader.Tests.csproj", "{7B16C589-89E4-4718-9209-D0A06D8DCF79}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CyberdropDownloader.Tests", "CyberdropDownloader.Tests\CyberdropDownloader.Tests.csproj", "{6CB73075-E086-44D7-B00E-53F8965730A3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +23,10 @@ Global
 		{F052435A-8793-4F04-A590-3589BC8F04B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F052435A-8793-4F04-A590-3589BC8F04B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F052435A-8793-4F04-A590-3589BC8F04B9}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7B16C589-89E4-4718-9209-D0A06D8DCF79}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7B16C589-89E4-4718-9209-D0A06D8DCF79}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7B16C589-89E4-4718-9209-D0A06D8DCF79}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7B16C589-89E4-4718-9209-D0A06D8DCF79}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6CB73075-E086-44D7-B00E-53F8965730A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6CB73075-E086-44D7-B00E-53F8965730A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6CB73075-E086-44D7-B00E-53F8965730A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6CB73075-E086-44D7-B00E-53F8965730A3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
