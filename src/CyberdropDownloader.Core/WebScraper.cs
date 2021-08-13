@@ -15,12 +15,24 @@ namespace CyberdropDownloader.Core
         private string _url;
         private HtmlDocument _htmlDocument;
 
+        private Album _album;
+
         public WebScraper(string url)
         {
             _url = url;
         }
 
-        public async Task<string> FetchAlbumTitle()
+        public Album Album { get => _album; }
+
+        public async Task Initialize()
+        {
+            await Task.Run(async () =>
+            {
+                _album = new Album(await FetchAlbumTitleAsync(), await FetchAlbumSizeAsync(), await FetchAlbumFilesAsync());
+            });
+        }
+
+        public async Task<string> FetchAlbumTitleAsync()
         {
             string title = "";
 
@@ -32,7 +44,7 @@ namespace CyberdropDownloader.Core
             return title;
         }
 
-        public async Task<string> FetchAlbumSize()
+        public async Task<string> FetchAlbumSizeAsync()
         {
             string size = "";
 
@@ -44,7 +56,7 @@ namespace CyberdropDownloader.Core
             return size;
         }
 
-        public async Task<Queue<AlbumFile>> FetchAlbumFiles()
+        public async Task<Queue<AlbumFile>> FetchAlbumFilesAsync()
         {
             Queue<AlbumFile> urls = new Queue<AlbumFile>();
 
@@ -85,10 +97,9 @@ namespace CyberdropDownloader.Core
             return true;
         }
 
-
         public string ValidatePathAndFileName(string data)
         {
-            
+
             string regexSearch = new string(Path.GetInvalidFileNameChars()) + new string(Path.GetInvalidPathChars());
 
             Regex regexResult = new Regex(string.Format("[{0}]", Regex.Escape(regexSearch)));
