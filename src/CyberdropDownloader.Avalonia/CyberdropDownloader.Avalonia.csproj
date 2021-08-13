@@ -3,6 +3,21 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>net5.0</TargetFramework>
     <Nullable>enable</Nullable>
+    <AssemblyName>CyberdropDownloader.Avalonia</AssemblyName>
+    <Copyright>Copyright ©  2021</Copyright>
+    <Product>Cyberdrop Downloader</Product>
+    <AssemblyVersion>1.2.0.0</AssemblyVersion>
+    <FileVersion>1.2.0.0</FileVersion>
+    <NeutralLanguage>en</NeutralLanguage>
+    <Company />
+    <Authors />
+    <PackageIconUrl />
+    <ApplicationIcon>Assets\duck.ico</ApplicationIcon>
+    <Win32Resource />
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DebugType>none</DebugType>
+    <DebugSymbols>false</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
     <None Remove="Assets\duck15.png" />

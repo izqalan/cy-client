@@ -7,11 +7,10 @@
         mc:Ignorable="d"
         d:DesignWidth="523" d:DesignHeight="342" Width="523" Height="342"
         x:Class="CyberdropDownloader.Avalonia.Views.MainWindow"
-        Title="cyclient" CanResize="False">
+        Title="cy client" CanResize="False" Icon="avares://CyberdropDownloader.Avalonia/Assets/duck15.png">
 
   <StackPanel Background="{DynamicResource MainWindowBackground}">
     <Views:TitleBar x:Name="TitleBar" DataContext="{Binding TitleBarViewModel}"/>
-    
     <Views:UrlInput x:Name="UrlInput"/>
 
     <StackPanel Orientation="Horizontal" 
