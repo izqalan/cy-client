@@ -24,7 +24,7 @@ namespace CyberdropDownloader.Core
 
         public Album Album { get => _album; }
 
-        public async Task Initialize()
+        public async Task InitializeAlbumAsync()
         {
             await Task.Run(async () =>
             {
