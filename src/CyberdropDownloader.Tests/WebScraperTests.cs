@@ -1,44 +1,52 @@
 ﻿using CyberdropDownloader.Core;
 using CyberdropDownloader.Core.DataModels;
+using NUnit.Framework;
 using System.Collections.Generic;
-using Xunit;
+using System.Threading.Tasks;
 
 namespace CyberdropDownloader.Tests
 {
+
     public class WebScraperTests
     {
         WebScraper webScraper = new WebScraper("https://cyberdrop.me/a/mowoshqo");
 
-        [Fact]
-        public async void LoadPage()
+        [OneTimeSetUp]
+        public async Task OneTimeSetUp()
         {
-            bool result = await webScraper.LoadHtmlDocumenteAsync();
+            await webScraper.InitializeAsync();
+        }
+
+        [Test, Order(1)]
+        public void LoadPage()
+        {
+            bool result = webScraper.Loaded;
 
             Assert.True(result);
         }
 
-        [Fact]
-        public async void FetchAlbumTitle()
+        [Test, Order(2)]
+        public void FetchAlbumTitle()
         {
-            string result = await webScraper.FetchAlbumTitleAsync();
+            string result = webScraper.Album.Title;
 
-            Assert.Equal("tests", result);
+            Assert.IsTrue(string.Equals("tests", result));
         }
 
-        [Fact]
-        public async void FetchAlbumSize()
+        [Test, Order(3)]
+        public void FetchAlbumSize()
         {
-            string result = await webScraper.FetchAlbumSizeAsync();
+            string result = webScraper.Album.Size;
 
-            Assert.Equal("4.58 MB", result);
+            Assert.IsTrue(string.Equals("4.58 MB", result));
         }
 
-        [Fact]
-        public async void FetchAlbumFiles()
+        [Test, Order(4)]
+        public void FetchAlbumFiles()
         {
-            Queue<AlbumFile> result = await webScraper.FetchAlbumFilesAsync();
+            Queue<AlbumFile> result = webScraper.Album.Files;
 
-            Assert.Equal(3, result.Count);
+            Assert.IsTrue(result.Count == 3);
         }
     }
 }

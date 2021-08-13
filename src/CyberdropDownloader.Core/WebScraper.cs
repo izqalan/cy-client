@@ -16,6 +16,7 @@ namespace CyberdropDownloader.Core
         private HtmlDocument _htmlDocument;
 
         private Album _album;
+        private bool _loaded;
 
         public WebScraper(string url)
         {
@@ -23,12 +24,16 @@ namespace CyberdropDownloader.Core
         }
 
         public Album Album { get => _album; }
+        public bool Loaded { get => _loaded; }
 
-        public async Task InitializeAlbumAsync()
+        public async Task InitializeAsync()
         {
             await Task.Run(async () =>
             {
-                _album = new Album(await FetchAlbumTitleAsync(), await FetchAlbumSizeAsync(), await FetchAlbumFilesAsync());
+                await LoadHtmlDocumenteAsync();
+
+                if(_loaded)
+                    _album = new Album(await FetchAlbumTitleAsync(), await FetchAlbumSizeAsync(), await FetchAlbumFilesAsync());
             });
         }
 
@@ -78,23 +83,18 @@ namespace CyberdropDownloader.Core
             return urls;
         }
 
-        public async Task<bool> LoadHtmlDocumenteAsync()
+        public async Task LoadHtmlDocumenteAsync()
         {
             try
             {
                 _htmlDocument = await new HtmlWeb().LoadFromWebAsync(_url);
+                _loaded = true;
             }
             catch (Exception)
             {
                 _htmlDocument = null!;
+                _loaded = false;
             }
-
-            if (_htmlDocument == null)
-            {
-                return false;
-            }
-
-            return true;
         }
 
         public string ValidatePathAndFileName(string data)
