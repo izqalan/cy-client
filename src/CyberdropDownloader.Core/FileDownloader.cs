@@ -2,6 +2,7 @@
 using System;
 using System.IO;
 using System.Net.Http;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -24,22 +25,18 @@ namespace CyberdropDownloader.Core
             _downloadClient.Timeout = Timeout.InfiniteTimeSpan;
         }
 
-        public static async Task<DownloadResponse> DownloadFile(string url, string path, string fileName)
+        public static async Task<DownloadResponse> DownloadFile(string url, string path, string fileName, string albumSize)
         {
             string filePath = $"{path}\\{fileName}";
 
             if (!Directory.Exists(path))
-            {
                 Directory.CreateDirectory(path);
-            }
 
             if (File.Exists(filePath))
-            {
                 return DownloadResponse.FileExists;
-            }
-
-            // Check if enough space TODO
-
+            
+            if (!EnoughSpaceCheck(path, ConvertAlbumSizeToByte(albumSize)))
+                return DownloadResponse.NotEnoughSpace;
 
             DownloadResponse response = DownloadResponse.None;
 
@@ -76,14 +73,30 @@ namespace CyberdropDownloader.Core
             return response;
         }
 
-        private static bool isThereSpace(string disk, int tagetFileSize)
+        private static long ConvertAlbumSizeToByte(string albumSize)
+        {
+            long byteValue = 0;
+
+            if (albumSize.Contains("KB"))
+                byteValue = 1024;
+            else if (albumSize.Contains("MB"))
+                byteValue = 1048576;
+            else if (albumSize.Contains("GB"))
+                byteValue = 1073741824;
+            else if (albumSize.Contains("TB"))
+                byteValue = 1099511627776;
+
+            return int.Parse(Regex.Replace(albumSize, "[^0-9]+", string.Empty)) * byteValue;
+        }
+
+        private static bool EnoughSpaceCheck(string disk, long albumSize)
         {
             DriveInfo drive = new DriveInfo(disk);
-            if (drive.IsReady)
-            {
-                return drive.AvailableFreeSpace > tagetFileSize;
-            }
-            return false;
+
+            if (!drive.IsReady)
+                return false;
+
+            return drive.AvailableFreeSpace > albumSize;
         }
     }
 }
