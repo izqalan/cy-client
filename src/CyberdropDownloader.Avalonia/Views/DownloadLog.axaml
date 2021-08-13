@@ -18,7 +18,7 @@
                  Background="{DynamicResource DownloadLogTextBlockBackground}"
                  Height="123" Width="465"
                  FontFamily="Microsoft Sans Serif" FontSize="12"
-                 Padding="0" ScrollViewer.VerticalScrollBarVisibility="Auto"/>
+                 Padding="1 0 0 0" ScrollViewer.VerticalScrollBarVisibility="Visible"/>
 
     </Border>
   </StackPanel>
