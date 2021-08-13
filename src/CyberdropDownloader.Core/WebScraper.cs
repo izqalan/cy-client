@@ -1,5 +1,6 @@
 ﻿using CyberdropDownloader.Core.DataModels;
 using HtmlAgilityPack;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -17,45 +18,85 @@ namespace CyberdropDownloader.Core
         public WebScraper(string url)
         {
             _url = url;
-
-            _htmlDocument = Task.Run(LoadHtmlDocumenteAsync).Result;
         }
 
-        public string FetchAlbumTitle()
+        public async Task<string> FetchAlbumTitle()
         {
-            return _htmlDocument.DocumentNode.SelectNodes("//div/h1[@id='title']").First().Attributes["title"].Value;
+            string title = "";
+
+            await Task.Run(() =>
+            {
+                title = _htmlDocument.DocumentNode.SelectNodes("//div/h1[@id='title']").First().Attributes["title"].Value;
+            });
+
+            return title;
         }
 
-        public Queue<AlbumFile> FetchAlbumFiles()
+        public async Task<string> FetchAlbumSize()
+        {
+            string size = "";
+
+            await Task.Run(() =>
+            {
+                size = _htmlDocument.DocumentNode.SelectNodes("//div/p[@class='title']")[1].InnerHtml;
+            });
+
+            return size;
+        }
+
+        public async Task<Queue<AlbumFile>> FetchAlbumFiles()
         {
             Queue<AlbumFile> urls = new Queue<AlbumFile>();
 
-            HtmlNodeCollection nodes = _htmlDocument.DocumentNode.SelectNodes("//a[@class='image'][@href]");
-
-            foreach (HtmlNode link in nodes)
+            await Task.Run(() =>
             {
-                urls.Enqueue(new AlbumFile()
+                HtmlNodeCollection nodes = _htmlDocument.DocumentNode.SelectNodes("//a[@class='image'][@href]");
+
+                foreach (HtmlNode link in nodes)
                 {
-                    Name = ValidatePathAndFileName(link.Attributes["title"].Value),
-                    Url = link.Attributes["href"].Value
-                });
-            }
+                    urls.Enqueue(new AlbumFile()
+                    {
+                        Name = ValidatePathAndFileName(link.Attributes["title"].Value),
+                        Url = link.Attributes["href"].Value
+                    });
+                }
+
+            });
 
             return urls;
         }
 
-        private async Task<HtmlDocument> LoadHtmlDocumenteAsync()
+        public async Task<bool> LoadHtmlDocumenteAsync()
         {
-            return await new HtmlWeb().LoadFromWebAsync(_url);
+            try
+            {
+                _htmlDocument = await new HtmlWeb().LoadFromWebAsync(_url);
+            }
+            catch (Exception)
+            {
+                _htmlDocument = null!;
+            }
+
+            if (_htmlDocument == null)
+            {
+                return false;
+            }
+
+            return true;
         }
 
 
         public string ValidatePathAndFileName(string data)
         {
+            
             string regexSearch = new string(Path.GetInvalidFileNameChars()) + new string(Path.GetInvalidPathChars());
-            Regex r = new Regex(string.Format("[{0}]", Regex.Escape(regexSearch)));
-            data = r.Replace(data, "");
-            data = data.Length == 0 ? "cy_album" : HttpUtility.HtmlDecode(data); ;
+
+            Regex regexResult = new Regex(string.Format("[{0}]", Regex.Escape(regexSearch)));
+
+            data = regexResult.Replace(data, "");
+
+            data = data.Length == 0 ? "cy_album" : HttpUtility.HtmlDecode(data);
+
             return data;
         }
     }
