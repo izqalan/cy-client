@@ -1,22 +1,28 @@
 ﻿using CyberdropDownloader.Core.Enums;
 using System;
-using System.Collections;
 using System.IO;
-using System.Net;
-using System.Threading;
+using System.Net.Http;
 using System.Threading.Tasks;
+using System.Threading;
+using System.Net;
 
 namespace CyberdropDownloader.Core
 {
     public static class FileDownloader
     {
-        private static WebClient _downloadClient;
+        private static HttpClient _downloadClient;
 
-        public static WebClient DownloadClient { get => _downloadClient; }
+        public static HttpClient DownloadClient { get => _downloadClient; }
 
         public static void Initialize()
         {
-            _downloadClient = new WebClient();
+            _downloadClient = new HttpClient(new HttpClientHandler()
+            {
+                AllowAutoRedirect = true,
+                MaxRequestContentBufferSize = 20
+            });
+
+            _downloadClient.Timeout = Timeout.InfiniteTimeSpan;
         }
 
         public static async Task<DownloadResponse> DownloadFile(string url, string path, string fileName)
@@ -40,16 +46,32 @@ namespace CyberdropDownloader.Core
 
             await Task.Run(async () =>
             {
+                HttpResponseMessage clientResponse = await DownloadClient.GetAsync(url);
+
                 try
                 {
-                    await DownloadClient.DownloadFileTaskAsync(new Uri(url), filePath);
-                    response = DownloadResponse.Downloaded;
+                    while(clientResponse.ReasonPhrase == "Moved Temporarily")
+                    {
+                        clientResponse = await DownloadClient.GetAsync(clientResponse.Headers.Location);
+                    }
+
+                    await using (Stream stream = await clientResponse.Content.ReadAsStreamAsync())
+                    {
+                        await using (Stream fileStream = File.Create(filePath))
+                        {
+                            stream.Seek(0, SeekOrigin.Begin);
+                            await stream.CopyToAsync(fileStream);
+                        }
+                    }
                 }
                 catch (Exception)
                 {
-                    File.Delete(filePath);
+                    File.Delete(filePath); 
                     response = DownloadResponse.Failed;
                 }
+
+                clientResponse.Dispose();
+                response = DownloadResponse.Downloaded;
             });
 
             return response;
