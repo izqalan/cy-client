@@ -73,7 +73,7 @@ namespace CyberdropDownloader.Core
             return response;
         }
 
-        private static long ConvertAlbumSizeToByte(string albumSize)
+        public static long ConvertAlbumSizeToByte(string albumSize)
         {
             long byteValue = 0;
 
