@@ -23,7 +23,7 @@ jobs:
       with:
         dotnet-version: ${{ matrix.dotnet-version }}
     - name: Restore dependencies
-      run: dotnet restore
+      run: dotnet restore "src/Cyberdrop Downloader.sln"
     - name: Build
       run: dotnet build --configuration Release --no-restore
     - name: Test
