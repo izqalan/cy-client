@@ -37,14 +37,13 @@ namespace CyberdropDownloader.Avalonia.ViewModels
             foreach (string entry in entries)
             {
                 WebScraper webScraper = new WebScraper(entry);
-                
-                if (!await webScraper.LoadHtmlDocumenteAsync())
+                await webScraper.InitializeAsync();
+
+                if (!webScraper.Loaded)
                 {
                     Log($"Invalid Url: {entry}");
                     break;
                 }
-
-                await webScraper.InitializeAlbumAsync();
 
                 string albumTitle = webScraper.Album.Title;
                 Queue<AlbumFile> files = webScraper.Album.Files;
