@@ -6,9 +6,6 @@ using CyberdropDownloader.Core;
 using System.Collections.Generic;
 using CyberdropDownloader.Core.DataModels;
 using CyberdropDownloader.Core.Enums;
-using System.Threading.Tasks;
-using System;
-using System.IO;
 
 namespace CyberdropDownloader.Avalonia.ViewModels
 {
@@ -18,6 +15,8 @@ namespace CyberdropDownloader.Avalonia.ViewModels
         private TextBlock _downloadLog = null!;
         private TextBox _urlInput = null!;
         private TextBox _folderDestination = null!;
+
+        private int _totalDownloaded = 0;
 
         public DownloadViewModel(Window mainWindow)
         {
@@ -37,12 +36,22 @@ namespace CyberdropDownloader.Avalonia.ViewModels
 
             foreach (string entry in entries)
             {
-                WebScraper webScraper = new WebScraper(entry);
+                WebScraper webScraper = null!;
+
+                try
+                {
+                    webScraper = new WebScraper(entry);
+                }
+                catch
+                {
+                    Log($"Invalid Url: {entry}");
+                    break;
+                }
+
                 string albumTitle = webScraper.FetchAlbumTitle();
+                Queue<AlbumFile> files = webScraper.FetchAlbumFiles();
 
                 UpdateAlbumTitle(albumTitle);
-
-                Queue<AlbumFile> files = webScraper.FetchAlbumFiles();
 
                 while (files.Count > 0)
                 {
@@ -56,6 +65,7 @@ namespace CyberdropDownloader.Avalonia.ViewModels
                     {
                         case DownloadResponse.Downloaded:
                             files.Dequeue();
+                            _totalDownloaded += 1;
                             continue;
 
                         case DownloadResponse.Failed:
@@ -73,6 +83,11 @@ namespace CyberdropDownloader.Avalonia.ViewModels
                             continue;
                     }
                 }
+            }
+
+            if (_totalDownloaded >= 1)
+            {
+                Log($"------Completed {_totalDownloaded} Downloads------");
             }
         }
 
