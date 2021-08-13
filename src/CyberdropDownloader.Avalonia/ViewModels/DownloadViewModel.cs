@@ -6,6 +6,7 @@ using CyberdropDownloader.Core.Enums;
 using ReactiveUI;
 using System.Collections.Generic;
 using System.Reactive;
+using System.Threading.Tasks;
 
 namespace CyberdropDownloader.Avalonia.ViewModels
 {
@@ -36,20 +37,16 @@ namespace CyberdropDownloader.Avalonia.ViewModels
 
             foreach (string entry in entries)
             {
-                WebScraper webScraper = null!;
+                WebScraper webScraper = new WebScraper(entry);
 
-                try
-                {
-                    webScraper = new WebScraper(entry);
-                }
-                catch
+                if (!await webScraper.LoadHtmlDocumenteAsync())
                 {
                     Log($"Invalid Url: {entry}");
                     break;
                 }
 
-                string albumTitle = webScraper.FetchAlbumTitle();
-                Queue<AlbumFile> files = webScraper.FetchAlbumFiles();
+                string albumTitle = await webScraper.FetchAlbumTitle();
+                Queue<AlbumFile> files = await webScraper.FetchAlbumFiles();
 
                 UpdateAlbumTitle(albumTitle);
 
@@ -59,8 +56,8 @@ namespace CyberdropDownloader.Avalonia.ViewModels
 
                     Log($"Downloading item: {file.Name}");
 
-                    DownloadResponse response = await FileDownloader.DownloadFile(file.Url, $"{_folderDestination.Text}\\{albumTitle}", file.Name);
-
+                    DownloadResponse response = await FileDownloader.DownloadFile(file.Url, $"{_folderDestination.Text}\\{albumTitle}", file.Name, await webScraper.FetchAlbumSize());
+                    
                     switch (response)
                     {
                         case DownloadResponse.Downloaded:
