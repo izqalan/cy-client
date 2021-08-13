@@ -6,7 +6,7 @@
              x:Class="CyberdropDownloader.Avalonia.Views.HyperLinks">
 
   <UserControl.Styles>
-    <StyleInclude Source="avares://CyberdropDownloader.Avalonia/Styles/Link.axaml"/>
+    <StyleInclude Source="avares://Cyberdrop Downloader/Styles/Link.axaml"/>
   </UserControl.Styles>
   
   <StackPanel Orientation="Horizontal" Margin="0 8 30 0"

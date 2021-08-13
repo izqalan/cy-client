@@ -3,11 +3,11 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:vm="using:CyberdropDownloader.Avalonia.ViewModels"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:Views="clr-namespace:CyberdropDownloader.Avalonia.Views;assembly=CyberdropDownloader.Avalonia"
+        xmlns:Views="using:CyberdropDownloader.Avalonia.Views"
         mc:Ignorable="d"
         d:DesignWidth="523" d:DesignHeight="342" Width="523" Height="342"
         x:Class="CyberdropDownloader.Avalonia.Views.MainWindow"
-        Title="cy client" CanResize="False" Icon="avares://CyberdropDownloader.Avalonia/Assets/duck15.png">
+        Title="cy client" CanResize="False" Icon="resm:CyberdropDownloader.Avalonia.Assets.duck.ico?assembly=Cyberdrop Downloader">
 
   <StackPanel Background="{DynamicResource MainWindowBackground}">
     <Views:TitleBar x:Name="TitleBar" DataContext="{Binding TitleBarViewModel}"/>

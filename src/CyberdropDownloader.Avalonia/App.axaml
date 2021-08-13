@@ -12,6 +12,6 @@
     <FluentTheme Mode="Dark"/>
 
     <!-- Color scheme for whole application -->
-    <StyleInclude Source="avares://CyberdropDownloader.Avalonia/Styles/ColorScheme.axaml"/>
+    <StyleInclude Source="avares://Cyberdrop Downloader/Styles/ColorScheme.axaml"/>
   </Application.Styles>
 </Application>

@@ -22,7 +22,7 @@
           Padding="0" Margin="0"
           Command="{Binding OpenFolderDestinationCommand}">
     
-    <Image Source="avares://CyberdropDownloader.Avalonia/Assets/folder.png"
+    <Image Source="avares://Cyberdrop Downloader/Assets/folder.png"
            Stretch="None"
            Margin="0"/>
     
