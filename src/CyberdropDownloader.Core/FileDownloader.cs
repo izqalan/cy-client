@@ -35,7 +35,7 @@ namespace CyberdropDownloader.Core
             if (File.Exists(filePath))
                 return DownloadResponse.FileExists;
 
-            if (!EnoughSpaceCheck(path, ConvertAlbumSizeToByte(albumSize)))
+            if (EnoughSpaceCheck(path, ConvertAlbumSizeToByte(albumSize)))
                 return DownloadResponse.NotEnoughSpace;
 
             DownloadResponse response = DownloadResponse.None;
