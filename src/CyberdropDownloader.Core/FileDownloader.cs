@@ -35,7 +35,7 @@ namespace CyberdropDownloader.Core
             if (File.Exists(filePath))
                 return DownloadResponse.FileExists;
 
-            if (EnoughSpaceCheck(path, ConvertAlbumSizeToByte(albumSize)))
+            if (!EnoughSpaceCheck(path, ConvertAlbumSizeToByte(albumSize)))
                 return DownloadResponse.NotEnoughSpace;
 
             DownloadResponse response = DownloadResponse.None;
@@ -73,9 +73,9 @@ namespace CyberdropDownloader.Core
             return response;
         }
 
-        public static long ConvertAlbumSizeToByte(string albumSize)
+        public static double ConvertAlbumSizeToByte(string albumSize)
         {
-            long byteValue = 0;
+            decimal byteValue = 0;
 
             if (albumSize.Contains("KB"))
                 byteValue = 1024;
@@ -86,13 +86,17 @@ namespace CyberdropDownloader.Core
             else if (albumSize.Contains("TB"))
                 byteValue = 1099511627776;
 
-            return int.Parse(Regex.Replace(albumSize, "[^0-9]+", string.Empty)) * byteValue;
+            decimal regexValue = Convert.ToDecimal(Regex.Replace(albumSize, @"[a-zA-Z]+", string.Empty));
+
+            double roundedValue = Convert.ToDouble(decimal.Round(regexValue * byteValue, 0)); 
+
+            return roundedValue;
         }
 
-        private static bool EnoughSpaceCheck(string disk, long albumSize)
+        private static bool EnoughSpaceCheck(string disk, double albumSize)
         {
             DriveInfo drive = new DriveInfo(disk);
-
+             
             if (!drive.IsReady)
                 return false;
 
