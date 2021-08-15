@@ -57,8 +57,14 @@ namespace CyberdropDownloader.Core
                         {
                             stream.Seek(0, SeekOrigin.Begin);
                             await stream.CopyToAsync(fileStream);
+
+                            await fileStream.DisposeAsync();
                         }
+
+                        await stream.DisposeAsync();
                     }
+
+                    clientResponse.Dispose();
                 }
                 catch (Exception)
                 {
@@ -66,7 +72,6 @@ namespace CyberdropDownloader.Core
                     response = DownloadResponse.Failed;
                 }
 
-                clientResponse.Dispose();
                 response = DownloadResponse.Downloaded;
             });
 
