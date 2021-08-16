@@ -32,7 +32,7 @@ namespace CyberdropDownloader.Avalonia.ViewModels
 
         private async void FetchAndDownload()
         {
-            string[] entries = _urlInput.Text.Split('\n', '\r');
+            string[] entries = _urlInput.Text.Split(_urlInput.NewLine);
 
             foreach (string entry in entries)
             {
