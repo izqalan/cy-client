@@ -20,7 +20,7 @@ namespace CyberdropDownloader.Tests
         [Test, Order(1)]
         public void LoadPage()
         {
-            bool result = webScraper.Loaded;
+            bool result = webScraper.Successful;
 
             Assert.True(result);
         }
