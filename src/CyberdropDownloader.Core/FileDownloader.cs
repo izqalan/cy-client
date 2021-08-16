@@ -98,6 +98,19 @@ namespace CyberdropDownloader.Core
             return roundedValue;
         }
 
+        public static string NormalizeFileName(string data)
+        {
+            string regexSearch = new string(Path.GetInvalidFileNameChars().ToString());
+
+            Regex regexResult = new Regex($"[{Regex.Escape(regexSearch)}]");
+
+            data = regexResult.Replace(data, string.Empty);
+
+            if (data.Length == 0)
+                data = "cy_album";
+
+            return data;
+        }
         private static bool EnoughSpaceCheck(string disk, double albumSize)
         {
             DriveInfo drive = new DriveInfo(disk);
