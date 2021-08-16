@@ -16,7 +16,7 @@ namespace CyberdropDownloader.Core
         private HtmlDocument _htmlDocument;
 
         private Album _album;
-        private bool _loaded;
+        private bool _successful;
 
         public WebScraper(string url)
         {
@@ -24,7 +24,7 @@ namespace CyberdropDownloader.Core
         }
 
         public Album Album { get => _album; }
-        public bool Loaded { get => _loaded; }
+        public bool Successful { get => _successful; }
 
         public async Task InitializeAsync()
         {
@@ -32,8 +32,18 @@ namespace CyberdropDownloader.Core
             {
                 await LoadHtmlDocumenteAsync();
 
-                if(_loaded)
-                    _album = new Album(await FetchAlbumTitleAsync(), await FetchAlbumSizeAsync(), await FetchAlbumFilesAsync());
+                if (_htmlDocument != null)
+                {
+                    try
+                    {
+                        _album = new Album(await FetchAlbumTitleAsync(), await FetchAlbumSizeAsync(), await FetchAlbumFilesAsync());
+                        _successful = true;
+                    }
+                    catch
+                    {
+                        _successful = false;
+                    }
+                }
             });
         }
 
@@ -88,12 +98,10 @@ namespace CyberdropDownloader.Core
             try
             {
                 _htmlDocument = await new HtmlWeb().LoadFromWebAsync(_url);
-                _loaded = true;
             }
             catch (Exception)
             {
                 _htmlDocument = null!;
-                _loaded = false;
             }
         }
 
