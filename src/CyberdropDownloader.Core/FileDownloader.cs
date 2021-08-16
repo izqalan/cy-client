@@ -111,6 +111,18 @@ namespace CyberdropDownloader.Core
 
             return data;
         }
+
+        public static string NormalizePath(string data)
+        {
+            string regexSearch = new string(Path.GetInvalidPathChars());
+
+            Regex regexResult = new Regex($"[{Regex.Escape(regexSearch)}]");
+
+            data = regexResult.Replace(data, string.Empty);
+
+            return data;
+        }
+
         private static bool EnoughSpaceCheck(string disk, double albumSize)
         {
             DriveInfo drive = new DriveInfo(disk);
