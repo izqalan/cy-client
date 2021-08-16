@@ -104,19 +104,5 @@ namespace CyberdropDownloader.Core
                 _htmlDocument = null!;
             }
         }
-
-        public string ValidatePathAndFileName(string data)
-        {
-
-            string regexSearch = new string(Path.GetInvalidFileNameChars()) + new string(Path.GetInvalidPathChars());
-
-            Regex regexResult = new Regex(string.Format("[{0}]", Regex.Escape(regexSearch)));
-
-            data = regexResult.Replace(data, "");
-
-            data = data.Length == 0 ? "cy_album" : HttpUtility.HtmlDecode(data);
-
-            return data;
-        }
     }
 }
