@@ -15,7 +15,7 @@ jobs:
     runs-on: windows-latest
     strategy:
       matrix:
-        dotnet-version: ['3.1']
+        dotnet-version: ['5.0.400']
     steps:
     - uses: actions/checkout@v2
     - name: Setup .NET
@@ -23,8 +23,8 @@ jobs:
       with:
         dotnet-version: ${{ matrix.dotnet-version }}
     - name: Restore dependencies
-      run: dotnet restore
+      run: dotnet restore .\src\
     - name: Build
-      run: dotnet build --configuration Release --no-restore
+      run: dotnet build .\src\ --configuration Release
     - name: Test
-      run: dotnet test --no-restore --verbosity normal
+      run: dotnet test .\src\ --no-restore --verbosity normal

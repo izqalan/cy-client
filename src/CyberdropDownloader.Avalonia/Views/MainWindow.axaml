@@ -1,0 +1,30 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:vm="using:CyberdropDownloader.Avalonia.ViewModels"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:Views="using:CyberdropDownloader.Avalonia.Views"
+        mc:Ignorable="d"
+        d:DesignWidth="523" d:DesignHeight="342" Width="523" Height="342"
+        x:Class="CyberdropDownloader.Avalonia.Views.MainWindow"
+        Title="cy client" CanResize="False" Icon="resm:CyberdropDownloader.Avalonia.Assets.duck.ico?assembly=Cyberdrop Downloader">
+
+  <StackPanel Background="{DynamicResource MainWindowBackground}">
+    <Views:TitleBar x:Name="TitleBar" DataContext="{Binding TitleBarViewModel}"/>
+    <Views:UrlInput x:Name="UrlInput"/>
+
+    <StackPanel Orientation="Horizontal" 
+                Margin="27 8 27 0">
+      <Views:FolderDestination x:Name="FolderDestination" DataContext="{Binding FolderDestinationViewModel}"/>
+      <Views:OpenFolderDestination x:Name="OpenFolderDestination" DataContext="{Binding OpenFolderDestinationViewModel}"/>
+      <Views:DownloadButton x:Name="DownloadButton" DataContext="{Binding DownloadButtonViewModel}"/>
+    </StackPanel>
+
+    <StackPanel Margin="30 13 30 0">
+      <Views:AlbumTitle x:Name="AlbumTitle"/>
+      <Views:DownloadLog x:Name="DownloadLog"/>
+    </StackPanel>
+
+    <Views:HyperLinks x:Name="HyperLinks" DataContext="{Binding HyperLinksViewModel}"/>
+  </StackPanel>
+</Window>

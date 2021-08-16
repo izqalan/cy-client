@@ -1,0 +1,60 @@
+﻿<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+  <Style>
+    <Style.Resources>
+      <!-- Main Window ColorScheme -->
+      <SolidColorBrush x:Key="MainWindowBackground" Color="#36393F"/>
+      <SolidColorBrush x:Key="MainLabelForeground" Color="#DCDDDE"/>
+     
+      <!-- Exit button ColorScheme -->
+      <SolidColorBrush x:Key="ExitButtonBackground" Color="#ed4245"/>
+      <SolidColorBrush x:Key="ExitButtonMouseOver" Color="#e92528"/>
+      <SolidColorBrush x:Key="ExitButtonForeground" Color="#DCDDDE"/>
+
+      <!-- Minimize button ColorScheme -->
+      <SolidColorBrush x:Key="MinimizeButtonBackground" Color="#202225"/>
+      <SolidColorBrush x:Key="MinimizeButtonMouseOver" Color="#26282c"/>
+      <SolidColorBrush x:Key="MinimizeButtonForeground" Color="#DCDDDE"/>
+
+      <!-- TitleBar ColorScheme -->
+      <SolidColorBrush x:Key="TitleBarLabelForeground" Color="#DCDDDE"/>
+      <SolidColorBrush x:Key="TitleBarBackground" Color="#202225"/>
+
+      <!-- UrlInput ColorScheme -->
+      <SolidColorBrush x:Key="UrlInputLabelForeground" Color="#FFFFFF"/>
+      <SolidColorBrush x:Key="UrlInputTextBoxBackground" Color="#202225"/>
+      <SolidColorBrush x:Key="UrlInputTextBoxForeground" Color="#DCDDDE"/>
+      <SolidColorBrush x:Key="UrlInputTextBoxCaret" Color="#FFFFFF"/>
+
+      <!-- Destination ColorScheme -->
+      <SolidColorBrush x:Key="FolderDestinationLabelForeground" Color="#FFFFFF"/>
+      <SolidColorBrush x:Key="FolderDestinationTextBoxBackground" Color="#202225"/>
+      <SolidColorBrush x:Key="FolderDestinationTextBoxForeground" Color="#DCDDDE"/>
+      <SolidColorBrush x:Key="FolderDestinationTextBoxCaret" Color="#FFFFFF"/>
+
+      <!-- OpenFolder ColorScheme -->
+      <SolidColorBrush x:Key="OpenFolderDestinationButtonBackground" Color="#000000" Opacity="0"/>
+      <SolidColorBrush x:Key="OpenFolderDestinationButtonMouseOver" Color="#303338"/>
+      <SolidColorBrush x:Key="OpenFolderDestinationButtonPressed" Color="#202225"/>
+      
+      <!-- DownloadButton ColorScheme -->
+      <SolidColorBrush x:Key="DownloadButtonBackground" Color="#202225"/>
+      <SolidColorBrush x:Key="DownloadButtonMouseOver" Color="#26282c"/>
+      <SolidColorBrush x:Key="DownloadButtonForeground" Color="#FFFFFF"/>
+
+      <!-- DownloadLog ColorScheme -->
+      <SolidColorBrush x:Key="DownloadLogTextBlockBackground" Color="#000000" Opacity="0"/>
+      <SolidColorBrush x:Key="DownloadLogTextBlockForeground" Color="#7fff00"/>
+      <SolidColorBrush x:Key="DownloadLogLabelForeground" Color="#FFFFFF"/>
+      <SolidColorBrush x:Key="DownloadLogBorderBackground" Color="#202225"/>
+      
+      <!-- Album Label ColorScheme-->
+      <SolidColorBrush x:Key="AlbumTitleLabelForeground" Color="#FFFFFF"/>
+
+      <!-- Links ColorScheme -->
+      <SolidColorBrush x:Key="LinkForeground" Color="#c0c0c0"/>
+      <SolidColorBrush x:Key="LinkForegroundPressed" Color="#7fff00"/>
+    </Style.Resources>
+  </Style>
+</Styles>

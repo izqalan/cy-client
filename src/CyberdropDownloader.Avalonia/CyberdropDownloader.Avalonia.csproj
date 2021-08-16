@@ -1,0 +1,49 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net5.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <AssemblyName>Cyberdrop Downloader</AssemblyName>
+    <Copyright>Copyright ©  2021</Copyright>
+    <Product>Cyberdrop Downloader</Product>
+    <AssemblyVersion>1.2.0.0</AssemblyVersion>
+    <FileVersion>1.2.0.0</FileVersion>
+    <NeutralLanguage>en</NeutralLanguage>
+    <Company />
+    <Authors />
+    <PackageIconUrl />
+    <ApplicationIcon>Assets\duck.ico</ApplicationIcon>
+    <Win32Resource />
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DebugType>none</DebugType>
+    <DebugSymbols>false</DebugSymbols>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Remove="Assets\duck15.png" />
+    <None Remove="Assets\duck24.png" />
+    <None Remove="Assets\folder.png" />
+    <None Remove="duck.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <AvaloniaResource Include="Assets\duck15.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </AvaloniaResource>
+    <Content Include="Assets\duck24.png" />
+    <AvaloniaResource Include="Assets\folder.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </AvaloniaResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Assets\duck.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Avalonia" Version="0.10.6" />
+    <PackageReference Include="Avalonia.Desktop" Version="0.10.6" />
+    <PackageReference Include="Avalonia.Diagnostics" Version="0.10.6" />
+    <PackageReference Include="Avalonia.ReactiveUI" Version="0.10.6" />
+   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CyberdropDownloader.Core\CyberdropDownloader.Core.csproj" />
+  </ItemGroup>
+</Project>

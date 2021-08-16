@@ -1,0 +1,68 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="CyberdropDownloader.Avalonia.Views.TitleBar">
+
+  <UserControl.Styles>
+    <Style Selector="Button.ExitButton:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+      <Setter Property="Background" Value="{DynamicResource ExitButtonMouseOver}"/>
+      <Setter Property="TextBlock.Foreground" Value="{DynamicResource ExitButtonForeground}"/>
+    </Style>
+
+    <Style Selector="Button.MinimizeButton:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+      <Setter Property="Background" Value="{DynamicResource MinimizeButtonMouseOver}"/>
+      <Setter Property="TextBlock.Foreground" Value="{DynamicResource MinimizeButtonForeground}"/>
+    </Style>
+  </UserControl.Styles>
+
+  <DockPanel Background="{DynamicResource TitleBarBackground}"
+             HorizontalAlignment="Stretch" VerticalAlignment="Top"
+             IsHitTestVisible="True"
+             Height="23">
+
+    <StackPanel Orientation="Horizontal"
+                HorizontalAlignment="Left" VerticalAlignment="Stretch">
+
+      <Image Source="avares://Cyberdrop Downloader/Assets/duck15.png"
+             Margin="13 0 0 0"
+             HorizontalAlignment="Left" VerticalAlignment="Center"
+             Height="16" Width="15"/>
+
+      <Label Foreground="{DynamicResource TitleBarLabelBackground}"
+             FontSize="11" FontFamily="Microsoft Sans Serif" FontWeight="Thin"
+             Content="cy client" x:Name="TitleBarLabel"
+             HorizontalContentAlignment="Left" VerticalContentAlignment="Bottom"
+             HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+    </StackPanel>
+
+    <StackPanel Orientation="Horizontal"
+                HorizontalAlignment="Right" VerticalAlignment="Stretch">
+
+      <Button Classes="MinimizeButton"
+              Content="_"
+              Foreground="{DynamicResource MinimizeButtonForeground}"
+              Background="{DynamicResource MinimizeButtonBackground}"
+              FontSize="8.5" FontFamily="Microsoft Sans Serif" FontWeight="Normal"
+              HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+              HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+              IsHitTestVisible="True"
+              Width="26"
+              ToolTip.Tip="Minimize cyclient"
+              Command="{Binding MinimizeCommand}"/>
+
+      <Button Classes="ExitButton"
+              Content="X"
+              Foreground="{DynamicResource ExitButtonForeground}"
+              Background="{DynamicResource ExitButtonBackground}"
+              FontSize="9" FontFamily="Microsoft Sans Serif" FontWeight="Normal"
+              HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+              HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+              IsHitTestVisible="True"
+              Width="26"
+              ToolTip.Tip="Close cyclient"
+              Command="{Binding QuitCommand}"/>
+    </StackPanel>
+  </DockPanel>
+</UserControl>
