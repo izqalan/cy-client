@@ -27,8 +27,9 @@ namespace CyberdropDownloader.Core
 
         public static async Task<DownloadResponse> DownloadFile(string url, string path, string fileName, string albumSize)
         {
-            string filePath = $"{path}\\{fileName}";
-
+            path = NormalizePath(path);
+            string filePath = $"{path}\\{NormalizeFileName(fileName)}";
+            
             if (!Directory.Exists(path))
                 Directory.CreateDirectory(path);
 
