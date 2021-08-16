@@ -42,7 +42,7 @@ namespace CyberdropDownloader.Avalonia.ViewModels
                 if (!webScraper.Successful)
                 {
                     Log($"Invalid Url: {entry}");
-                    break;
+                    continue;
                 }
 
                 string albumTitle = webScraper.Album.Title;
