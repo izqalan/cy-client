@@ -20,7 +20,7 @@ namespace CyberdropDownloader.Tests
         [Test, Order(1)]
         public void ConvertAlbumSizeToByte()
         {
-            long response = FileDownloader.ConvertAlbumSizeToByte("10 MB");
+            double response = FileDownloader.ConvertAlbumSizeToByte("10 MB");
 
             Assert.IsTrue(response == 10485760);
         }
