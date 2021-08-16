@@ -39,7 +39,7 @@ namespace CyberdropDownloader.Avalonia.ViewModels
                 WebScraper webScraper = new WebScraper(entry);
                 await webScraper.InitializeAsync();
 
-                if (!webScraper.Loaded)
+                if (!webScraper.Successful)
                 {
                     Log($"Invalid Url: {entry}");
                     break;
