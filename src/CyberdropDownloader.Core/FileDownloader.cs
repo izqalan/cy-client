@@ -73,7 +73,8 @@ namespace CyberdropDownloader.Core
                     response = DownloadResponse.Failed;
                 }
 
-                response = DownloadResponse.Downloaded;
+                if(response != DownloadResponse.Failed)
+                    response = DownloadResponse.Downloaded;
             });
 
             return response;
