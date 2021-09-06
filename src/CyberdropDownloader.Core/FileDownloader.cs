@@ -43,10 +43,10 @@ namespace CyberdropDownloader.Core
 
             await Task.Run(async () =>
             {
-                HttpResponseMessage clientResponse = await DownloadClient.GetAsync(url);
-
                 try
                 {
+                    HttpResponseMessage clientResponse = await DownloadClient.GetAsync(url);
+
                     while (clientResponse.ReasonPhrase == "Moved Temporarily")
                     {
                         clientResponse = await DownloadClient.GetAsync(clientResponse.Headers.Location);
