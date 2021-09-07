@@ -80,7 +80,7 @@ namespace CyberdropDownloader.Core
                 {
                     urls.Enqueue(new AlbumFile()
                     {
-                        Name = FileDownloader.NormalizeFileName(link.Attributes["title"].Value),
+                        Name = link.Attributes["title"].Value,
                         Url = link.Attributes["href"].Value
                     });
                 }
