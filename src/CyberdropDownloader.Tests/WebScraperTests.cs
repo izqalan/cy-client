@@ -9,18 +9,19 @@ namespace CyberdropDownloader.Tests
 
     public class WebScraperTests
     {
-        WebScraper webScraper = new WebScraper("https://cyberdrop.me/a/mowoshqo");
+        private WebScraper _webScraper;
 
         [OneTimeSetUp]
         public async Task OneTimeSetUp()
         {
-            await webScraper.LoadAlbumAsync();
+            _webScraper = new WebScraper();
+            await _webScraper.LoadAlbumAsync("https://cyberdrop.me/a/mowoshqo");
         }
 
         [Test, Order(1)]
         public void LoadPage()
         {
-            bool result = webScraper.Successful;
+            bool result = _webScraper.Successful;
 
             Assert.True(result);
         }
@@ -28,7 +29,7 @@ namespace CyberdropDownloader.Tests
         [Test, Order(2)]
         public void FetchAlbumTitle()
         {
-            string result = webScraper.Album.Title;
+            string result = _webScraper.Album.Title;
 
             Assert.IsTrue(string.Equals("tests", result));
         }
@@ -36,15 +37,15 @@ namespace CyberdropDownloader.Tests
         [Test, Order(3)]
         public void FetchAlbumSize()
         {
-            string result = webScraper.Album.Size;
+            double result = _webScraper.Album.Size;
 
-            Assert.IsTrue(string.Equals("4.58 MB", result));
+            Assert.IsTrue(Equals("4802478", result.ToString()));
         }
 
         [Test, Order(4)]
         public void FetchAlbumFiles()
         {
-            Queue<AlbumFile> result = webScraper.Album.Files;
+            Queue<AlbumFile> result = _webScraper.Album.Files;
 
             Assert.IsTrue(result.Count == 3);
         }

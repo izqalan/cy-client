@@ -10,7 +10,7 @@ namespace CyberdropDownloader.Core
 {
     public class AlbumDownloader
     {
-        private static HttpClient _downloadClient;
+        private HttpClient _downloadClient;
 
         public AlbumDownloader()
         {
@@ -24,7 +24,7 @@ namespace CyberdropDownloader.Core
             _downloadClient.Timeout = Timeout.InfiniteTimeSpan;
         }
 
-        public static HttpClient DownloadClient { get => _downloadClient; }
+        public HttpClient DownloadClient { get => _downloadClient; }
 
         public delegate void EventHandler(string fileName);
 
