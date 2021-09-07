@@ -15,16 +15,14 @@ namespace CyberdropDownloader.Core
         private Album _album;
         private bool _successful;
 
-        public WebScraper(string url)
-        {
-            _url = url;
-        }
-
         public Album Album { get => _album; }
         public bool Successful { get => _successful; }
 
-        public async Task InitializeAsync()
+        public async Task LoadAlbumAsync(string url)
         {
+            _url = url;
+            _successful = false;
+
             await Task.Run(async () =>
             {
                 await LoadHtmlDocumenteAsync();
@@ -33,6 +31,7 @@ namespace CyberdropDownloader.Core
                 {
                     try
                     {
+                        // Insatiate new album with title, size, and files.
                         _album = new Album(await FetchAlbumTitleAsync(), await FetchAlbumSizeAsync(), await FetchAlbumFilesAsync());
                         _successful = true;
                     }
@@ -44,9 +43,10 @@ namespace CyberdropDownloader.Core
             });
         }
 
-        public async Task<string> FetchAlbumTitleAsync()
+        #region Load Album
+        private async Task<string> FetchAlbumTitleAsync()
         {
-            string title = "";
+            string title = null;
 
             await Task.Run(() =>
             {
@@ -56,9 +56,9 @@ namespace CyberdropDownloader.Core
             return title;
         }
 
-        public async Task<string> FetchAlbumSizeAsync()
+        private async Task<string> FetchAlbumSizeAsync()
         {
-            string size = "";
+            string size = null;
 
             await Task.Run(() =>
             {
@@ -68,7 +68,7 @@ namespace CyberdropDownloader.Core
             return size;
         }
 
-        public async Task<Queue<AlbumFile>> FetchAlbumFilesAsync()
+        private async Task<Queue<AlbumFile>> FetchAlbumFilesAsync()
         {
             Queue<AlbumFile> urls = new Queue<AlbumFile>();
 
@@ -90,7 +90,7 @@ namespace CyberdropDownloader.Core
             return urls;
         }
 
-        public async Task LoadHtmlDocumenteAsync()
+        private async Task LoadHtmlDocumenteAsync()
         {
             try
             {
@@ -101,5 +101,6 @@ namespace CyberdropDownloader.Core
                 _htmlDocument = null!;
             }
         }
+        #endregion
     }
 }

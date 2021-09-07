@@ -1,0 +1,93 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        d:DesignWidth="523" d:DesignHeight="342" 
+        Width="523" Height="342"
+        x:Class="CyberdropDownloader.Avalonia.Views.MainWindowView"
+        Title="cy client" CanResize="False" Icon="resm:CyberdropDownloader.Avalonia.Assets.duck.ico?assembly=Cyberdrop Downloader">
+
+  <StackPanel Background="{DynamicResource MainWindowBackground}">
+    
+    <!-- TitleBar -->
+    <DockPanel Classes="TitleBar" x:Name="TitleBar">
+      <StackPanel HorizontalAlignment="Left" VerticalAlignment="Stretch"
+                  Orientation="Horizontal">
+
+        <!-- Logo -->
+        <Image Classes="Logo"/>
+
+        <!-- Application Title -->
+        <Label Classes="ApplicationTitle" x:Name="ApplicationTitle"/>
+      </StackPanel>
+
+      <StackPanel HorizontalAlignment="Right" VerticalAlignment="Stretch"
+                  Orientation="Horizontal">
+
+        <!-- Minimize -->
+        <Button Classes="Minimize" Command="{Binding MinimizeCommand}"/>
+
+        <!-- Exit -->
+        <Button Classes="Exit" Command="{Binding ExitCommand}"/>
+      </StackPanel>
+    </DockPanel>
+
+    <!-- Url input box -->
+    <StackPanel Margin="27 5 27 0">
+      
+      <!-- Url label -->
+      <Label Classes="Url"/>
+
+      <!-- UrlInput TextBox-->
+      <TextBox Classes="UrlInput" x:Name="UrlInput"/>
+    </StackPanel>
+
+    <StackPanel Orientation="Horizontal" Margin="27 8 27 0">
+
+      <!-- Destination label -->
+      <Label Classes="Destination"/>
+
+      <!-- Destination input box -->
+      <TextBox Classes="DestinationInput" x:Name="DestinationInput"/>
+
+      <!-- Open folder button -->
+      <Button Classes="OpenFolder" Command="{Binding OpenFolderCommand}">
+
+        <Image Classes="Folder"/>
+      </Button>
+
+      <!-- Download button -->
+      <Button Classes="Download" Command="{Binding DownloadCommand}"/>
+    </StackPanel>
+
+    <!-- Download Log -->
+    <StackPanel Margin="30 13 30 0">
+      <!-- Downloading label -->
+      <Label Classes="AlbumTitle" x:Name="AlbumTitle"/>
+
+      <!-- Download text box -->
+      <StackPanel>
+        <!-- Download Log label-->
+        <Label Classes="DownloadLog"/>
+
+        <Border Background="{DynamicResource DownloadLogBorderBackground}" CornerRadius="4">
+
+          <!-- Download textblock-->
+          <TextBlock Classes="DownloadLog" x:Name="DownloadLog"/>
+        </Border>
+      </StackPanel>
+    </StackPanel>
+
+    <!-- Hyperlinks -->
+    <StackPanel HorizontalAlignment="Right" VerticalAlignment="Stretch"
+                Orientation="Horizontal" Margin="0 8 30 0">
+
+      <!-- Releases button -->
+      <Button Classes="Hyperlink Releases" Command="{Binding ReleasesCommand}"/>
+
+      <!-- Issues button -->
+      <Button Classes="Hyperlink Issues" Command="{Binding IssuesCommand}"/>
+    </StackPanel>
+  </StackPanel>
+</Window>

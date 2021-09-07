@@ -1,13 +1,16 @@
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
+using CyberdropDownloader.Avalonia.ViewModels;
 
 namespace CyberdropDownloader.Avalonia.Views
 {
-    public partial class FolderDestination : UserControl
+    public partial class MainWindowView : Window
     {
-        public FolderDestination()
+        public MainWindowView()
         {
             InitializeComponent();
+
+            DataContext = new MainWindowViewModel(this);
         }
 
         private void InitializeComponent()

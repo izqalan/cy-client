@@ -1,0 +1,79 @@
+﻿<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+  <!-- ApplicationTitle -->
+  <Style Selector="Label.ApplicationTitle">
+    <Setter Property="Foreground" Value="{DynamicResource ApplicationTitleLabelForeground}"/>
+    
+    <Setter Property="FontSize" Value="11"/>
+    <Setter Property="FontFamily" Value="Microsoft Sans Serif"/>
+    <Setter Property="FontWeight" Value="Thin"/>
+    
+    <Setter Property="Content" Value="cy client"/>
+    
+    <Setter Property="HorizontalAlignment" Value="Stretch"/>
+    <Setter Property="VerticalAlignment" Value="Stretch"/>
+    <Setter Property="HorizontalContentAlignment" Value="Left"/>
+    <Setter Property="VerticalContentAlignment" Value="Bottom"/>
+  </Style>
+
+  <!-- UrlLabel -->
+  <Style Selector="Label.Url">
+    <Setter Property="Foreground" Value="{DynamicResource UrlLabelForeground}"/>
+    
+    <Setter Property="FontSize" Value="12"/>
+    <Setter Property="FontFamily" Value="Verdana"/>
+    <Setter Property="FontWeight" Value="Bold"/>
+    
+    <Setter Property="Content" Value="URL"/>
+  </Style>
+
+  <!-- Destination -->
+  <Style Selector="Label.Destination">
+    <Setter Property="Foreground" Value="{DynamicResource FolderDestinationLabelForeground}"/>
+    
+    <Setter Property="FontSize" Value="12"/>
+    <Setter Property="FontFamily" Value="Verdana"/>
+    <Setter Property="FontWeight" Value="Thin"/>
+    
+    <Setter Property="Height" Value="13"/>
+    <Setter Property="Width" Value="71"/>
+    
+    <Setter Property="HorizontalContentAlignment" Value="Left"/>
+    <Setter Property="VerticalContentAlignment" Value="Bottom"/>
+    
+    <Setter Property="Padding" Value="0"/>
+    <Setter Property="Margin" Value="3 0 0 0"/>
+    
+    <Setter Property="Content" Value="Destination"/>
+  </Style>
+
+  <!-- AlbumTitle -->
+  <Style Selector="Label.AlbumTitle">
+    <Setter Property="Foreground" Value="{DynamicResource AlbumTitleLabelForeground}"/>
+    
+    <Setter Property="FontSize" Value="12"/>
+    <Setter Property="FontFamily" Value="Microsoft Sans Serif"/>
+    <Setter Property="FontWeight" Value="Thin"/>
+    
+    <Setter Property="HorizontalAlignment" Value="Left"/>
+    
+    <Setter Property="Padding" Value="0"/>
+    
+    <Setter Property="Content" Value="Downloading: None"/>
+  </Style>
+
+  <!-- DownloadLog -->
+  <Style Selector="Label.DownloadLog">
+    <Setter Property="Foreground" Value="{DynamicResource DownloadLogLabelForeground}"/>
+    
+    <Setter Property="FontSize" Value="12"/>
+    <Setter Property="FontFamily" Value="Verdana"/>
+    <Setter Property="FontWeight" Value="Bold"/>
+    
+    <Setter Property="Margin" Value="0 0 0 5"/>
+    <Setter Property="Padding" Value="0"/>
+    
+    <Setter Property="Content" Value="Download Log"/>
+  </Style>
+</Styles>

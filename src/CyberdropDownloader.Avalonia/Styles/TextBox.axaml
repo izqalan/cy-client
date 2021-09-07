@@ -1,0 +1,74 @@
+﻿<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+  <!-- UrlInput -->
+  <Style Selector="TextBox.UrlInput">
+    <Setter Property="Background" Value="{DynamicResource UrlInputTextBoxBackground}"/>
+    <Setter Property="Foreground" Value="{DynamicResource UrlInputTextBoxForeground}"/>
+    <Setter Property="CaretBrush" Value="{DynamicResource UrlInputTextBoxCaret}"/>
+    
+    <Setter Property="BorderThickness" Value="0"/>
+    
+    <Setter Property="FontFamily" Value="Microsoft Sans Serif"/>
+    
+    <Setter Property="AcceptsReturn" Value="True"/>
+    <Setter Property="TextWrapping" Value="Wrap"/>
+    
+    <Setter Property="Padding" Value="0"/>
+    
+    <Setter Property="Width" Value="465"/>
+    <Setter Property="Height" Value="61"/>
+    
+    <Setter Property="Text" Value=""/>
+  </Style>
+
+  <Style Selector="TextBox.UrlInput:pointerover /template/ Border#PART_BorderElement">
+    <Setter Property="Background" Value="{DynamicResource UrlInputTextBoxBackground}"/>
+  </Style>
+
+  <Style Selector="TextBox.UrlInput:focus /template/ Border#PART_BorderElement">
+    <Setter Property="Background" Value="{DynamicResource UrlInputTextBoxBackground}"/>
+    <Setter Property="BorderThickness" Value="0"/>
+  </Style>
+
+  <!-- DestinationInput -->
+  <Style Selector="TextBox.DestinationInput">
+    <Setter Property="Background" Value="{DynamicResource FolderDestinationTextBoxBackground}"/>
+    <Setter Property="Foreground" Value="{DynamicResource FolderDestinationTextBoxForeground}"/>
+    <Setter Property="CaretBrush" Value="{DynamicResource FolderDestinationTextBoxCaret}"/>
+    
+    <Setter Property="Cursor" Value="Hand"/>
+    
+    <Setter Property="BorderThickness" Value="0"/>
+    
+    <Setter Property="AcceptsReturn" Value="False"/>
+    <Setter Property="TextWrapping" Value="NoWrap"/>
+    
+    <Setter Property="FontSize" Value="13"/>
+    <Setter Property="FontFamily" Value="Microsoft Sans Serif"/>
+    <Setter Property="FontWeight" Value="Thin"/>
+    
+    <Setter Property="Padding" Value="0"/>
+    <Setter Property="Margin" Value="6 0 4 0"/>
+    
+    <Setter Property="MinHeight" Value="0"/>
+    
+    <Setter Property="Height" Value="16"/>
+    <Setter Property="Width" Value="274"/>
+    
+    <Setter Property="ToolTip.Tip" Value="Choose file destination"/>
+  </Style>
+
+  <Style Selector="TextBox.DestinationInput:pointerover /template/ Border#PART_BorderElement">
+    <Setter Property="Background" Value="{DynamicResource FolderDestinationTextBoxBackground}"/>
+  </Style>
+
+  <Style Selector="TextBox.DestinationInput:focus /template/ Border#PART_BorderElement">
+    <Setter Property="Background" Value="{DynamicResource FolderDestinationTextBoxBackground}"/>
+    <Setter Property="BorderThickness" Value="0"/>
+  </Style>
+
+  <Style Selector="TextBox.DestinationInput /template/ DockPanel#PART_InnerDockPanel">
+    <Setter Property="Cursor" Value="Hand"/>
+  </Style>
+</Styles>

@@ -1,6 +1,6 @@
 ﻿using Avalonia.Controls;
 using Avalonia.Controls.Templates;
-using CyberdropDownloader.Avalonia.ViewModels;
+using CyberdropDownloader.Avalonia.ViewModels.Core;
 using System;
 
 namespace CyberdropDownloader.Avalonia
