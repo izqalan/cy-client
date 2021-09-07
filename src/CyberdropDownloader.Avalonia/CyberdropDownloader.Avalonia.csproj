@@ -46,4 +46,9 @@
   <ItemGroup>
     <ProjectReference Include="..\CyberdropDownloader.Core\CyberdropDownloader.Core.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Views\MainWindowView.axaml.cs">
+      <DependentUpon>MainWindowView.axaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
 </Project>
