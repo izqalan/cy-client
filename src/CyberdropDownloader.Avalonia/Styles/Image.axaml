@@ -1,0 +1,25 @@
+﻿<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+  <!-- Logo -->
+  <Style Selector="Image.Logo">
+    <Setter Property="Source" Value="avares://Cyberdrop Downloader/Assets/duck15.png"/>
+    
+    <Setter Property="Margin" Value="13 0 0 0"/>
+    
+    <Setter Property="HorizontalAlignment" Value="Left"/>
+    <Setter Property="VerticalAlignment" Value="Center"/>
+    
+    <Setter Property="Height" Value="16"/>
+    <Setter Property="Width" Value="15"/>
+  </Style>
+
+  <!-- Folder -->
+  <Style Selector="Image.Folder">
+    <Setter Property="Source" Value="avares://Cyberdrop Downloader/Assets/folder.png"/>
+    
+    <Setter Property="Stretch" Value="None"/>
+    
+    <Setter Property="Margin" Value="0"/>
+  </Style>
+</Styles>

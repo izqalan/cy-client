@@ -11,7 +11,7 @@
     <!-- Redundant, but don't remove -->
     <FluentTheme Mode="Dark"/>
 
-    <!-- Color scheme for whole application -->
     <StyleInclude Source="avares://Cyberdrop Downloader/Styles/ColorScheme.axaml"/>
+    <StyleInclude Source="avares://Cyberdrop Downloader/Styles/Controls.axaml"/>
   </Application.Styles>
 </Application>
