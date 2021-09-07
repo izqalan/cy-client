@@ -12,7 +12,6 @@ namespace CyberdropDownloader.Avalonia
         public override void Initialize()
         {
             AvaloniaXamlLoader.Load(this);
-            FileDownloader.Initialize();
         }
 
         public override void OnFrameworkInitializationCompleted()
