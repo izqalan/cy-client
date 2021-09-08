@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CyberdropDownloader.Avaloni
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CyberdropDownloader.Core", "CyberdropDownloader.Core\CyberdropDownloader.Core.csproj", "{F052435A-8793-4F04-A590-3589BC8F04B9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CyberdropDownloader.Tests", "CyberdropDownloader.Tests\CyberdropDownloader.Tests.csproj", "{6CB73075-E086-44D7-B00E-53F8965730A3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CyberdropDownloader.Tests", "CyberdropDownloader.Tests\CyberdropDownloader.Tests.csproj", "{6CB73075-E086-44D7-B00E-53F8965730A3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
