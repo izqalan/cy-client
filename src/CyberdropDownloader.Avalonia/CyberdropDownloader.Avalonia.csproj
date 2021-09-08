@@ -6,18 +6,20 @@
     <AssemblyName>Cyberdrop Downloader</AssemblyName>
     <Copyright>Copyright ©  2021</Copyright>
     <Product>Cyberdrop Downloader</Product>
-    <AssemblyVersion>1.2.0.0</AssemblyVersion>
-    <FileVersion>1.2.0.0</FileVersion>
+    <AssemblyVersion>2.0.0.0</AssemblyVersion>
+    <FileVersion>2.0.0.0</FileVersion>
     <NeutralLanguage>en</NeutralLanguage>
     <Company />
     <Authors />
     <PackageIconUrl />
     <ApplicationIcon>Assets\duck.ico</ApplicationIcon>
     <Win32Resource />
+    <Version>2.0.0</Version>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DebugType>none</DebugType>
     <DebugSymbols>false</DebugSymbols>
+    <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
     <None Remove="Assets\duck15.png" />
