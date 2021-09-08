@@ -11,3 +11,6 @@ echo linux-x64 published
  
 dotnet publish .\src\CyberdropDownloader.Avalonia\ -p:PublishProfile=osx-x64 -v quiet /p:DebugType=None
 echo osx-x64 published
+
+publish -r win-x64 ./src/CyberdropDownloader.Avalonia /p:PublishSingleFile=true /p:IncludeNativeLibrariesForSelfExtract=true -p:PublishProfile=win-x64 -v quiet /p:DebugType=None
+echo x64-client.exe published
