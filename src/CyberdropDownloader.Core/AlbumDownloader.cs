@@ -10,7 +10,7 @@ namespace CyberdropDownloader.Core
 {
     public class AlbumDownloader
     {
-        private static HttpClient _downloadClient;
+        private HttpClient _downloadClient;
         private bool _authorized;
         private bool _running;
 
@@ -27,7 +27,7 @@ namespace CyberdropDownloader.Core
             _authorized = authorized;
         }
 
-        public static HttpClient DownloadClient { get => _downloadClient; }
+        public HttpClient DownloadClient { get => _downloadClient; }
         public bool Authorized { get => _authorized; set => _authorized = value; }
         public bool Running { get => _running; }
 
