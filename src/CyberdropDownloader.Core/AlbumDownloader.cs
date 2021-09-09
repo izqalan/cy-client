@@ -10,9 +10,14 @@ namespace CyberdropDownloader.Core
 {
     public class AlbumDownloader
     {
-        private HttpClient _downloadClient;
+        private static HttpClient _downloadClient;
+        private bool _authorized;
+        private bool _running;
+        private bool _isCanceled;
 
-        public AlbumDownloader()
+        private CancellationTokenSource _cancellationTokenSource;
+
+        public AlbumDownloader(bool authorized)
         {
             // Setup and initialize HttpClient
             _downloadClient = new HttpClient(new HttpClientHandler()
@@ -22,9 +27,14 @@ namespace CyberdropDownloader.Core
             });
 
             _downloadClient.Timeout = Timeout.InfiniteTimeSpan;
+            _authorized = authorized;
+            _cancellationTokenSource = new CancellationTokenSource();
         }
 
-        public HttpClient DownloadClient { get => _downloadClient; }
+        public static HttpClient DownloadClient { get => _downloadClient; }
+        public bool Authorized { get => _authorized; set => _authorized = value; }
+        public bool Running { get => _running; }
+        public bool IsCanceled { get => _isCanceled; }
 
         public delegate void EventHandler(string fileName);
 
@@ -35,62 +45,75 @@ namespace CyberdropDownloader.Core
 
         public async Task DownloadAsync(Album album, string path)
         {
-            path = NormalizePath($"{path}\\{album.Title}");
+            // if not authorized throw exception
+            if (!_authorized)
+                throw new Exception("Not authorized");
 
-            if (!Directory.Exists(path))
-                Directory.CreateDirectory(path);
-
-            while (album.Files.Count > 0)
+            try
             {
-                AlbumFile file = album.Files.Peek();
-                string filePath = $"{path}\\{NormalizeFileName(file.Name)}";
+                if (_cancellationTokenSource == null)
+                    _cancellationTokenSource = new CancellationTokenSource();
 
-                if (File.Exists(filePath))
-                {
-                    FileExists.Invoke(album.Files.Dequeue().Name);
-                    continue;
-                }
+                _isCanceled = false;
+
+                path = NormalizePath($"{path}\\{album.Title}");
+
+                if (!Directory.Exists(path))
+                    Directory.CreateDirectory(path);
 
                 await Task.Run(async () =>
                 {
-                    try
+                    _running = true;
+
+                    while (album.Files.Count > 0 && _running)
                     {
-                        DownloadClient.CancelPendingRequests();
+                        AlbumFile file = album.Files.Peek();
+                        string filePath = $"{path}\\{NormalizeFileName(file.Name)}";
 
-                        HttpResponseMessage clientResponse = await DownloadClient.GetAsync(file.Url);
-
-                        FileDownloading.Invoke(file.Name);
-
-                        // Keeps redirecting until it reaches the actual file
-                        while (clientResponse.ReasonPhrase == "Moved Temporarily")
+                        if (File.Exists(filePath))
                         {
-                            clientResponse = await DownloadClient.GetAsync(clientResponse.Headers.Location);
+                            FileExists.Invoke(album.Files.Dequeue().Name);
+                            continue;
                         }
 
-                        await using (Stream stream = await clientResponse.Content.ReadAsStreamAsync())
+                        try
                         {
+                            FileDownloading.Invoke(file.Name);
+
+                            // Causing hang
+                            HttpResponseMessage clientResponse = DownloadClient.GetAsync(file.Url).Result;
+
+                            // Keeps redirecting until it reaches the actual file
+                            while (clientResponse.ReasonPhrase == "Moved Temporarily")
+                                clientResponse = DownloadClient.GetAsync(clientResponse.Headers.Location).Result;
+
                             await using (Stream fileStream = File.Create(filePath))
-                            {
-                                stream.Seek(0, SeekOrigin.Begin);
-                                await stream.CopyToAsync(fileStream);
+                                await clientResponse.Content.CopyToAsync(fileStream);
 
-                                await fileStream.DisposeAsync();
-                            }
-
-                            await stream.DisposeAsync();
+                            clientResponse.Dispose();
+                            FileDownloaded.Invoke(album.Files.Dequeue().Name);
                         }
-
-                        clientResponse.Dispose();
-                        FileDownloaded.Invoke(album.Files.Dequeue().Name);
+                        catch (Exception)
+                        {
+                            File.Delete(filePath);
+                            FileFailed.Invoke(file.Name);
+                        }
                     }
-                    catch (Exception)
-                    {
-                        File.Delete(filePath);
-                        FileFailed.Invoke(file.Name);
-                    }
-                });
+                }, _cancellationTokenSource.Token);
             }
+            catch (Exception) 
+            { 
+                _isCanceled = true;
+                _cancellationTokenSource = null;
+            }
+            _running = false;
         }
+
+        public void CancelDownload() 
+        {
+            _cancellationTokenSource.Cancel();
+            _downloadClient.CancelPendingRequests();
+        } 
 
         private static string NormalizeFileName(string data)
         {
