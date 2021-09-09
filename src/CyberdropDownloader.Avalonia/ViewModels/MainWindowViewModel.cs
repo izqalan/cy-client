@@ -31,7 +31,6 @@ namespace CyberdropDownloader.Avalonia.ViewModels
 
         public MainWindowViewModel(Window mainWindow)
         {
-            _cancellationTokenSource = new CancellationTokenSource();
             _webScraper = new WebScraper();
             _albumDownloader = new AlbumDownloader(true);
 
@@ -60,6 +59,7 @@ namespace CyberdropDownloader.Avalonia.ViewModels
 
             _applicationTitle.Content = $"cy client - v{Assembly.GetExecutingAssembly().GetName().Version}";
             _destinationInput.Text = Environment.CurrentDirectory;
+            _cancellationTokenSource = new CancellationTokenSource();
         }
 
         #region Commands
@@ -76,36 +76,48 @@ namespace CyberdropDownloader.Avalonia.ViewModels
         private void OpenIssues() => Process.Start(new ProcessStartInfo("https://github.com/izqalan/cy-client/issues") { UseShellExecute = true });
         private async void Download()
         {
-            _urls = _urlInput.Text.Split(_urlInput.NewLine);
-            _downloadLog.Text = "";
-
-            // each url in the url input box
-            foreach (string url in _urls)
+            if (_albumDownloader.Running)
             {
-                if (_albumDownloader.IsCanceled)
-                    return;
+                _cancellationTokenSource?.Cancel();
+                _albumDownloader.CancelDownload();
+            }
 
-                // load the album
-                await _webScraper.LoadAlbumAsync(url);
+            await Task.Run(async () =>
+            {
+                _urls = _urlInput.Text.Split(_urlInput.NewLine);
 
-                if (!_webScraper.Successful)
+                try
                 {
-                    Log($"Invalid Url: {url}");
-                    continue;
+                    // each url in the url input box
+                    foreach (string url in _urls)
+                    {
+                        if (_cancellationTokenSource?.IsCancellationRequested == true)
+                            _cancellationTokenSource = new CancellationTokenSource();
+
+                        // load the album
+                        await _webScraper.LoadAlbumAsync(url).ConfigureAwait(false);
+
+                        if (!_webScraper.Successful)
+                        {
+                            Log($"Invalid Url: {url}");
+                            continue;
+                        }
+
+                        UpdateAlbumTitle(_webScraper.Album.Title);
+                        Log($"Album: {_webScraper.Album.Title}");
+
+                        // download album
+                        await _albumDownloader.DownloadAsync(_webScraper.Album, _destinationInput.Text, _cancellationTokenSource).ConfigureAwait(false);
+                    }
+
+                    if (_totalDownloaded >= 1)
+                    {
+                        Log($"------Completed {_totalDownloaded} Downloads------");
+                    }
+
                 }
-
-                UpdateAlbumTitle(_webScraper.Album.Title);
-                Log($"Album: {_webScraper.Album.Title}");
-
-                // download album
-                await _albumDownloader.DownloadAsync(_webScraper.Album, _destinationInput.Text);
-            }
-
-
-            if (_totalDownloaded >= 1)
-            {
-                Log($"------Completed {_totalDownloaded} Downloads------");
-            }
+                catch (Exception) { ClearLog(); }
+            }).ConfigureAwait(true);
         }
         private void OpenFolder()
         {
@@ -145,6 +157,7 @@ namespace CyberdropDownloader.Avalonia.ViewModels
         #endregion
 
         private async void Log(string data) => await Dispatcher.UIThread.InvokeAsync(() => _downloadLog.Text = $"{data}\n{_downloadLog.Text}");
+        private async void ClearLog() => await Dispatcher.UIThread.InvokeAsync(() => _downloadLog.Text = "");
         private async void UpdateAlbumTitle(string title) => await Dispatcher.UIThread.InvokeAsync(() => _albumTitle.Content = $"Downloading: {title}");
     }
 }
