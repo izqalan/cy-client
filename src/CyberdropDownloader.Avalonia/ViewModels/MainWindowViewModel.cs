@@ -8,6 +8,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Reactive;
 using System.Reflection;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace CyberdropDownloader.Avalonia.ViewModels
@@ -25,11 +26,14 @@ namespace CyberdropDownloader.Avalonia.ViewModels
         private readonly WebScraper _webScraper;
         private readonly AlbumDownloader _albumDownloader;
         private int _totalDownloaded;
+        private string[]? _urls;
+        private CancellationTokenSource? _cancellationTokenSource;
 
         public MainWindowViewModel(Window mainWindow)
         {
+            _cancellationTokenSource = new CancellationTokenSource();
             _webScraper = new WebScraper();
-            _albumDownloader = new AlbumDownloader();
+            _albumDownloader = new AlbumDownloader(true);
 
             _mainWindow = mainWindow;
 
@@ -72,10 +76,16 @@ namespace CyberdropDownloader.Avalonia.ViewModels
         private void OpenIssues() => Process.Start(new ProcessStartInfo("https://github.com/izqalan/cy-client/issues") { UseShellExecute = true });
         private async void Download()
         {
-            string[] urls = _urlInput.Text.Split(_urlInput.NewLine);
+            _urls = _urlInput.Text.Split(_urlInput.NewLine);
+            _downloadLog.Text = "";
 
-            foreach (string url in urls)
+            // each url in the url input box
+            foreach (string url in _urls)
             {
+                if (_albumDownloader.IsCanceled)
+                    return;
+
+                // load the album
                 await _webScraper.LoadAlbumAsync(url);
 
                 if (!_webScraper.Successful)
@@ -87,15 +97,17 @@ namespace CyberdropDownloader.Avalonia.ViewModels
                 UpdateAlbumTitle(_webScraper.Album.Title);
                 Log($"Album: {_webScraper.Album.Title}");
 
+                // download album
                 await _albumDownloader.DownloadAsync(_webScraper.Album, _destinationInput.Text);
             }
+
 
             if (_totalDownloaded >= 1)
             {
                 Log($"------Completed {_totalDownloaded} Downloads------");
             }
         }
-        private void OpenFolder() 
+        private void OpenFolder()
         {
             if (!Directory.Exists(_destinationInput.Text))
             {
@@ -106,10 +118,14 @@ namespace CyberdropDownloader.Avalonia.ViewModels
             Process.Start("explorer.exe", _destinationInput.Text);
         }
         #endregion
-       
+
         #region Events
-        private void AlbumDownloader_FileDownloaded(string fileName) => _totalDownloaded += 1;
-        private void AlbumDownloader_FileDownloading(string fileName) => Log($"Downloading item: {fileName}");
+        private void AlbumDownloader_FileDownloaded(string fileName)
+        {
+            _totalDownloaded += 1;
+            Log($"Downloaded: {fileName}");
+        }
+        private void AlbumDownloader_FileDownloading(string fileName) => Log($"Downloading: {fileName}");
         private void AlbumDownloader_FileExists(string fileName) => Log($"[File Existed] [SKIP]: {fileName}");
         private void AlbumDownloader_FileFailed(string fileName) => Log($"[File Failed] [RETRYING]: {fileName}");
         private void TitleBar_PointerPressed(object? sender, global::Avalonia.Input.PointerPressedEventArgs e) => _mainWindow.BeginMoveDrag(e);
