@@ -118,7 +118,7 @@ namespace CyberdropDownloader.Avalonia.ViewModels
                         Log($"Album: {_webScraper.Album.Title}");
 
                         // If the drive doesn't have enough storage for the album, then log and skip over it
-                        if (new DriveInfo(_destinationInput.Text).AvailableFreeSpace > _webScraper.Album.Size)
+                        if (new DriveInfo(_destinationInput.Text).AvailableFreeSpace < _webScraper.Album.Size)
                         {
                             Log($"Not enough storage for {_webScraper.Album.Title}");
                             continue;
