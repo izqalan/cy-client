@@ -8,6 +8,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Reactive;
 using System.Reflection;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace CyberdropDownloader.Avalonia.ViewModels
@@ -25,11 +26,13 @@ namespace CyberdropDownloader.Avalonia.ViewModels
         private readonly WebScraper _webScraper;
         private readonly AlbumDownloader _albumDownloader;
         private int _totalDownloaded;
+        private string[]? _urls;
+        private CancellationTokenSource? _cancellationTokenSource;
 
         public MainWindowViewModel(Window mainWindow)
         {
             _webScraper = new WebScraper();
-            _albumDownloader = new AlbumDownloader();
+            _albumDownloader = new AlbumDownloader(true);
 
             _mainWindow = mainWindow;
 
@@ -56,6 +59,7 @@ namespace CyberdropDownloader.Avalonia.ViewModels
 
             _applicationTitle.Content = $"cy client - v{Assembly.GetExecutingAssembly().GetName().Version}";
             _destinationInput.Text = Environment.CurrentDirectory;
+            _cancellationTokenSource = new CancellationTokenSource();
         }
 
         #region Commands
@@ -67,49 +71,90 @@ namespace CyberdropDownloader.Avalonia.ViewModels
         public ReactiveCommand<Unit, Unit>? IssuesCommand { get; }
 
         private void Exit() => _mainWindow.Close();
+
         private void Minimize() => _mainWindow.WindowState = WindowState.Minimized;
+
         private void OpenReleases() => Process.Start(new ProcessStartInfo("https://github.com/izqalan/cy-client/releases") { UseShellExecute = true });
+
         private void OpenIssues() => Process.Start(new ProcessStartInfo("https://github.com/izqalan/cy-client/issues") { UseShellExecute = true });
+
         private async void Download()
         {
-            string[] urls = _urlInput.Text.Split(_urlInput.NewLine);
-
-            foreach (string url in urls)
+            // If the album downloader is currently downloading a file, then cancel the download and loop
+            if (_albumDownloader.Running)
             {
-                await _webScraper.LoadAlbumAsync(url);
+                _cancellationTokenSource?.Cancel();
+                _albumDownloader.CancelDownload();
+            }
 
-                if (!_webScraper.Successful)
+            // Open a new thread to take the load off the ui thread
+            await Task.Run(async () =>
+            {
+                _urls = _urlInput.Text.Split(_urlInput.NewLine);
+
+                try
                 {
-                    Log($"Invalid Url: {url}");
-                    continue;
-                }
+                    // Each url in the url input box
+                    foreach (string url in _urls)
+                    {
+                        // If previously canceled, then create a new token
+                        if (_cancellationTokenSource?.IsCancellationRequested == true)
+                            _cancellationTokenSource = new CancellationTokenSource();
 
-                UpdateAlbumTitle(_webScraper.Album.Title);
-                Log($"Album: {_webScraper.Album.Title}");
+                        // Load the album
+                        await _webScraper.LoadAlbumAsync(url).ConfigureAwait(false);
 
-                await _albumDownloader.DownloadAsync(_webScraper.Album, _destinationInput.Text);
-            }
+                        // If the album url is invalid, then log and skip over it
+                        if (!_webScraper.Successful)
+                        {
+                            Log($"Invalid Url: {url}");
+                            continue;
+                        }
 
-            if (_totalDownloaded >= 1)
-            {
-                Log($"------Completed {_totalDownloaded} Downloads------");
-            }
+                        // Update album title
+                        UpdateAlbumTitle(_webScraper.Album.Title);
+
+                        // Log album title
+                        Log($"Album: {_webScraper.Album.Title}");
+
+                        // If the drive doesn't have enough storage for the album, then log and skip over it
+                        if (new DriveInfo(_destinationInput.Text).AvailableFreeSpace < _webScraper.Album.Size)
+                        {
+                            Log($"Not enough storage for {_webScraper.Album.Title}");
+                            continue;
+                        }
+
+                        // Download album
+                        await _albumDownloader.DownloadAsync(_webScraper.Album, _destinationInput.Text, _cancellationTokenSource).ConfigureAwait(false);
+                    }
+
+                    // IF the total downloads are greater or equal to 1 then log the total downloads
+                    if (_totalDownloaded >= 1)
+                    {
+                        Log($"------Completed {_totalDownloaded} Downloads------");
+                    }
+                } // Clear log if canceled
+                catch (Exception) { ClearLog(); }
+            }).ConfigureAwait(true);
         }
-        private void OpenFolder() 
+
+        private void OpenFolder()
         {
+            // If directory doesn't exist, then log and exit out of method
             if (!Directory.Exists(_destinationInput.Text))
             {
                 Log("Directory doesn't exist.");
                 return;
             }
 
+            // Start explorer with directory
             Process.Start("explorer.exe", _destinationInput.Text);
         }
         #endregion
-       
+
         #region Events
         private void AlbumDownloader_FileDownloaded(string fileName) => _totalDownloaded += 1;
-        private void AlbumDownloader_FileDownloading(string fileName) => Log($"Downloading item: {fileName}");
+        private void AlbumDownloader_FileDownloading(string fileName) => Log($"Downloading: {fileName}");
         private void AlbumDownloader_FileExists(string fileName) => Log($"[File Existed] [SKIP]: {fileName}");
         private void AlbumDownloader_FileFailed(string fileName) => Log($"[File Failed] [RETRYING]: {fileName}");
         private void TitleBar_PointerPressed(object? sender, global::Avalonia.Input.PointerPressedEventArgs e) => _mainWindow.BeginMoveDrag(e);
@@ -129,6 +174,7 @@ namespace CyberdropDownloader.Avalonia.ViewModels
         #endregion
 
         private async void Log(string data) => await Dispatcher.UIThread.InvokeAsync(() => _downloadLog.Text = $"{data}\n{_downloadLog.Text}");
+        private async void ClearLog() => await Dispatcher.UIThread.InvokeAsync(() => _downloadLog.Text = "");
         private async void UpdateAlbumTitle(string title) => await Dispatcher.UIThread.InvokeAsync(() => _albumTitle.Content = $"Downloading: {title}");
     }
 }

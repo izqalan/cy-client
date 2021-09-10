@@ -10,7 +10,7 @@ namespace CyberdropDownloader.Tests
         [OneTimeSetUp]
         public void OneTimeSetUp()
         {
-            _downloader = new AlbumDownloader();
+            _downloader = new AlbumDownloader(true);
         }
 
         [Test, Order(1)]

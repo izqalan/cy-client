@@ -15,5 +15,6 @@
     <Setter Property="Padding" Value="1 0 0 0"/>
 
     <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
+    <Setter Property="TextWrapping" Value="WrapWithOverflow"/>
   </Style>
 </Styles>
