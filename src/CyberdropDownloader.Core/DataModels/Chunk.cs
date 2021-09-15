@@ -1,6 +1,4 @@
-﻿using System.IO;
-
-namespace CyberdropDownloader.Core.DataModels
+﻿namespace CyberdropDownloader.Core.DataModels
 {
     public class Chunk
     {
