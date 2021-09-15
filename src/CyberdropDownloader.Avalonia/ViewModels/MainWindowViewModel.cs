@@ -125,7 +125,7 @@ namespace CyberdropDownloader.Avalonia.ViewModels
                         }
 
                         // Download album
-                        await _albumDownloader.DownloadAsync(_webScraper.Album, _destinationInput.Text, _cancellationTokenSource).ConfigureAwait(false);
+                        await _albumDownloader.DownloadAsync(_webScraper.Album, _destinationInput.Text, 100, _cancellationTokenSource).ConfigureAwait(false);
                     }
 
                     // IF the total downloads are greater or equal to 1 then log the total downloads
