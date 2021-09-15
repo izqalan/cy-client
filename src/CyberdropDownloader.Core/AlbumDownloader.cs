@@ -113,18 +113,18 @@ namespace CyberdropDownloader.Core
 
                         try
                         {
-                            response.Content.Headers.ContentRange = new ContentRangeHeaderValue(_currentChunk.Start, _currentChunk.End);
-                            byte[] data = await response.Content.ReadAsByteArrayAsync(cancellationToken);
+                            using (HttpRequestMessage request = new HttpRequestMessage())
+                            {
+                                request.RequestUri = new Uri(file.Url);
+                                request.Headers.Range = new RangeHeaderValue(_currentChunk.Start, _currentChunk.End);
 
-                            fileStream.Seek(_currentChunk.Start, SeekOrigin.Begin);
-                            await fileStream.WriteAsync(data, cancellationToken);
-                        }
+                                HttpResponseMessage rangedResponse = await _downloadClient.SendAsync(request, cancellationToken);
 
-                        catch (Exception ex)
-                        {
-                            string message = ex.Message;
-                            continue; 
+                                fileStream.Seek(_currentChunk.Start, SeekOrigin.Begin);
+                                await fileStream.WriteAsync(await rangedResponse.Content.ReadAsByteArrayAsync(), cancellationToken);
+                            }
                         }
+                        catch (Exception) { continue; }
 
                         _chunks.Dequeue();
                         ProgressChanged?.Invoke(this, chunkCount - _chunks.Count);
