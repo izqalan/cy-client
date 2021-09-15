@@ -80,7 +80,7 @@ namespace CyberdropDownloader.Core
 
                         if (fileLength == response.Content.Headers.ContentLength)
                         {
-                            FileExists?.Invoke(album.Files.Dequeue().Name);
+                            FileExists?.Invoke(this, album.Files.Dequeue().Name);
                             _running = false;
                             continue;
                         }
@@ -98,7 +98,7 @@ namespace CyberdropDownloader.Core
                         });
                     }
 
-                    FileDownloading?.Invoke(file.Name);
+                    FileDownloading?.Invoke(this, file.Name);
 
                     using (Stream fileStream = File.Open(filePath, FileMode.Append, FileAccess.Write, FileShare.Write))
                     {
@@ -122,13 +122,13 @@ namespace CyberdropDownloader.Core
                             }
                             catch (Exception) { continue; }
 
-                            ProgressChanged?.Invoke(chunkCount - _chunks.Count);
                         }
+                        ProgressChanged?.Invoke(this, chunkCount - _chunks.Count);
                     }
 
-                    FileDownloaded?.Invoke(album.Files.Dequeue().Name);
+                    FileDownloaded?.Invoke(this, album.Files.Dequeue().Name);
                 }
-                catch (Exception) { FileFailed?.Invoke(file.Name); }
+                catch (Exception) { FileFailed?.Invoke(this, file.Name); }
 
                 _running = false;
             }
