@@ -26,7 +26,6 @@ namespace CyberdropDownloader.Avalonia.ViewModels
         private readonly WebScraper _webScraper;
         private readonly AlbumDownloader _albumDownloader;
         private int _totalDownloaded;
-        private string[]? _urls;
         private CancellationTokenSource? _cancellationTokenSource;
 
         public MainWindowViewModel(Window mainWindow)
@@ -91,12 +90,10 @@ namespace CyberdropDownloader.Avalonia.ViewModels
             // Open a new thread to take the load off the ui thread
             await Task.Run(async () =>
             {
-                _urls = _urlInput.Text.Split(_urlInput.NewLine);
-
                 try
                 {
                     // Each url in the url input box
-                    foreach (string url in _urls)
+                    foreach (string url in _urlInput.Text.Split(_urlInput.NewLine))
                     {
                         // If previously canceled, then create a new token
                         if (_cancellationTokenSource?.IsCancellationRequested == true)
@@ -126,7 +123,7 @@ namespace CyberdropDownloader.Avalonia.ViewModels
                         }
 
                         // Download album
-                        await _albumDownloader.DownloadAsync(_webScraper.Album, _destinationInput.Text, 100, _cancellationTokenSource).ConfigureAwait(false);
+                        await _albumDownloader.DownloadAsync(_webScraper.Album, _destinationInput.Text, _cancellationTokenSource.Token, 100).ConfigureAwait(false);
                     }
 
                     // IF the total downloads are greater or equal to 1 then log the total downloads
@@ -136,7 +133,7 @@ namespace CyberdropDownloader.Avalonia.ViewModels
                     }
                 } // Clear log if canceled
                 catch (Exception) { ClearLog(); }
-            }).ConfigureAwait(true);
+            });
         }
 
         private void OpenFolder()
@@ -157,7 +154,7 @@ namespace CyberdropDownloader.Avalonia.ViewModels
         private void AlbumDownloader_FileDownloaded(object? sender, string fileName) => _totalDownloaded += 1;
         private void AlbumDownloader_FileDownloading(object? sender, string fileName) => Log($"Downloading: {fileName}");
         private void AlbumDownloader_FileExists(object? sender, string fileName) => Log($"[File Existed] [SKIP]: {fileName}");
-        private void AlbumDownloader_FileFailed(object? sender, string fileName) => Log($"[File Failed] [RETRYING]: {fileName}");
+        private void AlbumDownloader_FileFailed(object? sender, string fileName) => Log($"[File Failed] [SKIP]: {fileName}");
         private void AlbumDownloader_ProgressChanged(object? sender, int downloadPercent) => Log($"{downloadPercent}");
         private void TitleBar_PointerPressed(object? sender, global::Avalonia.Input.PointerPressedEventArgs e) => _mainWindow.BeginMoveDrag(e);
         private async void DestinationInput_PointerReleased(object? sender, global::Avalonia.Input.PointerReleasedEventArgs e)
