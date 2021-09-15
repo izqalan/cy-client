@@ -38,17 +38,11 @@ namespace CyberdropDownloader.Core
         public bool Authorized { get => _authorized; set => _authorized = value; }
         public bool Running { get => _running; }
 
-        public delegate void FileDownloadedEventHandler (string fileName);
-        public delegate void FileDownloadingEventHandler (string fileName);
-        public delegate void FileFailedventHandler (string fileName);
-        public delegate void FileExistsEventHandler (string fileName);
-        public delegate void ProgressChangedEventHandler (int progress);
-
-        public event FileDownloadedEventHandler FileDownloaded;
-        public event FileDownloadingEventHandler FileDownloading;
-        public event FileFailedventHandler FileFailed;
-        public event FileExistsEventHandler FileExists;
-        public event ProgressChangedEventHandler ProgressChanged;
+        public event EventHandler<string> FileDownloaded;
+        public event EventHandler<string> FileDownloading;
+        public event EventHandler<string> FileFailed;
+        public event EventHandler<string> FileExists;
+        public event EventHandler<int> ProgressChanged;
 
         public async Task DownloadAsync(Album album, string path, int chunkCount, CancellationTokenSource cancellationTokenSource)
         {
