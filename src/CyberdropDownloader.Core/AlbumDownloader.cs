@@ -38,12 +38,17 @@ namespace CyberdropDownloader.Core
         public bool Authorized { get => _authorized; set => _authorized = value; }
         public bool Running { get => _running; }
 
-        public delegate void EventHandler(string fileName);
+        public delegate void FileDownloadedEventHandler (string fileName);
+        public delegate void FileDownloadingEventHandler (string fileName);
+        public delegate void FileFailedventHandler (string fileName);
+        public delegate void FileExistsEventHandler (string fileName);
+        public delegate void ProgressChangedEventHandler (int progress);
 
-        public event EventHandler FileDownloaded;
-        public event EventHandler FileDownloading;
-        public event EventHandler FileFailed;
-        public event EventHandler FileExists;
+        public event FileDownloadedEventHandler FileDownloaded;
+        public event FileDownloadingEventHandler FileDownloading;
+        public event FileFailedventHandler FileFailed;
+        public event FileExistsEventHandler FileExists;
+        public event ProgressChangedEventHandler ProgressChanged;
 
         public async Task DownloadAsync(Album album, string path, int chunkCount, CancellationTokenSource cancellationTokenSource)
         {
@@ -70,8 +75,6 @@ namespace CyberdropDownloader.Core
 
                 try
                 {
-                    FileDownloading.Invoke(file.Name);
-
                     HttpResponseMessage response = await _downloadClient.GetAsync(file.Url, HttpCompletionOption.ResponseHeadersRead);
 
                     while (response.ReasonPhrase == "Moved Temporarily")
@@ -83,30 +86,12 @@ namespace CyberdropDownloader.Core
 
                         if (fileLength == response.Content.Headers.ContentLength)
                         {
-                            FileExists.Invoke(album.Files.Dequeue().Name);
+                            FileExists?.Invoke(album.Files.Dequeue().Name);
                             _running = false;
                             continue;
                         }
                         else File.Delete(filePath);
                     }
-
-                    #region Non chunked
-                    /**
-                    using (Stream dataStream = await response.Content.ReadAsStreamAsync(cancellationTokenSource.Token))
-                    {
-                        
-
-                        using (Stream fileStream = File.Open(filePath, FileMode.Create, FileAccess.Write))
-                        {
-                            await dataStream.CopyToAsync(fileStream, cancellationTokenSource.Token);
-                        }
-
-                        response.Dispose();
-
-                        FileDownloaded.Invoke(album.Files.Dequeue().Name);
-                    }
-                    **/
-                    #endregion
 
                     _chunks = new Queue<Chunk>();
 
@@ -118,6 +103,8 @@ namespace CyberdropDownloader.Core
                             End = (chunk + 1) * (response.Content.Headers.ContentLength.Value / chunkCount)
                         });
                     }
+
+                    FileDownloading?.Invoke(file.Name);
 
                     using (Stream fileStream = File.Open(filePath, FileMode.Append, FileAccess.Write, FileShare.Write))
                     {
@@ -133,24 +120,21 @@ namespace CyberdropDownloader.Core
                             {
                                 using (Stream dataStream = await response.Content.ReadAsStreamAsync(cancellationTokenSource.Token))
                                 {
+                                    
                                     await dataStream.CopyToAsync(fileStream, cancellationTokenSource.Token);
+
                                     _chunks.Dequeue();
                                 }
                             }
-                            catch (Exception) { }
-                        }
+                            catch (Exception) { continue; }
 
+                            ProgressChanged?.Invoke(chunkCount - _chunks.Count);
+                        }
                     }
 
-
-                    FileDownloaded.Invoke(file.Name);
+                    FileDownloaded?.Invoke(album.Files.Dequeue().Name);
                 }
-                catch (Exception ex)
-                {
-                    string message = ex.Message;
-
-                    FileFailed.Invoke(file.Name);
-                }
+                catch (Exception) { FileFailed?.Invoke(file.Name); }
 
                 _running = false;
             }
