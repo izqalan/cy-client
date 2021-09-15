@@ -54,6 +54,7 @@ namespace CyberdropDownloader.Avalonia.ViewModels
             _albumDownloader.FileDownloading += AlbumDownloader_FileDownloading;
             _albumDownloader.FileExists += AlbumDownloader_FileExists;
             _albumDownloader.FileFailed += AlbumDownloader_FileFailed;
+            _albumDownloader.ProgressChanged += AlbumDownloader_ProgressChanged;
             _titleBar.PointerPressed += TitleBar_PointerPressed;
             _destinationInput.PointerReleased += DestinationInput_PointerReleased;
 
@@ -157,6 +158,7 @@ namespace CyberdropDownloader.Avalonia.ViewModels
         private void AlbumDownloader_FileDownloading(string fileName) => Log($"Downloading: {fileName}");
         private void AlbumDownloader_FileExists(string fileName) => Log($"[File Existed] [SKIP]: {fileName}");
         private void AlbumDownloader_FileFailed(string fileName) => Log($"[File Failed] [RETRYING]: {fileName}");
+        private void AlbumDownloader_ProgressChanged(int downloadPercent) => Log($"{downloadPercent}");
         private void TitleBar_PointerPressed(object? sender, global::Avalonia.Input.PointerPressedEventArgs e) => _mainWindow.BeginMoveDrag(e);
         private async void DestinationInput_PointerReleased(object? sender, global::Avalonia.Input.PointerReleasedEventArgs e)
         {
