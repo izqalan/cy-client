@@ -50,7 +50,7 @@ namespace CyberdropDownloader.Avalonia.ViewModels
             IssuesCommand = ReactiveCommand.Create(OpenIssues);
             DownloadCommand = ReactiveCommand.Create(Download);
 
-            _albumDownloader.FileDownloaded += AlbumDownloader_FileDownloaded; ;
+            _albumDownloader.FileDownloaded += AlbumDownloader_FileDownloaded;
             _albumDownloader.FileDownloading += AlbumDownloader_FileDownloading;
             _albumDownloader.FileExists += AlbumDownloader_FileExists;
             _albumDownloader.FileFailed += AlbumDownloader_FileFailed;
@@ -154,11 +154,11 @@ namespace CyberdropDownloader.Avalonia.ViewModels
         #endregion
 
         #region Events
-        private void AlbumDownloader_FileDownloaded(string fileName) => _totalDownloaded += 1;
-        private void AlbumDownloader_FileDownloading(string fileName) => Log($"Downloading: {fileName}");
-        private void AlbumDownloader_FileExists(string fileName) => Log($"[File Existed] [SKIP]: {fileName}");
-        private void AlbumDownloader_FileFailed(string fileName) => Log($"[File Failed] [RETRYING]: {fileName}");
-        private void AlbumDownloader_ProgressChanged(int downloadPercent) => Log($"{downloadPercent}");
+        private void AlbumDownloader_FileDownloaded(object? sender, string fileName) => _totalDownloaded += 1;
+        private void AlbumDownloader_FileDownloading(object? sender, string fileName) => Log($"Downloading: {fileName}");
+        private void AlbumDownloader_FileExists(object? sender, string fileName) => Log($"[File Existed] [SKIP]: {fileName}");
+        private void AlbumDownloader_FileFailed(object? sender, string fileName) => Log($"[File Failed] [RETRYING]: {fileName}");
+        private void AlbumDownloader_ProgressChanged(object? sender, int downloadPercent) => Log($"{downloadPercent}");
         private void TitleBar_PointerPressed(object? sender, global::Avalonia.Input.PointerPressedEventArgs e) => _mainWindow.BeginMoveDrag(e);
         private async void DestinationInput_PointerReleased(object? sender, global::Avalonia.Input.PointerReleasedEventArgs e)
         {
