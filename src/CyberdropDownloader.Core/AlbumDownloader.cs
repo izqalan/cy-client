@@ -44,7 +44,7 @@ namespace CyberdropDownloader.Core
         public event EventHandler<string> FileExists;
         public event EventHandler<int> ProgressChanged;
 
-        public async Task DownloadAsync(Album album, string path, int chunkCount, CancellationTokenSource cancellationTokenSource)
+        public async Task DownloadAsync(Album album, string path, CancellationToken cancellationToken, int chunkCount = 1)
         {
             // If not authorized throw exception
             if (!_authorized)
@@ -59,7 +59,7 @@ namespace CyberdropDownloader.Core
             // Iterate through all album files until there are none left
             while (album.Files.Count > 0)
             {
-                cancellationTokenSource.Token.ThrowIfCancellationRequested();
+                cancellationToken.ThrowIfCancellationRequested();
 
                 _running = true;
 
@@ -70,6 +70,9 @@ namespace CyberdropDownloader.Core
                 try
                 {
                     HttpResponseMessage response = await _downloadClient.GetAsync(file.Url, HttpCompletionOption.ResponseHeadersRead);
+
+                    if (response.ReasonPhrase == "Bad Gateway")
+                        throw new Exception(response.ReasonPhrase);
 
                     while (response.ReasonPhrase == "Moved Temporarily")
                         response = await _downloadClient.GetAsync(response.Headers.Location, HttpCompletionOption.ResponseHeadersRead);
@@ -100,35 +103,37 @@ namespace CyberdropDownloader.Core
 
                     FileDownloading?.Invoke(this, file.Name);
 
-                    using (Stream fileStream = File.Open(filePath, FileMode.Append, FileAccess.Write, FileShare.Write))
+                    FileStream fileStream = File.OpenWrite(filePath);
+                    
+                    while (_chunks.Count > 0)
                     {
-                        while (_chunks.Count > 0)
+                        cancellationToken.ThrowIfCancellationRequested();
+
+                        _currentChunk = _chunks.Peek();
+
+                        try
                         {
-                            cancellationTokenSource.Token.ThrowIfCancellationRequested();
-
-                            _currentChunk = _chunks.Peek();
-
                             response.Content.Headers.ContentRange = new ContentRangeHeaderValue(_currentChunk.Start, _currentChunk.End);
+                            byte[] data = await response.Content.ReadAsByteArrayAsync(cancellationToken);
 
-                            try
-                            {
-                                using (Stream dataStream = await response.Content.ReadAsStreamAsync(cancellationTokenSource.Token))
-                                {
-                                    
-                                    await dataStream.CopyToAsync(fileStream, cancellationTokenSource.Token);
-
-                                    _chunks.Dequeue();
-                                }
-                            }
-                            catch (Exception) { continue; }
-
+                            fileStream.Seek(_currentChunk.Start, SeekOrigin.Begin);
+                            await fileStream.WriteAsync(data, cancellationToken);
                         }
+
+                        catch (Exception ex)
+                        {
+                            string message = ex.Message;
+                            continue; 
+                        }
+
+                        _chunks.Dequeue();
                         ProgressChanged?.Invoke(this, chunkCount - _chunks.Count);
                     }
 
+                    await fileStream.DisposeAsync();
                     FileDownloaded?.Invoke(this, album.Files.Dequeue().Name);
                 }
-                catch (Exception) { FileFailed?.Invoke(this, file.Name); }
+                catch (Exception) { FileFailed?.Invoke(this, album.Files.Dequeue().Name); }
 
                 _running = false;
             }
