@@ -35,7 +35,7 @@ namespace CyberdropDownloader.Core
 
             ServicePointManager.DefaultConnectionLimit = 100;
             ServicePointManager.Expect100Continue = false;
-            
+
             _authorized = authorized;
         }
 
@@ -49,7 +49,7 @@ namespace CyberdropDownloader.Core
         public event EventHandler<string> FileExists;
         public event EventHandler<int> ProgressChanged;
 
-        public async Task DownloadAsync(Album album, string path, CancellationToken cancellationToken, int chunkCount = 1)
+        public async Task DownloadAsync(Album album, string path, CancellationToken? cancellationToken, int chunkCount = 1)
         {
             // If not authorized throw exception
             if (!_authorized)
@@ -64,7 +64,7 @@ namespace CyberdropDownloader.Core
             // Iterate through all album files until there are none left
             while (album.Files.Count > 0)
             {
-                cancellationToken.ThrowIfCancellationRequested();
+                cancellationToken.Value.ThrowIfCancellationRequested();
 
                 _running = true;
 
@@ -115,7 +115,7 @@ namespace CyberdropDownloader.Core
 
                     while (_chunks.Count > 0)
                     {
-                        cancellationToken.ThrowIfCancellationRequested();
+                        cancellationToken.Value.ThrowIfCancellationRequested();
 
                         _currentChunk = _chunks[0];
 
@@ -126,24 +126,27 @@ namespace CyberdropDownloader.Core
                                 request.RequestUri = new Uri(file.Url);
                                 request.Headers.Range = new RangeHeaderValue(_currentChunk.Start, _currentChunk.End);
 
-                                using (HttpResponseMessage rangedResponse = await _downloadClient.SendAsync(request, cancellationToken))
+                                using (HttpResponseMessage rangedResponse = await _downloadClient.SendAsync(request, cancellationToken.Value))
                                 {
                                     fileStream.Seek(_currentChunk.Start, SeekOrigin.Begin);
-                                    await fileStream.WriteAsync(await rangedResponse.Content.ReadAsByteArrayAsync(), cancellationToken);
+                                    await fileStream.WriteAsync(await rangedResponse.Content.ReadAsByteArrayAsync(), cancellationToken.Value);
                                 }
                             }
                         }
                         catch (Exception) { continue; }
-                        finally
-                        {
-                            _chunks.RemoveAt(0);
-                            ProgressChanged?.Invoke(this, chunkCount - _chunks.Count);
-                        }
+
+                        _chunks.RemoveAt(0);
+                        ProgressChanged?.Invoke(this, chunkCount - _chunks.Count);
                     }
 
                     FileDownloaded?.Invoke(this, album.Files.Dequeue().Name);
                 }
-                catch (Exception) { FileFailed?.Invoke(this, album.Files.Dequeue().Name); }
+                catch (Exception ex) 
+                {
+                    string message = ex.Message;
+
+                    FileFailed?.Invoke(this, album.Files.Dequeue().Name); 
+                }
 
                 _running = false;
             }

@@ -22,11 +22,12 @@ namespace CyberdropDownloader.Avalonia.ViewModels
         private readonly TextBox _urlInput;
         private readonly DockPanel _titleBar;
         private readonly Label _applicationTitle;
+        private readonly Label _downloadProgess;
 
         private readonly WebScraper _webScraper;
         private readonly AlbumDownloader _albumDownloader;
         private int _totalDownloaded;
-        private CancellationTokenSource? _cancellationTokenSource;
+        private CancellationTokenSource _cancellationTokenSource;
 
         public MainWindowViewModel(Window mainWindow)
         {
@@ -41,6 +42,7 @@ namespace CyberdropDownloader.Avalonia.ViewModels
             _urlInput = _mainWindow.Find<TextBox>("UrlInput");
             _titleBar = _mainWindow.Find<DockPanel>("TitleBar");
             _applicationTitle = _mainWindow.Find<Label>("ApplicationTitle");
+            _downloadProgess = _mainWindow.Find<Label>("DownloadProgress");
 
             ExitCommand = ReactiveCommand.Create(Exit);
             MinimizeCommand = ReactiveCommand.Create(Minimize);
@@ -112,6 +114,9 @@ namespace CyberdropDownloader.Avalonia.ViewModels
                         // Update album title
                         UpdateAlbumTitle(_webScraper.Album.Title);
 
+                        // Reset download progress
+                        UpdateDownloadProgress(0);
+
                         // Log album title
                         Log($"Album: {_webScraper.Album.Title}");
 
@@ -123,7 +128,7 @@ namespace CyberdropDownloader.Avalonia.ViewModels
                         }
 
                         // Download album
-                        await _albumDownloader.DownloadAsync(_webScraper.Album, _destinationInput.Text, _cancellationTokenSource.Token, 100).ConfigureAwait(false);
+                        await _albumDownloader.DownloadAsync(_webScraper.Album, _destinationInput.Text, _cancellationTokenSource?.Token, 100).ConfigureAwait(false);
                     }
 
                     // IF the total downloads are greater or equal to 1 then log the total downloads
@@ -155,7 +160,7 @@ namespace CyberdropDownloader.Avalonia.ViewModels
         private void AlbumDownloader_FileDownloading(object? sender, string fileName) => Log($"Downloading: {fileName}");
         private void AlbumDownloader_FileExists(object? sender, string fileName) => Log($"[File Existed] [SKIP]: {fileName}");
         private void AlbumDownloader_FileFailed(object? sender, string fileName) => Log($"[File Failed] [SKIP]: {fileName}");
-        private void AlbumDownloader_ProgressChanged(object? sender, int downloadPercent) => Log($"{downloadPercent}");
+        private void AlbumDownloader_ProgressChanged(object? sender, int downloadPercent) => UpdateDownloadProgress(downloadPercent);
         private void TitleBar_PointerPressed(object? sender, global::Avalonia.Input.PointerPressedEventArgs e) => _mainWindow.BeginMoveDrag(e);
         private async void DestinationInput_PointerReleased(object? sender, global::Avalonia.Input.PointerReleasedEventArgs e)
         {
@@ -172,6 +177,7 @@ namespace CyberdropDownloader.Avalonia.ViewModels
         }
         #endregion
 
+        private async void UpdateDownloadProgress(int progress) => await Dispatcher.UIThread.InvokeAsync(() => _downloadProgess.Content = $"{progress}%");
         private async void Log(string data) => await Dispatcher.UIThread.InvokeAsync(() => _downloadLog.Text = $"{data}\n{_downloadLog.Text}");
         private async void ClearLog() => await Dispatcher.UIThread.InvokeAsync(() => _downloadLog.Text = "");
         private async void UpdateAlbumTitle(string title) => await Dispatcher.UIThread.InvokeAsync(() => _albumTitle.Content = $"Downloading: {title}");
