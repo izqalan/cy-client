@@ -47,7 +47,7 @@ namespace CyberdropDownloader.Tests
         {
             Queue<AlbumFile> result = _webScraper.Album.Files;
 
-            Assert.IsTrue(result.Count == 3);
+            Assert.IsTrue(result.Count == 12);
         }
     }
 }
