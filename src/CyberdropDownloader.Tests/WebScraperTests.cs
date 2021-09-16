@@ -31,15 +31,14 @@ namespace CyberdropDownloader.Tests
         {
             string result = _webScraper.Album.Title;
 
-            Assert.IsTrue(string.Equals("tests", result));
+            Assert.IsTrue(string.Equals("Cy test", result));
         }
 
         [Test, Order(3)]
         public void FetchAlbumSize()
         {
             double result = _webScraper.Album.Size;
-
-            Assert.IsTrue(Equals("4802478", result.ToString()));
+            Assert.AreEqual("69730304", result.ToString());
         }
 
         [Test, Order(4)]
