@@ -2,10 +2,12 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text.RegularExpressions;
 using System.Threading;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace CyberdropDownloader.Core
@@ -16,7 +18,7 @@ namespace CyberdropDownloader.Core
         private bool _authorized;
         private bool _running;
 
-        private Queue<Chunk> _chunks;
+        private List<Chunk> _chunks;
         private Chunk _currentChunk;
 
         public AlbumDownloader(bool authorized)
@@ -28,9 +30,12 @@ namespace CyberdropDownloader.Core
                 KeepAlivePingTimeout = Timeout.InfiniteTimeSpan
             });
 
-            // Times out current download if it surpasses 30 minutes (might need tweaked)
-            _downloadClient.Timeout = TimeSpan.FromMinutes(30);
+            // Times out current download if it surpasses 5 minutes (might need tweaked)
+            _downloadClient.Timeout = TimeSpan.FromMinutes(5);
 
+            ServicePointManager.DefaultConnectionLimit = 100;
+            ServicePointManager.Expect100Continue = false;
+            
             _authorized = authorized;
         }
 
@@ -90,26 +95,29 @@ namespace CyberdropDownloader.Core
                         else File.Delete(filePath);
                     }
 
-                    _chunks = new Queue<Chunk>();
+                    _chunks = new List<Chunk>();
 
-                    for (int chunk = 0; chunk <= chunkCount - 1; chunk++)
+                    for (int chunk = 0; chunk <= chunkCount; chunk++)
                     {
-                        _chunks.Enqueue(new Chunk()
+                        _chunks.Add(new Chunk()
                         {
                             Start = chunk * (response.Content.Headers.ContentLength.Value / chunkCount),
                             End = (chunk + 1) * (response.Content.Headers.ContentLength.Value / chunkCount)
                         });
                     }
 
+                    _chunks.LastOrDefault().End = response.Content.Headers.ContentLength.Value;
+
+                    //FileStream fileStream = File.Open(filePath, FileMode.Append, FileAccess.Write, FileShare.None);
+                    FileStream fileStream = File.OpenWrite(filePath);
+
                     FileDownloading?.Invoke(this, file.Name);
 
-                    FileStream fileStream = File.OpenWrite(filePath);
-                    
                     while (_chunks.Count > 0)
                     {
                         cancellationToken.ThrowIfCancellationRequested();
 
-                        _currentChunk = _chunks.Peek();
+                        _currentChunk = _chunks[0];
 
                         try
                         {
@@ -118,19 +126,21 @@ namespace CyberdropDownloader.Core
                                 request.RequestUri = new Uri(file.Url);
                                 request.Headers.Range = new RangeHeaderValue(_currentChunk.Start, _currentChunk.End);
 
-                                HttpResponseMessage rangedResponse = await _downloadClient.SendAsync(request, cancellationToken);
-
-                                fileStream.Seek(_currentChunk.Start, SeekOrigin.Begin);
-                                await fileStream.WriteAsync(await rangedResponse.Content.ReadAsByteArrayAsync(), cancellationToken);
+                                using (HttpResponseMessage rangedResponse = await _downloadClient.SendAsync(request, cancellationToken))
+                                {
+                                    fileStream.Seek(_currentChunk.Start, SeekOrigin.Begin);
+                                    await fileStream.WriteAsync(await rangedResponse.Content.ReadAsByteArrayAsync(), cancellationToken);
+                                }
                             }
                         }
                         catch (Exception) { continue; }
-
-                        _chunks.Dequeue();
-                        ProgressChanged?.Invoke(this, chunkCount - _chunks.Count);
+                        finally
+                        {
+                            _chunks.RemoveAt(0);
+                            ProgressChanged?.Invoke(this, chunkCount - _chunks.Count);
+                        }
                     }
 
-                    await fileStream.DisposeAsync();
                     FileDownloaded?.Invoke(this, album.Files.Dequeue().Name);
                 }
                 catch (Exception) { FileFailed?.Invoke(this, album.Files.Dequeue().Name); }
