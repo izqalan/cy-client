@@ -76,4 +76,20 @@
     
     <Setter Property="Content" Value="Download Log"/>
   </Style>
+  
+  <!-- Download Progress -->
+  <Style Selector="Label.DownloadProgress">
+    <Setter Property="Foreground" Value="{DynamicResource DownloadLogLabelForeground}"/>
+
+    <Setter Property="FontSize" Value="12"/>
+    <Setter Property="FontFamily" Value="Verdana"/>
+    <Setter Property="FontWeight" Value="Normal"/>
+
+    <Setter Property="Margin" Value="0 0 0 5"/>
+    <Setter Property="Padding" Value="0"/>
+
+    <Setter Property="HorizontalAlignment" Value="Right"/>
+    
+    <Setter Property="Content" Value=""/>
+  </Style>
 </Styles>

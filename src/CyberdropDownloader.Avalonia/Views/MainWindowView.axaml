@@ -65,12 +65,16 @@
     <StackPanel Margin="30 13 30 0">
       <!-- Downloading label -->
       <Label Classes="AlbumTitle" x:Name="AlbumTitle"/>
-
+      
       <!-- Download text box -->
       <StackPanel>
-        <!-- Download Log label-->
-        <Label Classes="DownloadLog"/>
 
+        <DockPanel>
+          <!-- Download Log label-->
+          <Label Classes="DownloadLog"/>
+          <Label Classes="DownloadProgress" x:Name="DownloadProgress"/>
+        </DockPanel>
+        
         <Border Background="{DynamicResource DownloadLogBorderBackground}" CornerRadius="4">
 
           <!-- Download textblock-->
