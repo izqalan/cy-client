@@ -1,9 +1,13 @@
 ﻿using CyberdropDownloader.Core.DataModels;
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Net;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text.RegularExpressions;
 using System.Threading;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace CyberdropDownloader.Core
@@ -14,16 +18,24 @@ namespace CyberdropDownloader.Core
         private bool _authorized;
         private bool _running;
 
+        private List<Chunk> _chunks;
+        private Chunk _currentChunk;
+
         public AlbumDownloader(bool authorized)
         {
             // Setup and initialize HttpClient
-            _downloadClient = new HttpClient(new HttpClientHandler()
+            _downloadClient = new HttpClient(new SocketsHttpHandler()
             {
-                AllowAutoRedirect = true
+                AllowAutoRedirect = true,
+                KeepAlivePingTimeout = Timeout.InfiniteTimeSpan
             });
 
-            // Times out current download if it surpasses 30 minutes (might need tweaked)
-            _downloadClient.Timeout = TimeSpan.FromMinutes(30);
+            // Times out current download if it surpasses 5 minutes (might need tweaked)
+            _downloadClient.Timeout = TimeSpan.FromMinutes(5);
+
+            ServicePointManager.DefaultConnectionLimit = 100;
+            ServicePointManager.Expect100Continue = false;
+
             _authorized = authorized;
         }
 
@@ -31,14 +43,13 @@ namespace CyberdropDownloader.Core
         public bool Authorized { get => _authorized; set => _authorized = value; }
         public bool Running { get => _running; }
 
-        public delegate void EventHandler(string fileName);
+        public event EventHandler<string> FileDownloaded;
+        public event EventHandler<string> FileDownloading;
+        public event EventHandler<string> FileFailed;
+        public event EventHandler<string> FileExists;
+        public event EventHandler<int> ProgressChanged;
 
-        public event EventHandler FileDownloaded;
-        public event EventHandler FileDownloading;
-        public event EventHandler FileFailed;
-        public event EventHandler FileExists;
-
-        public async Task DownloadAsync(Album album, string path, CancellationTokenSource cancellationTokenSource)
+        public async Task DownloadAsync(Album album, string path, CancellationToken? cancellationToken, int chunkCount = 1)
         {
             // If not authorized throw exception
             if (!_authorized)
@@ -53,70 +64,102 @@ namespace CyberdropDownloader.Core
             // Iterate through all album files until there are none left
             while (album.Files.Count > 0)
             {
-                // If canceled through ui, stop iterating through album files.
-                cancellationTokenSource.Token.ThrowIfCancellationRequested();
-                
-                // Indicate that a file is being downloaded
+                cancellationToken.Value.ThrowIfCancellationRequested();
+
                 _running = true;
 
-                // Return the first object of the queue without removing it
                 AlbumFile file = album.Files.Peek();
-                // Normalize the filename and create file path
-                string filePath = $"{path}\\{NormalizeFileName(file.Name)}";
 
-                // If the file exists, then skip over it
-                if (File.Exists(filePath))
-                {
-                    // Invoke file exists event to notify the ui, then remove the file from the queue.
-                    FileExists.Invoke(album.Files.Dequeue().Name);
-                    _running = false;
-                    continue;
-                }
+                string filePath = $"{path}\\{NormalizeFileName(file.Name)}";
 
                 try
                 {
-                    // Invokes file downloading event to notify the ui
-                    FileDownloading.Invoke(file.Name);
+                    HttpResponseMessage response = await _downloadClient.GetAsync(file.Url, HttpCompletionOption.ResponseHeadersRead);
 
-                    // Causing hang, but is solved with a timeout. Most downloads don't actually timeout they just take a really long time and are better off restarted.
-                    HttpResponseMessage clientResponse = DownloadClient.GetAsync(file.Url).Result;
+                    if (response.ReasonPhrase == "Bad Gateway")
+                        throw new Exception(response.ReasonPhrase);
 
-                    // Keeps redirecting until it reaches the actual file. Should only be once or twice at max, but will keep redirecting until it hits the final destination.
-                    while (clientResponse.ReasonPhrase == "Moved Temporarily")
-                        clientResponse = DownloadClient.GetAsync(clientResponse.Headers.Location).Result;
+                    while (response.ReasonPhrase == "Moved Temporarily")
+                        response = await _downloadClient.GetAsync(response.Headers.Location, HttpCompletionOption.ResponseHeadersRead);
 
-                    // Creates a file stream and copies file from memory into local file
-                    await using (Stream fileStream = File.Create(filePath))
-                        await clientResponse.Content.CopyToAsync(fileStream);
+                    if (File.Exists(filePath))
+                    {
+                        long fileLength = new FileInfo(filePath).Length;
 
-                    // Disposes of file to free up resources
-                    clientResponse.Dispose();
+                        if (fileLength == response.Content.Headers.ContentLength)
+                        {
+                            FileExists?.Invoke(this, album.Files.Dequeue().Name);
+                            _running = false;
+                            continue;
+                        }
+                        else File.Delete(filePath);
+                    }
 
-                    // Invokes file downloaded event to notfy the ui
-                    FileDownloaded.Invoke(album.Files.Dequeue().Name);
+                    _chunks = new List<Chunk>();
+
+                    for (int chunk = 0; chunk <= chunkCount; chunk++)
+                    {
+                        _chunks.Add(new Chunk()
+                        {
+                            Start = chunk * (response.Content.Headers.ContentLength.Value / chunkCount),
+                            End = (chunk + 1) * (response.Content.Headers.ContentLength.Value / chunkCount)
+                        });
+                    }
+
+                    _chunks.LastOrDefault().End = response.Content.Headers.ContentLength.Value;
+
+                    //FileStream fileStream = File.Open(filePath, FileMode.Append, FileAccess.Write, FileShare.None);
+                    FileStream fileStream = File.OpenWrite(filePath);
+
+                    FileDownloading?.Invoke(this, file.Name);
+
+                    while (_chunks.Count > 0)
+                    {
+                        cancellationToken.Value.ThrowIfCancellationRequested();
+
+                        _currentChunk = _chunks[0];
+
+                        try
+                        {
+                            using (HttpRequestMessage request = new HttpRequestMessage())
+                            {
+                                request.RequestUri = new Uri(file.Url);
+                                request.Headers.Range = new RangeHeaderValue(_currentChunk.Start, _currentChunk.End);
+
+                                using (HttpResponseMessage rangedResponse = await _downloadClient.SendAsync(request, cancellationToken.Value))
+                                {
+                                    fileStream.Seek(_currentChunk.Start, SeekOrigin.Begin);
+                                    await fileStream.WriteAsync(await rangedResponse.Content.ReadAsByteArrayAsync(), cancellationToken.Value);
+                                }
+                            }
+                        }
+                        catch (Exception) { continue; }
+
+                        _chunks.RemoveAt(0);
+                        ProgressChanged?.Invoke(this, chunkCount - _chunks.Count);
+                    }
+
+                    FileDownloaded?.Invoke(this, album.Files.Dequeue().Name);
                 }
-                catch (Exception)
+                catch (Exception ex) 
                 {
-                    // Deletes failed file to prevent corruption
-                    File.Delete(filePath);
+                    string message = ex.Message;
 
-                    // Invokes failed file event to notify the ui
-                    FileFailed.Invoke(file.Name);
+                    FileFailed?.Invoke(this, album.Files.Dequeue().Name); 
                 }
 
-                // Indicates that no file is currently being downloaded
                 _running = false;
             }
         }
 
-        public void CancelDownload() 
+        public void CancelDownload()
         {
             // Cancels pending get requests
             _downloadClient.CancelPendingRequests();
 
             // Indicates that no file i currently being downloaded
             _running = false;
-        } 
+        }
 
         private static string NormalizeFileName(string data)
         {
