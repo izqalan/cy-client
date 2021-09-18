@@ -108,7 +108,6 @@ namespace CyberdropDownloader.Core
 
                     _chunks.LastOrDefault().End = response.Content.Headers.ContentLength.Value;
 
-                    //FileStream fileStream = File.Open(filePath, FileMode.Append, FileAccess.Write, FileShare.None);
                     FileStream fileStream = File.OpenWrite(filePath);
 
                     FileDownloading?.Invoke(this, file.Name);
@@ -135,7 +134,9 @@ namespace CyberdropDownloader.Core
                         }
                         catch (Exception) { continue; }
 
+                        await fileStream.DisposeAsync();
                         _chunks.RemoveAt(0);
+
                         ProgressChanged?.Invoke(this, chunkCount - _chunks.Count);
                     }
 
