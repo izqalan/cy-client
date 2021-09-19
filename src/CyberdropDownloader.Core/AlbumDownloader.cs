@@ -134,12 +134,11 @@ namespace CyberdropDownloader.Core
                         }
                         catch (Exception) { continue; }
 
-                        await fileStream.DisposeAsync();
                         _chunks.RemoveAt(0);
-
                         ProgressChanged?.Invoke(this, chunkCount - _chunks.Count);
                     }
 
+                    await fileStream.DisposeAsync();
                     FileDownloaded?.Invoke(this, album.Files.Dequeue().Name);
                 }
                 catch (Exception ex) 
