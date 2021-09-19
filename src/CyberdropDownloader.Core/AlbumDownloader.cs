@@ -82,10 +82,12 @@ namespace CyberdropDownloader.Core
                     while (response.ReasonPhrase == "Moved Temporarily")
                         response = await _downloadClient.GetAsync(response.Headers.Location, HttpCompletionOption.ResponseHeadersRead);
 
+                    // Checks if the file being downloaded is already there.
                     if (File.Exists(filePath))
                     {
                         long fileLength = new FileInfo(filePath).Length;
 
+                        // if it's the same size, then continue to the next file, otherwise delete it.
                         if (fileLength == response.Content.Headers.ContentLength)
                         {
                             FileExists?.Invoke(this, album.Files.Dequeue().Name);
@@ -97,6 +99,7 @@ namespace CyberdropDownloader.Core
 
                     _chunks = new List<Chunk>();
 
+                    // iterate through the chunks and map out their ranges.
                     for (int chunk = 0; chunk <= chunkCount; chunk++)
                     {
                         _chunks.Add(new Chunk()
@@ -108,45 +111,41 @@ namespace CyberdropDownloader.Core
 
                     _chunks.LastOrDefault().End = response.Content.Headers.ContentLength.Value;
 
-                    FileStream fileStream = File.OpenWrite(filePath);
-
-                    FileDownloading?.Invoke(this, file.Name);
-
-                    while (_chunks.Count > 0)
+                    // open filestream and auto close at the end of all the chunks writing
+                    using (FileStream fileStream = File.OpenWrite(filePath))
                     {
-                        cancellationToken.Value.ThrowIfCancellationRequested();
+                        FileDownloading?.Invoke(this, file.Name);
 
-                        _currentChunk = _chunks[0];
-
-                        try
+                        while (_chunks.Count > 0)
                         {
-                            using (HttpRequestMessage request = new HttpRequestMessage())
-                            {
-                                request.RequestUri = new Uri(file.Url);
-                                request.Headers.Range = new RangeHeaderValue(_currentChunk.Start, _currentChunk.End);
+                            cancellationToken.Value.ThrowIfCancellationRequested();
 
-                                using (HttpResponseMessage rangedResponse = await _downloadClient.SendAsync(request, cancellationToken.Value))
+                            _currentChunk = _chunks[0];
+
+                            try
+                            {
+                                using (HttpRequestMessage request = new HttpRequestMessage())
                                 {
-                                    fileStream.Seek(_currentChunk.Start, SeekOrigin.Begin);
-                                    await fileStream.WriteAsync(await rangedResponse.Content.ReadAsByteArrayAsync(), cancellationToken.Value);
+                                    request.RequestUri = new Uri(file.Url);
+                                    request.Headers.Range = new RangeHeaderValue(_currentChunk.Start, _currentChunk.End);
+
+                                    using (HttpResponseMessage rangedResponse = await _downloadClient.SendAsync(request, cancellationToken.Value))
+                                    {
+                                        fileStream.Seek(_currentChunk.Start, SeekOrigin.Begin);
+                                        await fileStream.WriteAsync(await rangedResponse.Content.ReadAsByteArrayAsync(), cancellationToken.Value);
+                                    }
                                 }
                             }
+                            catch (Exception) { continue; }
+
+                            _chunks.RemoveAt(0);
+                            ProgressChanged?.Invoke(this, chunkCount - _chunks.Count);
                         }
-                        catch (Exception) { continue; }
 
-                        _chunks.RemoveAt(0);
-                        ProgressChanged?.Invoke(this, chunkCount - _chunks.Count);
+                        FileDownloaded?.Invoke(this, album.Files.Dequeue().Name);
                     }
-
-                    await fileStream.DisposeAsync();
-                    FileDownloaded?.Invoke(this, album.Files.Dequeue().Name);
                 }
-                catch (Exception ex) 
-                {
-                    string message = ex.Message;
-
-                    FileFailed?.Invoke(this, album.Files.Dequeue().Name); 
-                }
+                catch (Exception) { FileFailed?.Invoke(this, album.Files.Dequeue().Name); }
 
                 _running = false;
             }
