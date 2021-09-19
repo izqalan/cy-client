@@ -18,9 +18,6 @@ namespace CyberdropDownloader.Core
 		private bool _authorized;
 		private bool _running;
 
-		private List<Chunk> _chunks;
-		private Chunk _currentChunk;
-
 		public AlbumDownloader(bool authorized)
 		{
 			// Setup and initialize HttpClient
@@ -82,7 +79,6 @@ namespace CyberdropDownloader.Core
 					while (response.ReasonPhrase == "Moved Temporarily")
 						response = await _downloadClient.GetAsync(response.Headers.Location, HttpCompletionOption.ResponseHeadersRead);
 
-					// Checks if the file being downloaded is already there.
 					if (File.Exists(filePath))
 					{
 						byte[] fileData = await File.ReadAllBytesAsync(filePath);
@@ -97,49 +93,39 @@ namespace CyberdropDownloader.Core
 						else File.Delete(filePath);
 					}
 
-					_chunks = new List<Chunk>();
 
-					// iterate through the chunks and map out their ranges.
-					for (int chunk = 0; chunk <= chunkCount; chunk++)
-					{
-						_chunks.Add(new Chunk()
-						{
-							Start = chunk * (response.Content.Headers.ContentLength.Value / chunkCount),
-							End = (chunk + 1) * (response.Content.Headers.ContentLength.Value / chunkCount)
-						});
-					}
-
-					_chunks.Last().End = response.Content.Headers.ContentLength.Value;
-
-					// open filestream and auto close at the end of all the chunks writing
 					using (FileStream fileStream = File.OpenWrite(filePath))
 					{
 						FileDownloading?.Invoke(this, file.Name);
 
-						while (_chunks.Count > 0)
+						for (int chunk = 0; chunk <= chunkCount;)
 						{
 							cancellationToken.Value.ThrowIfCancellationRequested();
 
-							_currentChunk = _chunks[0];
+							long chunkStart = chunk * (response.Content.Headers.ContentLength.Value / chunkCount);
+							long chunkEnd = (chunk + 1) * (response.Content.Headers.ContentLength.Value / chunkCount);
+
+							if (chunk == chunkCount)
+								chunkEnd = response.Content.Headers.ContentLength.Value;
 
 							try
 							{
 								using (HttpRequestMessage request = new HttpRequestMessage())
 								{
 									request.RequestUri = new Uri(file.Url);
-									request.Headers.Range = new RangeHeaderValue(_currentChunk.Start, _currentChunk.End);
+									request.Headers.Range = new RangeHeaderValue(chunkStart, chunkEnd);
 
 									using (HttpResponseMessage rangedResponse = await _downloadClient.SendAsync(request, cancellationToken.Value))
 									{
-										fileStream.Seek(_currentChunk.Start, SeekOrigin.Begin);
+										fileStream.Seek(chunkStart, SeekOrigin.Begin);
 										await fileStream.WriteAsync(await rangedResponse.Content.ReadAsByteArrayAsync(), cancellationToken.Value);
 									}
 								}
 							}
 							catch (Exception) { continue; }
 
-							_chunks.RemoveAt(0);
-							ProgressChanged?.Invoke(this, chunkCount - _chunks.Count);
+							chunk++;
+							ProgressChanged?.Invoke(this, chunk);
 						}
 
 						FileDownloaded?.Invoke(this, album.Files.Dequeue().Name);
