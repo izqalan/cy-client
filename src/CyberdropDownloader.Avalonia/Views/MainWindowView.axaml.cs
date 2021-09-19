@@ -4,18 +4,15 @@ using CyberdropDownloader.Avalonia.ViewModels;
 
 namespace CyberdropDownloader.Avalonia.Views
 {
-    public partial class MainWindowView : Window
-    {
-        public MainWindowView()
-        {
-            InitializeComponent();
+	public partial class MainWindowView : Window
+	{
+		public MainWindowView()
+		{
+			InitializeComponent();
 
-            DataContext = new MainWindowViewModel(this);
-        }
+			DataContext = new MainWindowViewModel(this);
+		}
 
-        private void InitializeComponent()
-        {
-            AvaloniaXamlLoader.Load(this);
-        }
-    }
+		private void InitializeComponent() => AvaloniaXamlLoader.Load(this);
+	}
 }
