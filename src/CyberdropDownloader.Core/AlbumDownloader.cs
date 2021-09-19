@@ -93,7 +93,6 @@ namespace CyberdropDownloader.Core
 						else File.Delete(filePath);
 					}
 
-
 					using (FileStream fileStream = File.OpenWrite(filePath))
 					{
 						FileDownloading?.Invoke(this, file.Name);
@@ -101,6 +100,8 @@ namespace CyberdropDownloader.Core
 						for (int chunk = 0; chunk <= chunkCount;)
 						{
 							cancellationToken.Value.ThrowIfCancellationRequested();
+
+							ProgressChanged?.Invoke(this, chunk);
 
 							long chunkStart = chunk * (response.Content.Headers.ContentLength.Value / chunkCount);
 							long chunkEnd = (chunk + 1) * (response.Content.Headers.ContentLength.Value / chunkCount);
@@ -125,7 +126,6 @@ namespace CyberdropDownloader.Core
 							catch (Exception) { continue; }
 
 							chunk++;
-							ProgressChanged?.Invoke(this, chunk);
 						}
 
 						FileDownloaded?.Invoke(this, album.Files.Dequeue().Name);
