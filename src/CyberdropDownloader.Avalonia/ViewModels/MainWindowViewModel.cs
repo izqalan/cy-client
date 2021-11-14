@@ -120,8 +120,16 @@ namespace CyberdropDownloader.Avalonia.ViewModels
                         // Log album title
                         Log($"Album: {_webScraper.Album.Title}");
 
+                        string? pathRoot = Path.GetPathRoot(_destinationInput.Text);
+
+                        if (string.IsNullOrEmpty(pathRoot))
+                        {
+                            Log("Invalid destination path.");
+                            return;
+                        }
+
                         // If the drive doesn't have enough storage for the album, then log and skip over it
-                        if (new DriveInfo(_destinationInput.Text).AvailableFreeSpace < _webScraper.Album.Size)
+                        if (new DriveInfo(pathRoot).AvailableFreeSpace < _webScraper.Album.Size)
                         {
                             Log($"Not enough storage for {_webScraper.Album.Title}");
                             continue;
