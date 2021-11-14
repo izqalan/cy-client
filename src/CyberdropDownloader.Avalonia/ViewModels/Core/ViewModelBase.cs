@@ -2,7 +2,7 @@
 
 namespace CyberdropDownloader.Avalonia.ViewModels.Core
 {
-	public class ViewModelBase : ReactiveObject
-	{
-	}
+    public class ViewModelBase : ReactiveObject
+    {
+    }
 }
