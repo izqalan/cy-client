@@ -7,76 +7,84 @@ using System.Threading.Tasks;
 
 namespace CyberdropDownloader.Core
 {
-	public class WebScraper
-	{
-		private string _url;
-		private HtmlDocument _htmlDocument;
+    public class WebScraper
+    {
+        private Album _album;
+        private bool _successful;
 
-		private Album _album;
-		private bool _successful;
+        public Album Album => _album;
+        public bool Successful => _successful;
 
-		public Album Album => _album;
-		public bool Successful => _successful;
+        public Exception FailedToFetchAlbumTitle;
+        public Exception FailedToFetchAlbumSize;
+        public Exception FailedToFetchAlbumFiles;
 
-		public async Task LoadAlbumAsync(string url)
-		{
-			_url = url;
-			_successful = false;
+        public async Task LoadAlbumAsync(string url)
+        {
+            await Task.Run(async () =>
+            {
+                // Load webpage
+                HtmlDocument htmlDocument = await new HtmlWeb().LoadFromWebAsync(url);
 
-			await Task.Run(async () =>
-			{
-				await LoadHtmlDocumentAsync();
+                if(htmlDocument != null)
+                {
+                    try
+                    {
+                        (string title, string size, Queue<AlbumFile> files) albumData = FetchAlbumData(htmlDocument);
 
-				if (_htmlDocument != null)
-				{
-					try
-					{
-						// Insatiate new album with title, size, and files.
-						_album = new Album(FetchAlbumTitle(), FetchAlbumSize(), FetchAlbumFiles());
-						_successful = true;
-					}
-					catch
-					{
-						_successful = false;
-					}
-				}
-			});
-		}
+                        _album = new Album(albumData.title, albumData.size, albumData.files);
+                        _successful = true;
+                    }
+                    catch(Exception)
+                    {
+                        _successful = false;
+                    }
+                }
+            });
+        }
 
-		#region Load Album
-		private string FetchAlbumTitle() => _htmlDocument.DocumentNode.SelectNodes("//div/h1[@id='title']").First().Attributes["title"].Value;
+        #region Load Album
+        private (string title, string size, Queue<AlbumFile> files) FetchAlbumData(HtmlDocument htmlDocument)
+        {
+            return (FetchAlbumTitle(htmlDocument), FetchAlbumSize(htmlDocument), FetchAlbumFiles(htmlDocument));
+        }
 
-		private string FetchAlbumSize() => _htmlDocument.DocumentNode.SelectNodes("//div/p[@class='title']")[1].InnerHtml;
+        private string FetchAlbumTitle(HtmlDocument htmlDocument)
+        {
+            string title = htmlDocument.DocumentNode.SelectNodes("//div/h1[@id='title']").First().Attributes["title"].Value;
 
-		private Queue<AlbumFile> FetchAlbumFiles()
-		{
-			Queue<AlbumFile> urls = new Queue<AlbumFile>();
+            return title ?? throw FailedToFetchAlbumTitle;
+        }
 
-			HtmlNodeCollection nodes = _htmlDocument.DocumentNode.SelectNodes("//a[@class='image'][@href]");
+        private string FetchAlbumSize(HtmlDocument htmlDocument)
+        {
+            string size = htmlDocument.DocumentNode.SelectNodes("//div/p[@class='title']")[1].InnerHtml;
 
-			foreach (HtmlNode link in nodes)
-			{
-				urls.Enqueue(new AlbumFile()
-				{
-					Name = link.Attributes["title"].Value,
-					Url = link.Attributes["href"].Value
-				});
-			}
+            return size ?? throw FailedToFetchAlbumSize;
+        }
 
-			return urls;
-		}
+        private Queue<AlbumFile> FetchAlbumFiles(HtmlDocument htmlDocument)
+        {
+            Queue<AlbumFile> urls = new Queue<AlbumFile>();
 
-		private async Task LoadHtmlDocumentAsync()
-		{
-			try
-			{
-				_htmlDocument = await new HtmlWeb().LoadFromWebAsync(_url);
-			}
-			catch (Exception)
-			{
-				_htmlDocument = null!;
-			}
-		}
-		#endregion
-	}
+            HtmlNodeCollection files = htmlDocument.DocumentNode.SelectNodes("//a[@class='image'][@href]");
+
+            if(files == null)
+            {
+                throw FailedToFetchAlbumFiles;
+            }
+
+            foreach(HtmlNode link in files)
+            {
+                urls.Enqueue(new AlbumFile()
+                {
+                    Name = link.Attributes["title"].Value,
+                    Url = link.Attributes["href"].Value
+                });
+            }
+
+            return urls;
+        }
+        #endregion
+    }
 }
