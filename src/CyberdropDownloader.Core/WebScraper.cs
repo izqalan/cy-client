@@ -11,10 +11,8 @@ namespace CyberdropDownloader.Core
     public class WebScraper
     {
         private Album _album;
-        private bool _successful;
 
         public Album Album => _album;
-        public bool Successful => _successful;
 
         public async Task LoadAlbumAsync(string url)
         {
@@ -28,7 +26,6 @@ namespace CyberdropDownloader.Core
                     (string title, string size, Queue<AlbumFile> files) albumData = FetchAlbumData(htmlDocument);
 
                     _album = new Album(albumData.title, albumData.size, albumData.files);
-                    _successful = true;
                 }
             });
         }
@@ -41,36 +38,77 @@ namespace CyberdropDownloader.Core
 
         private string FetchAlbumTitle(HtmlDocument htmlDocument)
         {
-            string title = htmlDocument.DocumentNode.SelectNodes("//div/h1[@id='title']").First().Attributes["title"].Value;
+            string title;
 
-            return title ?? throw new NullAlbumTitleException();
+            try
+            {
+                title = htmlDocument.DocumentNode.SelectNodes("//div/h1[@id='title']").First().Attributes["title"].Value;
+            }
+            catch(Exception ex)
+            {
+                switch(ex)
+                {
+                    case ArgumentNullException or NullReferenceException:
+                        throw new NullAlbumTitleException();
+
+                    default:
+                        throw new Exception(ex.Message);
+                }
+            }
+
+            return title;
         }
 
         private string FetchAlbumSize(HtmlDocument htmlDocument)
         {
-            string size = htmlDocument.DocumentNode.SelectNodes("//div/p[@class='title']")[1].InnerHtml;
+            string size;
 
-            return size ?? throw new NullAlbumFilesException();
+            try
+            {
+                size = htmlDocument.DocumentNode.SelectNodes("//div/p[@class='title']")[1].InnerHtml;
+            }
+            catch(Exception ex)
+            {
+                switch(ex)
+                {
+                    case ArgumentNullException or NullReferenceException:
+                        throw new NullAlbumSizeException();
+
+                    default:
+                        throw new Exception(ex.Message);
+                }
+            }
+
+            return size;
         }
 
         private Queue<AlbumFile> FetchAlbumFiles(HtmlDocument htmlDocument)
         {
             Queue<AlbumFile> urls = new Queue<AlbumFile>();
 
-            HtmlNodeCollection files = htmlDocument.DocumentNode.SelectNodes("//a[@class='image'][@href]");
-
-            if(files == null)
+            try
             {
-                throw new NullAlbumFilesException();
-            }
-
-            foreach(HtmlNode link in files)
-            {
-                urls.Enqueue(new AlbumFile()
+                HtmlNodeCollection files = htmlDocument.DocumentNode.SelectNodes("//a[@class='image'][@href]");
+                
+                foreach(HtmlNode link in files)
                 {
-                    Name = link.Attributes["title"].Value,
-                    Url = link.Attributes["href"].Value
-                });
+                    urls.Enqueue(new AlbumFile()
+                    {
+                        Name = link.Attributes["title"].Value,
+                        Url = link.Attributes["href"].Value
+                    });
+                }
+            }
+            catch(Exception ex)
+            {
+                switch(ex)
+                {
+                    case ArgumentNullException or NullReferenceException:
+                        throw new NullAlbumFilesException();
+
+                    default:
+                        throw new Exception(ex.Message);
+                }
             }
 
             return urls;
