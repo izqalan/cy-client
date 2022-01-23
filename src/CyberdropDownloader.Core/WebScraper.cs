@@ -25,7 +25,7 @@ namespace CyberdropDownloader.Core
 
 			await Task.Run(async () =>
 			{
-				await LoadHtmlDocumenteAsync();
+				await LoadHtmlDocumentAsync();
 
 				if (_htmlDocument != null)
 				{
@@ -66,7 +66,7 @@ namespace CyberdropDownloader.Core
 			return urls;
 		}
 
-		private async Task LoadHtmlDocumenteAsync()
+		private async Task LoadHtmlDocumentAsync()
 		{
 			try
 			{
