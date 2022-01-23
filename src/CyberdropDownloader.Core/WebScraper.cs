@@ -1,4 +1,5 @@
 ﻿using CyberdropDownloader.Core.DataModels;
+using CyberdropDownloader.Core.Exceptions;
 using HtmlAgilityPack;
 using System;
 using System.Collections.Generic;
@@ -14,10 +15,6 @@ namespace CyberdropDownloader.Core
 
         public Album Album => _album;
         public bool Successful => _successful;
-
-        public Exception FailedToFetchAlbumTitle;
-        public Exception FailedToFetchAlbumSize;
-        public Exception FailedToFetchAlbumFiles;
 
         public async Task LoadAlbumAsync(string url)
         {
@@ -53,14 +50,14 @@ namespace CyberdropDownloader.Core
         {
             string title = htmlDocument.DocumentNode.SelectNodes("//div/h1[@id='title']").First().Attributes["title"].Value;
 
-            return title ?? throw FailedToFetchAlbumTitle;
+            return title ?? throw new NullAlbumTitleException();
         }
 
         private string FetchAlbumSize(HtmlDocument htmlDocument)
         {
             string size = htmlDocument.DocumentNode.SelectNodes("//div/p[@class='title']")[1].InnerHtml;
 
-            return size ?? throw FailedToFetchAlbumSize;
+            return size ?? throw new NullAlbumFilesException();
         }
 
         private Queue<AlbumFile> FetchAlbumFiles(HtmlDocument htmlDocument)
@@ -71,7 +68,7 @@ namespace CyberdropDownloader.Core
 
             if(files == null)
             {
-                throw FailedToFetchAlbumFiles;
+                throw new NullAlbumFilesException();
             }
 
             foreach(HtmlNode link in files)
