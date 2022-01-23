@@ -2,6 +2,7 @@
 using Avalonia.Threading;
 using CyberdropDownloader.Avalonia.ViewModels.Core;
 using CyberdropDownloader.Core;
+using CyberdropDownloader.Core.Exceptions;
 using ReactiveUI;
 using System;
 using System.Diagnostics;
@@ -10,7 +11,6 @@ using System.Reactive;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
-using CyberdropDownloader.Core.Exceptions;
 
 namespace CyberdropDownloader.Avalonia.ViewModels
 {
@@ -135,9 +135,11 @@ namespace CyberdropDownloader.Avalonia.ViewModels
                                 case NullAlbumFilesException:
                                     Log("Failed to fetch album files.");
                                     break;
-                            }
 
-                            continue;
+                                default:
+                                    Log("Unknown webscraper error. Please report this to the github repository.");
+                                    continue;
+                            }
                         }
 
                         // If the album url is invalid, then log and skip over it
