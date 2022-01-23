@@ -10,6 +10,7 @@ using System.Reactive;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
+using CyberdropDownloader.Core.Exceptions;
 
 namespace CyberdropDownloader.Avalonia.ViewModels
 {
@@ -115,8 +116,29 @@ namespace CyberdropDownloader.Avalonia.ViewModels
                             _cancellationTokenSource = new CancellationTokenSource();
                         }
 
-                        // Load the album
-                        await _webScraper.LoadAlbumAsync(url);
+                        try
+                        {
+                            await _webScraper.LoadAlbumAsync(url);
+                        }
+                        catch(Exception exception)
+                        {
+                            switch(exception)
+                            {
+                                case NullAlbumTitleException:
+                                    Log("Failed to fetch album title.");
+                                    break;
+
+                                case NullAlbumSizeException:
+                                    Log("Failed to fetch album size.");
+                                    break;
+
+                                case NullAlbumFilesException:
+                                    Log("Failed to fetch album files.");
+                                    break;
+                            }
+
+                            continue;
+                        }
 
                         // If the album url is invalid, then log and skip over it
                         if(!_webScraper.Successful)
