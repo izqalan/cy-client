@@ -25,17 +25,10 @@ namespace CyberdropDownloader.Core
 
                 if(htmlDocument != null)
                 {
-                    try
-                    {
-                        (string title, string size, Queue<AlbumFile> files) albumData = FetchAlbumData(htmlDocument);
+                    (string title, string size, Queue<AlbumFile> files) albumData = FetchAlbumData(htmlDocument);
 
-                        _album = new Album(albumData.title, albumData.size, albumData.files);
-                        _successful = true;
-                    }
-                    catch(Exception)
-                    {
-                        _successful = false;
-                    }
+                    _album = new Album(albumData.title, albumData.size, albumData.files);
+                    _successful = true;
                 }
             });
         }
