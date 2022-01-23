@@ -120,9 +120,9 @@ namespace CyberdropDownloader.Avalonia.ViewModels
                         {
                             await _webScraper.LoadAlbumAsync(url);
                         }
-                        catch(Exception exception)
+                        catch(Exception ex)
                         {
-                            switch(exception)
+                            switch(ex)
                             {
                                 case NullAlbumTitleException:
                                     Log("Failed to fetch album title.");
@@ -136,17 +136,14 @@ namespace CyberdropDownloader.Avalonia.ViewModels
                                     Log("Failed to fetch album files.");
                                     break;
 
+                                case UriFormatException:
+                                    Log("Invalid URL format.");
+                                    continue;
+
                                 default:
-                                    Log("Unknown webscraper error. Please report this to the github repository.");
+                                    Log($"Unknown webscraper error. Please report this to the github repository. {ex.Message}");
                                     continue;
                             }
-                        }
-
-                        // If the album url is invalid, then log and skip over it
-                        if(!_webScraper.Successful)
-                        {
-                            Log($"Invalid Url: {url}");
-                            continue;
                         }
 
                         // Update album title
@@ -174,9 +171,9 @@ namespace CyberdropDownloader.Avalonia.ViewModels
                                 continue;
                             }
                         }
-                        catch(Exception exception)
+                        catch(Exception ex)
                         {
-                            switch(exception)
+                            switch(ex)
                             {
                                 // Drive letter doesn't exist or path doesn't exist
                                 case ArgumentException:
@@ -194,7 +191,7 @@ namespace CyberdropDownloader.Avalonia.ViewModels
                                     break;
 
                                 default:
-                                    Log("Unknown error. Please report this to the github repository.");
+                                    Log($"Unknown error. Please report this to the github repository. {ex.Message}");
                                     break;
                             }
                         }
