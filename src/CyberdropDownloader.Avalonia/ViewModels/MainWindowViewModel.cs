@@ -72,18 +72,30 @@ namespace CyberdropDownloader.Avalonia.ViewModels
         public ReactiveCommand<Unit, Unit>? ReleasesCommand { get; }
         public ReactiveCommand<Unit, Unit>? IssuesCommand { get; }
 
-        private void Exit() => _mainWindow.Close();
+        private void Exit()
+        {
+            _mainWindow.Close();
+        }
 
-        private void Minimize() => _mainWindow.WindowState = WindowState.Minimized;
+        private void Minimize()
+        {
+            _mainWindow.WindowState = WindowState.Minimized;
+        }
 
-        private void OpenReleases() => Process.Start(new ProcessStartInfo("https://github.com/izqalan/cy-client/releases") { UseShellExecute = true });
+        private void OpenReleases()
+        {
+            Process.Start(new ProcessStartInfo("https://github.com/izqalan/cy-client/releases") { UseShellExecute = true });
+        }
 
-        private void OpenIssues() => Process.Start(new ProcessStartInfo("https://github.com/izqalan/cy-client/issues") { UseShellExecute = true });
+        private void OpenIssues()
+        {
+            Process.Start(new ProcessStartInfo("https://github.com/izqalan/cy-client/issues") { UseShellExecute = true });
+        }
 
         private async void Download()
         {
             // If the album downloader is currently downloading a file, then cancel the download and loop
-            if (_albumDownloader.Running)
+            if(_albumDownloader.Running)
             {
                 _cancellationTokenSource?.Cancel();
                 _albumDownloader.CancelDownload();
@@ -95,17 +107,19 @@ namespace CyberdropDownloader.Avalonia.ViewModels
                 try
                 {
                     // Each url in the url input box
-                    foreach (string url in _urlInput.Text.Split(_urlInput.NewLine))
+                    foreach(string url in _urlInput.Text.Split(_urlInput.NewLine))
                     {
                         // If previously canceled, then create a new token
-                        if (_cancellationTokenSource?.IsCancellationRequested == true)
+                        if(_cancellationTokenSource?.IsCancellationRequested == true)
+                        {
                             _cancellationTokenSource = new CancellationTokenSource();
+                        }
 
                         // Load the album
                         await _webScraper.LoadAlbumAsync(url);
 
                         // If the album url is invalid, then log and skip over it
-                        if (!_webScraper.Successful)
+                        if(!_webScraper.Successful)
                         {
                             Log($"Invalid Url: {url}");
                             continue;
@@ -120,19 +134,45 @@ namespace CyberdropDownloader.Avalonia.ViewModels
                         // Log album title
                         Log($"Album: {_webScraper.Album.Title}");
 
-                        string? pathRoot = Path.GetPathRoot(_destinationInput.Text);
-
-                        if (string.IsNullOrEmpty(pathRoot))
+                        try
                         {
-                            Log("Invalid destination path.");
-                            return;
+                            DriveInfo driveInfo = new DriveInfo(_destinationInput.Text);
+
+                            if(!driveInfo.IsReady)
+                            {
+                                Log($"{driveInfo.Name} is not ready.");
+                                return;
+                            }
+
+                            if(driveInfo.AvailableFreeSpace < _webScraper.Album.Size)
+                            {
+                                Log($"{driveInfo.Name} lacks available free space for {_webScraper.Album.Title}.");
+                                continue;
+                            }
                         }
-
-                        // If the drive doesn't have enough storage for the album, then log and skip over it
-                        if (new DriveInfo(pathRoot).AvailableFreeSpace < _webScraper.Album.Size)
+                        catch(Exception exception)
                         {
-                            Log($"Not enough storage for {_webScraper.Album.Title}");
-                            continue;
+                            switch(exception)
+                            {
+                                // Drive letter doesn't exist or path doesn't exist
+                                case ArgumentException:
+                                    Log("Invalid destination path.");
+                                    break;
+
+                                // Has a disk error
+                                case IOException:
+                                    Log($"Destination path drive has unresolved errors.");
+                                    break;
+
+                                // Unauthorized to access
+                                case UnauthorizedAccessException:
+                                    Log("Unable to save to the destination path.");
+                                    break;
+
+                                default:
+                                    Log("Unknown error. Please report this to the github repository.");
+                                    break;
+                            }
                         }
 
                         // Download album
@@ -140,19 +180,19 @@ namespace CyberdropDownloader.Avalonia.ViewModels
                     }
 
                     // IF the total downloads are greater or equal to 1 then log the total downloads
-                    if (_totalDownloaded >= 1)
+                    if(_totalDownloaded >= 1)
                     {
                         Log($"------Completed {_totalDownloaded} Downloads------");
                     }
                 } // Clear log if canceled
-                catch (Exception) { ClearLog(); }
+                catch(Exception) { ClearLog(); }
             });
         }
 
         private void OpenFolder()
         {
             // If directory doesn't exist, then log and exit out of method
-            if (!Directory.Exists(_destinationInput.Text))
+            if(!Directory.Exists(_destinationInput.Text))
             {
                 Log("Directory doesn't exist.");
                 return;
@@ -164,12 +204,36 @@ namespace CyberdropDownloader.Avalonia.ViewModels
         #endregion
 
         #region Events
-        private void AlbumDownloader_FileDownloaded(object? sender, string fileName) => _totalDownloaded += 1;
-        private void AlbumDownloader_FileDownloading(object? sender, string fileName) => Log($"Downloading: {fileName}");
-        private void AlbumDownloader_FileExists(object? sender, string fileName) => Log($"[File Existed] [SKIP]: {fileName}");
-        private void AlbumDownloader_FileFailed(object? sender, string fileName) => Log($"[File Failed] [SKIP]: {fileName}");
-        private void AlbumDownloader_ProgressChanged(object? sender, int downloadPercent) => UpdateDownloadProgress(downloadPercent);
-        private void TitleBar_PointerPressed(object? sender, global::Avalonia.Input.PointerPressedEventArgs e) => _mainWindow.BeginMoveDrag(e);
+        private void AlbumDownloader_FileDownloaded(object? sender, string fileName)
+        {
+            _totalDownloaded += 1;
+        }
+
+        private void AlbumDownloader_FileDownloading(object? sender, string fileName)
+        {
+            Log($"Downloading: {fileName}");
+        }
+
+        private void AlbumDownloader_FileExists(object? sender, string fileName)
+        {
+            Log($"[File Existed] [SKIP]: {fileName}");
+        }
+
+        private void AlbumDownloader_FileFailed(object? sender, string fileName)
+        {
+            Log($"[File Failed] [SKIP]: {fileName}");
+        }
+
+        private void AlbumDownloader_ProgressChanged(object? sender, int downloadPercent)
+        {
+            UpdateDownloadProgress(downloadPercent);
+        }
+
+        private void TitleBar_PointerPressed(object? sender, global::Avalonia.Input.PointerPressedEventArgs e)
+        {
+            _mainWindow.BeginMoveDrag(e);
+        }
+
         private async void DestinationInput_PointerReleased(object? sender, global::Avalonia.Input.PointerReleasedEventArgs e)
         {
             OpenFolderDialog? dialog = new OpenFolderDialog()
@@ -180,14 +244,31 @@ namespace CyberdropDownloader.Avalonia.ViewModels
 
             string result = await dialog.ShowAsync(_mainWindow);
 
-            if (result != string.Empty)
+            if(result != string.Empty)
+            {
                 _destinationInput.Text = result;
+            }
         }
         #endregion
 
-        private async void UpdateDownloadProgress(int progress) => await Dispatcher.UIThread.InvokeAsync(() => _downloadProgess.Content = $"{progress}%");
-        private async void Log(string data) => await Dispatcher.UIThread.InvokeAsync(() => _downloadLog.Text = $"{data}\n{_downloadLog.Text}");
-        private async void ClearLog() => await Dispatcher.UIThread.InvokeAsync(() => _downloadLog.Text = "");
-        private async void UpdateAlbumTitle(string title) => await Dispatcher.UIThread.InvokeAsync(() => _albumTitle.Content = $"Downloading: {title}");
+        private async void UpdateDownloadProgress(int progress)
+        {
+            await Dispatcher.UIThread.InvokeAsync(() => _downloadProgess.Content = $"{progress}%");
+        }
+
+        private async void Log(string data)
+        {
+            await Dispatcher.UIThread.InvokeAsync(() => _downloadLog.Text = $"{data}\n{_downloadLog.Text}");
+        }
+
+        private async void ClearLog()
+        {
+            await Dispatcher.UIThread.InvokeAsync(() => _downloadLog.Text = "");
+        }
+
+        private async void UpdateAlbumTitle(string title)
+        {
+            await Dispatcher.UIThread.InvokeAsync(() => _albumTitle.Content = $"Downloading: {title}");
+        }
     }
 }
