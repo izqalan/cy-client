@@ -14,7 +14,7 @@
     <PackageIconUrl />
     <ApplicationIcon>Assets\duck.ico</ApplicationIcon>
     <Win32Resource />
-    <Version>2.2.7</Version>
+    <Version>2.2.6</Version>
     <PackageProjectUrl>https://github.com/izqalan/cy-client</PackageProjectUrl>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
