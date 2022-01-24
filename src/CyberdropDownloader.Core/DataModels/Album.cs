@@ -54,7 +54,7 @@ namespace CyberdropDownloader.Core.DataModels
 
             decimal roundedValue = decimal.Round(albumSizeDecimal, 0);
 
-            return Convert.ToDouble(roundedValue);
+            return Convert.ToDouble(roundedValue, CultureInfo.InvariantCulture);
         }
     }
 }
