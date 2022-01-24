@@ -19,14 +19,6 @@ namespace CyberdropDownloader.Tests
 		}
 
 		[Test, Order(1)]
-		public void LoadPage()
-		{
-			bool result = _webScraper.Successful;
-
-			Assert.True(result);
-		}
-
-		[Test, Order(2)]
 		public void FetchAlbumTitle()
 		{
 			string result = _webScraper.Album.Title;
@@ -34,14 +26,14 @@ namespace CyberdropDownloader.Tests
 			Assert.IsTrue(string.Equals("Cy test", result));
 		}
 
-		[Test, Order(3)]
+		[Test, Order(2)]
 		public void FetchAlbumSize()
 		{
 			double result = _webScraper.Album.Size;
 			Assert.AreEqual("69730304", result.ToString());
 		}
 
-		[Test, Order(4)]
+		[Test, Order(3)]
 		public void FetchAlbumFiles()
 		{
 			Queue<AlbumFile> result = _webScraper.Album.Files;
