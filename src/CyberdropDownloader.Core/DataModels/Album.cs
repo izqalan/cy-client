@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 
 namespace CyberdropDownloader.Core.DataModels
 {
@@ -25,7 +26,9 @@ namespace CyberdropDownloader.Core.DataModels
             // KB, MB, GB, TB
             string sizeAbbreviation = albumSize.Substring(albumSize.Length - 2);
 
-            decimal albumSizeDecimal = Convert.ToDecimal(albumSize.Replace(sizeAbbreviation, string.Empty).Trim());
+            albumSize = albumSize.Replace(sizeAbbreviation, string.Empty).Trim();
+
+            decimal albumSizeDecimal = Convert.ToDecimal(albumSize, CultureInfo.InvariantCulture);
 
             switch(sizeAbbreviation)
             {
@@ -49,9 +52,9 @@ namespace CyberdropDownloader.Core.DataModels
                     throw new Exception("Unknown filesize");
             }
 
-            double roundedValue = Convert.ToDouble(decimal.Round(albumSizeDecimal, 0));
+            decimal roundedValue = decimal.Round(albumSizeDecimal, 0);
 
-            return roundedValue;
+            return Convert.ToDouble(roundedValue);
         }
     }
 }
