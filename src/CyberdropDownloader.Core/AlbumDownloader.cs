@@ -9,6 +9,7 @@ using System.Net.Http.Headers;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
+using CyberdropDownloader.Core.Exceptions;
 
 namespace CyberdropDownloader.Core
 {
@@ -17,15 +18,17 @@ namespace CyberdropDownloader.Core
 		private readonly HttpClient _downloadClient;
 		private bool _authorized;
 		private bool _running;
+		private List<string> knownServers = new List<string>{"fs-01", "fs-02", "fs-03", "fs-04", "fs-05", "fs-06"};
+		private string workingServer = null;
 
 		public AlbumDownloader(bool authorized)
 		{
+			HttpClientHandler clientHandler = new HttpClientHandler();
+			clientHandler.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; };
+			clientHandler.AllowAutoRedirect = true;
+			
 			// Setup and initialize HttpClient
-			_downloadClient = new HttpClient(new SocketsHttpHandler()
-			{
-				AllowAutoRedirect = true,
-				KeepAlivePingTimeout = Timeout.InfiniteTimeSpan
-			});
+			_downloadClient = new HttpClient(clientHandler);
 
 			// Times out current download if it surpasses 5 minutes (might need tweaked)
 			_downloadClient.Timeout = TimeSpan.FromMinutes(5);
@@ -69,15 +72,46 @@ namespace CyberdropDownloader.Core
 
 				string filePath = $"{path}\\{NormalizeFileName(file.Name)}";
 
+				// Checking if we can avoid useless server call 
+				// in case we already know this precise server is down based on previous album downloads
+				if (workingServer != null && workingServer != GetServerNameFromURL(file.Url))
+				{
+					file.Url = ReplaceServerName(file.Url, workingServer);
+				}
 				try
 				{
-					HttpResponseMessage response = await _downloadClient.GetAsync(file.Url, HttpCompletionOption.ResponseHeadersRead);
-
-					if (response.ReasonPhrase == "Bad Gateway")
-						throw new Exception(response.ReasonPhrase);
-
-					while (response.ReasonPhrase == "Moved Temporarily")
-						response = await _downloadClient.GetAsync(response.Headers.Location, HttpCompletionOption.ResponseHeadersRead);
+					HttpResponseMessage response = await CheckAvailability(file);
+					// Next block will be executed only if we didn't have name of the working server from previous albums
+					if (response == null)
+					{
+						// If we couldn't get response from the server, then this server is down and should be removed from list
+						knownServers.Remove(GetServerNameFromURL(file.Url));
+						// Iterating through all known server names and trying to make a request.
+						// If a precise server won't make a valid response, then its name will be deleted from server list
+						foreach (string serverName in knownServers)
+						{
+							file.Url = ReplaceServerName(file.Url, serverName);
+							response = await CheckAvailability(file);
+							if (response != null)
+							{
+								workingServer = serverName;
+								break;
+							}
+							else
+							{
+								knownServers.Remove(serverName);
+								if (!knownServers.Any())
+								{
+									throw new AllServersAreUnreachable();
+								}
+							}
+						}
+					}
+					// If response from server is good, then we should use this server for furure calls
+					else
+					{
+						workingServer = GetServerNameFromURL(file.Url);
+					}
 
 					if (File.Exists(filePath))
 					{
@@ -183,6 +217,47 @@ namespace CyberdropDownloader.Core
 				data = "cy_album";
 
 			return data;
+		}
+
+		private static string GetServerNameFromURL(string url)
+		{
+			Regex regex = new Regex(@"(fs-\d{2})");
+			string result = null;
+			Match match = regex.Match(url);
+			if (match.Success) 
+			{
+				result = match.Captures[0].ToString();
+			}
+			else
+			{
+				throw new UriFormatException();
+			}
+			return result;
+		}
+
+		private static string ReplaceServerName(string url, string newServerName)
+		{
+			Regex regex = new Regex(@"(fs-\d{2})");
+			if (!regex.Match(url).Success)
+			{
+				throw new UriFormatException();
+			}
+			return regex.Replace(url, newServerName, 1);
+		}
+
+		private async Task<HttpResponseMessage> CheckAvailability(AlbumFile file) {
+			HttpResponseMessage response = null;
+			try
+			{
+				response = await _downloadClient.GetAsync(file.Url, HttpCompletionOption.ResponseHeadersRead);
+				if (response.ReasonPhrase == "Bad Gateway")
+					throw new Exception(response.ReasonPhrase);
+
+				while (response.ReasonPhrase == "Moved Temporarily")
+					response = await _downloadClient.GetAsync(response.Headers.Location, HttpCompletionOption.ResponseHeadersRead);
+			} 
+			catch (Exception) {}
+			return response;
 		}
 	}
 }

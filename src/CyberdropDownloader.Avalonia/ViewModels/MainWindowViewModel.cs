@@ -196,8 +196,28 @@ namespace CyberdropDownloader.Avalonia.ViewModels
                             }
                         }
 
-                        // Download album
-                        await _albumDownloader.DownloadAsync(_webScraper.Album, _destinationInput.Text, _cancellationTokenSource?.Token, 100).ConfigureAwait(false);
+                        try 
+                        {
+                            // Download album
+                            await _albumDownloader.DownloadAsync(_webScraper.Album, _destinationInput.Text, _cancellationTokenSource?.Token, 100).ConfigureAwait(false);
+                        }
+                        catch (Exception ex)
+                        {
+                            switch (ex)
+                            {
+                                case UriFormatException:
+                                    Log("Invalid URL format.");
+                                    break;
+                                
+                                case AllServersAreUnreachable:
+                                    Log("All Cyberdrop servers are unreachable at the time");
+                                    break;
+
+                                default:
+                                    Log($"Unknown webscraper error. Please report this to the github repository. {ex.Message}");
+                                    continue;
+                            } 
+                        }
                     }
 
                     // IF the total downloads are greater or equal to 1 then log the total downloads
